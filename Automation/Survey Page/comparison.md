@@ -49,3 +49,8 @@
 
 ## Conclusion
 The after page is significantly more accessible than the before page, with all critical issues resolved. Automated testing caught all structural and markup-level issues effectively, but manual testing is still needed to evaluate the actual user experience for keyboard and screen reader users.
+
+
+Running the tests: <br>
+
+<img width="1295" height="739" alt="Tests" src="https://github.com/user-attachments/assets/223b6994-03f8-42e9-8f97-0bcdf773ca8b" />
