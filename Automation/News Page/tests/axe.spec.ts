@@ -2,7 +2,7 @@ import { test } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 
 test('Accessibility scan', async ({ page }) => {
-    await page.goto('https://www.chatgpt.com');
+    await page.goto('https://www.w3.org/WAI/demos/bad/before/news.html');
 
     const results = await new AxeBuilder({ page }).analyze();
 
