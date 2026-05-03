@@ -1,45 +1,92 @@
-# Accessibility Evaluation Report
+# Accessibility Evaluation Report – News Page
+
+**Generated:** 4/18/2026, 16:23:17 PM
+**Tool:** axe-core v4.11.2 via Playwright
+
+---
 
 ## 1. Introduction
 
-This report presents the results of an accessibility evaluation conducted on the “News Page” using automated testing tools (axe-core via Playwright). The goal of the analysis is to identify accessibility issues that may affect users with disabilities, particularly those relying on assistive technologies.
+This report presents the results of an automated accessibility evaluation conducted on the **News Page** of the W3C accessibility demonstration website. The evaluation compares two versions of the page:
 
-The evaluation is based on the Web Content Accessibility Guidelines (WCAG) and focuses on identifying violations that impact usability, perception, and navigation.
+- **Before version** – intentionally inaccessible implementation
+- **After version** – improved, accessibility-compliant implementation
+
+The evaluation aims to surface accessibility barriers, assess the effectiveness of the improvements, and benchmark both versions against WCAG 2.1 Level AA requirements.
 
 ---
 
 ## 2. Methodology
 
-The accessibility analysis was performed using automated testing with axe-core integrated into Playwright. The tool scans the DOM structure and identifies violations based on WCAG success criteria.
+The accessibility analysis was performed using axe-core integrated into Playwright. The tool scans the DOM structure and identifies violations based on WCAG success criteria.
 
-Each detected issue is categorized according to:
-- Severity (impact): critical, serious, moderate
-- WCAG compliance level: A, AA
-- Affected elements (nodes)
+- **Tool:** axe-core v4.11.2
+- **Test environment:** Browser-based execution via Playwright
+- **Approach:** Automated accessibility testing
+- **Test scenarios:** Page load and content navigation flows
 
-For each issue, a human-readable explanation, impact analysis, and recommended fix are provided.
+Each detected issue is categorized by severity (Critical, Serious, Moderate, Minor), WCAG compliance level, and affected elements.
 
 ---
 
-## 3. Identified Issues
+## 3. Summary of Results
 
-### 3.1 Missing Language Attribute
+| Version | Total Violations | Critical | Serious | Moderate / Minor |
+|---|---|---|---|---|
+| Before | 6 | 2 | 2 | 2 |
+| After | 2 | 0 | 0 | 2 |
 
-- **Issue ID:** html-has-lang
-- **Impact:** Serious
-- **WCAG Criterion:** 3.1.1 – Language of Page
+The After version shows a clear improvement: all Critical and Serious violations were eliminated, bringing the total down from 6 to 2.
 
-**Description:**  
-The `<html>` element does not contain a `lang` attribute.
+---
 
-**Why this is a problem:**  
-Screen readers rely on the language attribute to correctly pronounce text. Without it, content may be read incorrectly.
+## 4. Detailed Findings – Before Version
 
-**Affected Element:**
+### 4.1 Critical Issues
 
+#### 4.1.1 Images Without Alternative Text (`image-alt`)
+
+- **Impact:** Critical
+- **WCAG:** 1.1.1 – Non-text Content
+- **Affected elements:** 39 `img` elements
+
+Multiple `<img>` elements do not contain an `alt` attribute. Screen readers cannot interpret images without text alternatives.
+
+**Recommendation:**
 ```html
-<html>
+ <img src="./img/chart1.jpg" alt="Chart showing brain donations at city hospital (by month)">
+<img src="border_top.gif" alt="" role="presentation"> <!-- decorative -->
 ```
+
+---
+
+#### 4.1.2 Select Element Without Accessible Name (`select-name`)
+
+- **Impact:** Critical
+- **WCAG:** 4.1.2 – Name, Role, Value
+- **Affected elements:** 1 `select` element
+
+The dropdown control has no associated label, leaving assistive technology users unable to determine its purpose before interacting with it.
+
+**Recommendation:**
+```html
+<label for="menu">Choose page:</label>
+<select id="menu">
+<!-- or -->
+<select aria-label="Choose page">
+```
+
+---
+
+### 4.2 Serious Issues
+
+#### 4.2.1 Missing Language Attribute (`html-has-lang`)
+
+- **Impact:** Serious
+- **WCAG:** 3.1.1 – Language of Page
+- **Affected elements:** `html`
+
+The `<html>` element has no `lang` attribute. Screen readers may mispronounce content without it.
 
 **Recommendation:**
 ```html
@@ -48,98 +95,40 @@ Screen readers rely on the language attribute to correctly pronounce text. Witho
 
 ---
 
-### 3.2 Images Without Alternative Text
+#### 4.2.2 Links Without Discernible Text (`link-name`)
 
-- **Issue ID:** image-alt
-- **Impact:** Critical
-- **WCAG Criterion:** 1.1.1 – Non-text Content
-
-**Description:**  
-Multiple `<img>` elements do not contain alternative text (`alt` attribute) or any accessible name.
-
-**Why this is a problem:**  
-Screen readers cannot interpret images without text alternatives.
-
-**Affected Elements (examples):**
-```html
-<img src="nav_home.gif">
-<img src="border_top.gif">
-```
-
-**Recommendation:**
-
-Informative images:
-```html
-<img src="nav_home.gif" alt="Home">
-```
-
-Decorative images:
-```html
-<img src="border_top.gif" alt="" role="presentation">
-```
-
----
-
-### 3.3 Links Without Discernible Text
-
-- **Issue ID:** link-name
 - **Impact:** Serious
-- **WCAG Criteria:** 2.4.4, 4.1.2
+- **WCAG:** 2.4.4 – Link Purpose, 4.1.2
+- **Affected elements:** 4 anchor elements
 
-**Description:**  
-Links contain only images without accessible text.
-
-**Why this is a problem:**  
-Users cannot understand the purpose of the link.
-
-**Affected Elements:**
-```html
-<a href="home.html">
-  <img src="nav_home.gif">
-</a>
-```
+Navigation links contain only images with no alternative text. Assistive technologies cannot announce the purpose of these links.
 
 **Recommendation:**
-
-Option 1:
 ```html
 <a href="home.html">
   <img src="nav_home.gif" alt="Home">
 </a>
 ```
 
-Option 2:
-```html
-<a href="home.html" aria-label="Home">
-  <img src="nav_home.gif" alt="">
-</a>
-```
-
 ---
 
-### 3.4 Content Not Contained Within Landmarks
+### 4.3 Moderate Issues
 
-- **Issue ID:** region
+#### 4.3.1 Missing Main Landmark (`landmark-one-main`)
+
 - **Impact:** Moderate
+- **Affected elements:** `html`
 
-**Description:**  
-Some content is not placed within semantic landmark elements.
+No `<main>` landmark is defined. Users cannot quickly skip to the primary content.
 
-**Why this is a problem:**  
-Assistive technologies rely on landmarks for navigation.
+#### 4.3.2 Content Outside Landmarks (`region`)
 
-**Affected Elements:**
-- headings
-- navigation containers
-- footer
-- page wrapper
-```html
-<h1>...</h1>
-<div id="mnav">...</div>
-<div id="page">...</div>
-```
+- **Impact:** Moderate
+- **Affected elements:** 6 elements
 
-**Recommendation:**
+Page content sits outside semantic landmark elements, forcing screen reader users to parse all content linearly.
+
+**Recommendation for both:**
 ```html
 <header>...</header>
 <nav>...</nav>
@@ -149,52 +138,71 @@ Assistive technologies rely on landmarks for navigation.
 
 ---
 
-### 3.5 Select Element Without Accessible Name
+## 5. Detailed Findings – After Version
 
-- **Issue ID:** select-name
-- **Impact:** Critical
-- **WCAG Criterion:** 4.1.2
+The After version resolves all Critical and Serious issues. Two moderate violations remain.
 
-**Description:**  
-The `<select>` element does not have an associated label.
+### 5.1 Resolved Issues
 
-**Why this is a problem:**  
-Users cannot understand the purpose of the dropdown.
+- **`image-alt`** (Critical): All images now have meaningful or empty `alt` attributes
+- **`select-name`** (Critical): Select element now has an accessible name
+- **`html-has-lang`** (Serious): `lang` attribute is present on `<html>`
+- **`link-name`** (Serious): Navigation links now have discernible text
 
-**Affected Element:**
-```html
-<select onchange="location.href = this.value;">
-```
+### 5.2 Remaining Issues
 
-**Recommendation:**
+| Issue ID | Impact | Description |
+|---|---|---|
+| `landmark-one-main` | Moderate | No `<main>` landmark defined |
+| `region` | Moderate | 14 elements still outside landmark regions |
 
-Option 1:
-```html
-<label for="menu">Choose page:</label>
-<select id="menu">
-```
+### 5.3 Accessibility Strengths
 
-Option 2:
-```html
-<select aria-label="Choose page">
-```
+- All images properly handled with `alt` text
+- Descriptive link text throughout
+- Improved semantic structure and keyboard navigation
+- Form controls correctly labeled
 
 ---
 
-## 4. Conclusion
+## 6. Comparative Analysis
 
-The accessibility evaluation revealed several critical and serious issues that significantly impact usability for users with disabilities.
+| Aspect | Before | After |
+|---|---|---|
+| Image accessibility | Missing alt text on 39 images | Fully implemented |
+| Select label | 1 unlabeled select element | Resolved |
+| Link accessibility | 4 links without discernible text | Resolved |
+| Page language | Missing `lang` attribute | Resolved |
+| Landmark structure | No main landmark, 6 elements outside regions | Improved; partially remains |
+| Navigation | Difficult for assistive technologies | Significantly improved |
 
-Key problems include:
-- Missing alternative text for images
-- Links without accessible names
-- Form elements without labels
-  Impact:
+---
 
-### These issues significantly affect:
+## 7. Conclusion
 
-- screen reader usability
-- keyboard navigation
-- voice control usability
+The Before version presents 2 critical and 2 serious violations that create real barriers for users who rely on assistive technologies.
 
-Addressing these issues will improve WCAG compliance and overall accessibility of the web page.
+The After version addresses all of these, reaching a strong level of WCAG 2.1 Level AA conformance. The 2 remaining Moderate violations should still be resolved to achieve full compliance.
+
+Users most affected by the outstanding issues:
+- Screen reader users
+- Keyboard-only users
+- Voice control users
+
+---
+
+## 8. Recommendations
+
+- Add a `<main>` landmark and wrap all content in semantic regions
+- Ensure all future images include `alt` text
+- Verify all interactive controls have visible, associated labels
+- Perform regular automated and manual accessibility testing
+
+---
+
+## 9. Appendix
+
+- **Tool:** axe-core v4.11.2
+- **Before URL:** https://www.w3.org/WAI/demos/bad/before/news.html
+- **After URL:** https://www.w3.org/WAI/demos/bad/after/news.html
+- **Evaluation type:** Automated accessibility testing via Playwright
