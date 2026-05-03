@@ -33,24 +33,47 @@
 - The `region` and `landmark-one-main` violations appear on both before and after pages
   and may be acceptable depending on the page's intended structure.
 
+## Limitations of Automated Testing
+
+Automated tools like axe-core can only evaluate what is measurable in the DOM.
+They cannot simulate the actual experience of a user with a disability.
+Studies suggest automated tools catch only **30-40% of real accessibility issues**.
+
+Specific things axe-core cannot detect:
+- Whether the tab order makes sense to a real user
+- Whether a screen reader announces things in a useful way
+- Whether error messages are understandable, not just present
+- Whether the page is usable under time pressure or cognitive load
+- Whether focus indicators are visible enough in practice
+
 ## Summary
 
-| Issue Type                  | Found by axe | Found manually |
-|-----------------------------|:------------:|:--------------:|
-| Missing image alt text      | YES          | YES            |
-| Missing form labels         | YES          | YES            |
-| Missing lang attribute      | YES          | YES            |
-| Empty links                 | YES          | YES            |
-| Missing landmarks           | YES          | YES            |
-| Focus/tab order issues      | NO           | YES            |
-| Keyboard traps              | NO           | YES            |
-| Screen reader announcements | NO           | YES            |
-| Confusing language/labels   | NO           | YES            |
+| Issue Type                  | Found by axe | Found manually | Why axe misses it         |
+|-----------------------------|:------------:|:--------------:|---------------------------|
+| Missing image alt text      | YES          | YES            | Detectable in DOM         |
+| Missing form labels         | YES          | YES            | Detectable in DOM         |
+| Missing lang attribute      | YES          | YES            | Detectable in DOM         |
+| Empty links                 | YES          | YES            | Detectable in DOM         |
+| Missing landmarks           | YES          | YES            | Detectable in DOM         |
+| Focus/tab order issues      | NO           | YES            | Requires human judgment   |
+| Keyboard traps              | NO           | YES            | Requires interaction      |
+| Screen reader announcements | NO           | YES            | Requires assistive tech   |
+| Confusing language/labels   | NO           | YES            | Requires human judgment   |
+| Cognitive clarity           | NO           | YES            | Requires human judgment   |
 
 ## Conclusion
-The after page is significantly more accessible than the before page, with all critical issues resolved. Automated testing caught all structural and markup-level issues effectively, but manual testing is still needed to evaluate the actual user experience for keyboard and screen reader users.
+
+Automated testing with axe-core is a valuable first step — it reliably catches
+structural and markup-level issues, and found all 7 violations on the before page.
+However, it is not a replacement for manual testing.
+
+The after page passes most automated checks, but a real keyboard or screen reader
+user may still struggle with focus order, confusing announcements, or unclear error
+messages — none of which axe-core can detect.
+
+**Automated testing tells you what is broken in the code.
+Manual testing tells you what is broken for the user.**
+Both are necessary for a truly accessible page.
 
 
 Running the tests: <br>
-
-<img width="1295" height="739" alt="Tests" src="https://github.com/user-attachments/assets/223b6994-03f8-42e9-8f97-0bcdf773ca8b" />
