@@ -1,16 +1,14 @@
-# Comparison of Manual vs Automated Accessibility Testing – Tickets Page
+# Manual vs Automated Accessibility Comparison
 
-## 1. Introduction
+## Pages Tested
+- Before: https://www.w3.org/WAI/demos/bad/before/tickets.html
+- After: https://www.w3.org/WAI/demos/bad/after/tickets.html
 
-This document compares the findings from manual accessibility testing and automated testing performed using Playwright and axe-core on the Tickets page. The goal is to evaluate the capabilities and limitations of each approach and to understand how they complement each other.
-
----
-
-## 2. Results of Automated Testing
+## What Automation (axe-core) Found
 
 Automated testing identified several accessibility issues in the "Before" version of the page. These findings are based on rule-based analysis aligned with WCAG 2.1 standards.
 
-### Detected Issues
+### Before page — 4 violations
 
 - **Missing alternative text (`image-alt`)**  
   Images without `alt` attributes or accessible names were detected. This is a critical issue affecting screen reader users.
@@ -24,70 +22,60 @@ Automated testing identified several accessibility issues in the "Before" versio
 - **Structural issues (`landmark-one-main`, `region`)**  
   Missing or incorrect use of semantic landmarks affected page structure and navigation.
 
-### Validation of Improvements
+### After page — significantly fewer violations
+- Color contrast issues resolved
+- Alternative text issues resolved
+- Improved semantic structure and navigation
 
-Automated testing confirmed that:
 
-- The number of violations decreased significantly in the "After" version  
-- Critical issues such as missing alternative text were resolved  
-- Improvements were consistent across tested scenarios  
+## What Automation Likely Missed
 
----
+- **Keyboard focus trapping**: whether keyboard users can navigate through the entire page without getting stuck
 
-## 3. Results of Manual Testing
+- **Focus order**: whether interactive elements follow a logical and intuitive navigation sequence
 
-Manual testing identified additional issues related to usability and interaction, which were not detected by automated tools.
+- **Screen reader behavior**: whether screen readers announce focused elements clearly and correctly
 
-### Detected Issues
+- **Readability issues**: whether excessive uppercase text reduces readability and scanning efficiency
 
-- **Keyboard focus trapping**  
-  Focus was restricted to certain sections, preventing full navigation through the page.
+- **Navigation clarity**: whether links and menus are understandable and usable for assistive technology users
 
-- **Non-logical focus order**  
-  The sequence of navigation did not follow an intuitive order.
+## False Positives
 
-- **Readability issues**  
-  Excessive use of uppercase text reduced readability and scanning efficiency.
+No significant false positives were identified during testing.
 
-- **Screen reader behavior issues**  
-  Screen readers announced entire sections instead of focused elements, leading to confusing feedback.
+The issues reported by axe-core corresponded to actual accessibility problems confirmed through manual testing, particularly related to alternative text, color contrast, and page structure.
 
----
 
-## 4. Limitations of Automated Testing
+## Limitations of Automated Testing
 
-Automated tools such as axe-core are effective for detecting rule-based violations, but they do not evaluate user experience.
+Automated tools such as axe-core are effective for detecting rule-based accessibility violations, but they cannot evaluate real user experience or interaction behavior.
 
-### Not Detected by Automation
+Automated testing cannot reliably detect:
+- Keyboard navigation issues
+- Focus trapping
+- Logical focus order
+- Screen reader interaction quality
+- Readability and visual clarity
+- Whether content structure is intuitive for users
 
-- Keyboard navigation problems (e.g. focus trapping)  
-- Readability and visual clarity  
-- Screen reader interaction behavior  
-- Logical flow of navigation  
+## Summary
 
-These aspects require manual testing and cannot be reliably assessed through automation alone.
+| Issue Type                    | Found by axe | Found manually | Why axe misses it         |
+|--------------------------------|:------------:|:--------------:|---------------------------|
+| Missing alternative text       | YES          | YES            | Detectable in DOM         |
+| Color contrast issues          | YES          | YES            | Detectable in DOM         |
+| Missing landmark structure     | YES          | YES            | Detectable in DOM         |
+| Links without accessible names | YES          | YES            | Detectable in DOM         |
+| Keyboard focus trapping        | NO           | YES            | Requires interaction      |
+| Non-logical focus order        | NO           | YES            | Requires human judgment   |
+| Screen reader behavior issues  | NO           | YES            | Requires assistive tech   |
+| Readability issues             | NO           | YES            | Requires human judgment   |
+| Navigation clarity issues      | NO           | YES            | Requires user interaction |
 
----
 
-## 5. False Positives
 
-No significant false positives were identified. The issues reported by automated testing correspond to actual accessibility problems and align with manual findings.
-
----
-
-## 6. Comparative Summary
-
-| Aspect                     | Manual Testing | Automated Testing |
-|--------------------------|---------------|------------------|
-| Technical compliance     | Yes           | Yes              |
-| Usability evaluation     | Yes           | No               |
-| Interaction behavior     | Yes           | No               |
-| Speed                    | No            | Yes              |
-| Consistency              | No            | Yes              |
-
----
-
-## 7. Conclusion
+## Conclusion
 
 Automated testing is effective for identifying technical accessibility issues and verifying improvements between versions. However, it does not capture usability and interaction-related problems.
 
