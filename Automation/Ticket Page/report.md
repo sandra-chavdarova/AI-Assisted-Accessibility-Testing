@@ -30,11 +30,10 @@ The analysis includes:
 ## 3. Summary of Results
 
 | Version | Total Violations | Critical | Serious | Moderate |
-|--------|----------------|---------|---------|----------|
-| Before | Multiple       | Present | Present | Present  |
-| After  | Significantly reduced | None observed | Minimal | Minimal |
+|----------|------------------|-----------|----------|-----------|
+| Before   | 4                | 0         | 3        | 1         |
+| After    | 1                | 0         | 1        | 0         |
 
-The **After version demonstrates a substantial improvement**, with most high-impact accessibility issues resolved.
 
 ---
 
@@ -44,24 +43,18 @@ The Before version contains several accessibility violations that significantly 
 
 ---
 
-### 4.1 Critical Issues
+### 4.1 Serious Issues
 
-#### 4.1.1 Missing Alternative Text for Images (`image-alt`)
+#### 4.1.1 Incorrect List Structure (`listitem`)
 
-- Images lack `alt` attributes or accessible names  
-- Includes decorative and functional images  
+- List items are not properly contained within semantic list containers (`<ul>` or `<ol>`)
 
 **Impact:**
-- Screen readers cannot interpret image content  
-- Users with visual impairments lose essential information  
+- Screen readers may interpret navigation structure incorrectly
+- Content hierarchy becomes less clear for assistive technologies
 
-**WCAG Reference:** 1.1.1 Non-text Content  
 
----
-
-### 4.2 Serious Issues
-
-#### 4.2.1 Insufficient Color Contrast (`color-contrast`)
+#### 4.1.2 Insufficient Color Contrast (`color-contrast`)
 
 - Example:  
   - Foreground: `#41545d`  
@@ -72,9 +65,8 @@ The Before version contains several accessibility violations that significantly 
 - Poor readability for users with low vision  
 - Fails WCAG AA requirements  
 
----
 
-#### 4.2.2 Links Without Accessible Names (`link-name`)
+#### 4.1.3 Links Without Accessible Names (`link-name`)
 
 - Links rely on images or unclear text  
 - Missing descriptive labels  
@@ -87,24 +79,15 @@ The Before version contains several accessibility violations that significantly 
 
 ---
 
-### 4.3 Moderate Issues
+### 4.2 Moderate Issues
 
-#### 4.3.1 Missing Main Landmark (`landmark-one-main`)
+#### 4.2.1 Missing Semantic Regions (`region`)
 
-- No `<main>` region defined  
-
-**Impact:**
-- Users cannot quickly navigate to primary content  
-
----
-
-#### 4.3.2 Content Outside Landmarks (`region`)
-
-- Sections are not grouped within semantic regions  
+- Page content is not properly grouped within semantic landmark regions
 
 **Impact:**
-- Reduced structural clarity  
-- Poor navigation experience for assistive technologies  
+- Reduced structural clarity for assistive technologies
+- More difficult navigation for screen reader users
 
 ---
 
@@ -115,12 +98,6 @@ The After version (accessible implementation) shows **significant improvements**
 ---
 
 ### 5.1 Resolved Issues
-
-#### Images with Alternative Text
-- All relevant images now include meaningful `alt` attributes  
-- Decorative images are properly marked  
-
----
 
 #### Improved Color Contrast
 - Contrast ratios significantly exceed WCAG thresholds  
@@ -159,7 +136,7 @@ The After version demonstrates:
 
 | Aspect | Before | After |
 |------|--------|-------|
-| Image accessibility | Missing alt text | Fully implemented |
+| List structure | Incorrect semantic lists | Properly structured lists |
 | Color contrast | Fails WCAG | Meets/exceeds standards |
 | Link accessibility | Unclear links | Descriptive links |
 | Page structure | Poor semantics | Proper landmarks |
@@ -169,7 +146,7 @@ The After version demonstrates:
 
 ## 7. Conclusion
 
-The accessibility evaluation clearly demonstrates that the **Before version contains multiple critical and serious accessibility issues**, which significantly limit usability for users with disabilities.
+The accessibility evaluation clearly demonstrates that the **Before version** contains multiple serious and moderate accessibility issues.
 
 The **After version successfully resolves the majority of these issues**, achieving strong compliance with WCAG 2.1 Level AA guidelines.
 
@@ -187,7 +164,7 @@ Overall, the After implementation represents a **well-designed, accessible web p
 
 Although the After version is significantly improved, the following best practices should be continuously maintained:
 
-- Ensure all future images include meaningful `alt` text  
+- Ensure semantic HTML structures are consistently maintained
 - Maintain sufficient color contrast across all UI elements  
 - Use semantic HTML and ARIA roles appropriately  
 - Regularly perform automated and manual accessibility testing  
