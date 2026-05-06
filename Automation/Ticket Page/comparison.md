@@ -10,8 +10,8 @@ Automated testing identified several accessibility issues in the "Before" versio
 
 ### Before page — 4 violations
 
-- **Missing alternative text (`image-alt`)**  
-  Images without `alt` attributes or accessible names were detected. This is a critical issue affecting screen reader users.
+- **Incorrect list structure (`listitem`)**  
+  List items were not properly contained within semantic list containers (`<ul>` or `<ol>`), reducing structural clarity for assistive technologies.
 
 - **Insufficient color contrast (`color-contrast`)**  
   Text elements did not meet the required contrast ratio of 4.5:1, reducing readability.
@@ -19,13 +19,12 @@ Automated testing identified several accessibility issues in the "Before" versio
 - **Links without accessible names (`link-name`)**  
   Some links lacked descriptive text, making navigation unclear for assistive technologies.
 
-- **Structural issues (`landmark-one-main`, `region`)**  
-  Missing or incorrect use of semantic landmarks affected page structure and navigation.
+- **Missing semantic regions (`region`)**  
+  Page content was not properly grouped within semantic landmark regions, affecting structural navigation.
 
-### After page — significantly fewer violations
-- Color contrast issues resolved
-- Alternative text issues resolved
-- Improved semantic structure and navigation
+### After page — 1 violation
+- **Insufficient color contrast (`color-contrast`)**  
+  Minor color contrast issues remained present, although overall readability and visual accessibility were significantly improved.
 
 
 ## What Automation Likely Missed
@@ -44,7 +43,7 @@ Automated testing identified several accessibility issues in the "Before" versio
 
 No significant false positives were identified during testing.
 
-The issues reported by axe-core corresponded to actual accessibility problems confirmed through manual testing, particularly related to alternative text, color contrast, and page structure.
+The issues reported by axe-core corresponded to actual accessibility problems confirmed through manual testing, particularly related to color contrast, navigation structure, and accessible link behavior.
 
 
 ## Limitations of Automated Testing
@@ -63,9 +62,9 @@ Automated testing cannot reliably detect:
 
 | Issue Type                    | Found by axe | Found manually | Why axe misses it         |
 |--------------------------------|:------------:|:--------------:|---------------------------|
-| Missing alternative text       | YES          | YES            | Detectable in DOM         |
+| Incorrect list structure       | YES          | YES            | Detectable in DOM         |
 | Color contrast issues          | YES          | YES            | Detectable in DOM         |
-| Missing landmark structure     | YES          | YES            | Detectable in DOM         |
+| Missing semantic regions       | YES          | YES            | Detectable in DOM         |
 | Links without accessible names | YES          | YES            | Detectable in DOM         |
 | Keyboard focus trapping        | NO           | YES            | Requires interaction      |
 | Non-logical focus order        | NO           | YES            | Requires human judgment   |
