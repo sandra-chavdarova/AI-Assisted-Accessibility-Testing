@@ -1,0 +1,32 @@
+[
+  {
+    "id": "html-has-lang",
+    "impact": "serious",
+    "description": "Ensure every HTML document has a lang attribute",
+    "snippet": "<html>"
+  },
+  {
+    "id": "image-alt",
+    "impact": "critical",
+    "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+    "snippet": "<img src=\"./img/border_left_top.gif\" width=\"10px\" height=\"10px\">"
+  },
+  {
+    "id": "select-name",
+    "impact": "critical",
+    "description": "Ensure select element has an accessible name",
+    "snippet": "<select onchange=\"location.href = this.value;\">\n  <option value=\"./home.html\">Home</option>\n  <option value=\"./news.html\">News</option>\n  <option value=\"./tickets.html\">Tickets</option>\n</select>"
+  },
+  {
+    "id": "link-name",
+    "impact": "serious",
+    "description": "Ensure links have discernible text",
+    "snippet": "<a href=\"javascript:location.href='home.html';\" onfocus=\"blur();\"><img name=\"nav_home\" src=\"./img/nav_home.gif\" width=\"88\" height=\"27\" hspace=\"15\" border=\"0px\"></a>"
+  },
+  {
+    "id": "region",
+    "impact": "moderate",
+    "description": "Ensure all page content is contained by landmarks",
+    "snippet": "<p id=\"logos\">\n  <a href=\"https://www.w3.org/\" title=\"W3C Home\">\n    <img alt=\"W3C logo\" src=\"../img/w3c.png\" height=\"48\" width=\"72\">\n  </a>\n  <a href=\"https://www.w3.org/WAI/\" title=\"WAI Home\">\n    <img alt=\"Web Accessibility Initiative (WAI) logo\" src=\"../img/wai.png\" height=\"48\">\n  </a>\n</p>"
+  }
+]
