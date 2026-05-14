@@ -15,11 +15,21 @@
 - [MODERATE] landmark-one-main: no main landmark defined
 - [MODERATE] region: 20 elements outside landmark regions
 
+### Before page — Flow scan (scoped to #page element)
+- Violations on load: 4
+- Violations after form interaction: 5
+- One additional violation appears after keyboard interaction, suggesting some issues only surface during active use rather than on initial page load.
+
+
 ### After page — 4 violations
 - [SERIOUS] label-title-only: 1 form element labeled only via title attribute
 - [MODERATE] landmark-one-main: no main landmark defined
 - [MODERATE] region: 23 elements outside landmark regions
 - [MINOR] empty-table-header: 1 empty table header
+
+### After page — Flow scan (scoped to #page element)
+- Violations on load: 0
+- Violations after form submission: 0
 
 ## What Automation Likely Missed
 - **Focus order**: whether tab order is logical and intuitive
@@ -74,6 +84,3 @@ messages — none of which axe-core can detect.
 **Automated testing tells you what is broken in the code.
 Manual testing tells you what is broken for the user.**
 Both are necessary for a truly accessible page.
-
-
-Running the tests: <br>

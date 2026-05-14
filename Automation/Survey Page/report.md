@@ -24,6 +24,7 @@ The accessibility analysis was performed using axe-core integrated into Playwrig
 - **Test environment:** Browser-based execution via Playwright
 - **Approach:** Automated accessibility testing
 - **Test scenarios:** Page load, form fill, and form submission flows
+- **Scan types:** Full page static scan and interactive flow scan scoped to `#page`
 
 Each detected issue is categorized by severity (Critical, Serious, Moderate, Minor), WCAG compliance level, and affected elements.
 
