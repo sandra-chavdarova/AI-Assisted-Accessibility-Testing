@@ -1,20 +1,37 @@
 # AI Fix Suggestions Report
 
-**Source:** selected-issues.json  
-**Date:** 2026-05-07  
+**Model:** gpt-4o  
+**Prompt strategy:** axe-description  
+**Date:** 2026-05-13
 
 ---
 
 ## html-has-lang (serious)
-
-**Description:** Ensure every HTML document has a lang attribute  
 
 **Original code:**
 ```html
 <html>
 ```
 
-**AI Analysis:**
+**Prompt sent:**
+```
+You are an accessibility expert.
+
+Analyze the following accessibility issue and suggest a fix.
+
+Issue:
+Ensure every HTML document has a lang attribute
+
+HTML:
+<html>
+
+Requirements:
+1. Confirm what the accessibility problem is and explain why (reference WCAG criterion number and name)
+2. Provide the corrected code snippet
+3. Explain why the fix works
+```
+
+**AI Response:**
 
 1. **Accessibility Problem & WCAG Reference:**
 
@@ -34,14 +51,30 @@ Adding the `lang` attribute with a valid language code (such as "en" for English
 
 ## image-alt (critical)
 
-**Description:** Ensure `<img>` elements have alternative text or a role of none or presentation  
-
 **Original code:**
 ```html
 <img src="./img/border_left_top.gif" width="10px" height="10px">
 ```
 
-**AI Analysis:**
+**Prompt sent:**
+```
+You are an accessibility expert.
+
+Analyze the following accessibility issue and suggest a fix.
+
+Issue:
+Ensure <img> elements have alternative text or a role of none or presentation
+
+HTML:
+<img src="./img/border_left_top.gif" width="10px" height="10px">
+
+Requirements:
+1. Confirm what the accessibility problem is and explain why (reference WCAG criterion number and name)
+2. Provide the corrected code snippet
+3. Explain why the fix works
+```
+
+**AI Response:**
 
 1. **Accessibility Problem Explanation:**
 
@@ -63,7 +96,6 @@ An image lacking alternative text will cause problems for users who rely on scre
 
 ## select-name (critical)
 
-**Description:** Ensure select element has an accessible name  
 
 **Original code:**
 ```html
@@ -74,7 +106,30 @@ An image lacking alternative text will cause problems for users who rely on scre
 </select>
 ```
 
-**AI Analysis:**
+**Prompt sent:**
+```
+You are an accessibility expert.
+
+Analyze the following accessibility issue and suggest a fix.
+
+Issue:
+Ensure select element has an accessible name
+
+HTML:
+<select onchange="location.href = this.value;">
+  <option value="./home.html">Home</option>
+  <option value="./news.html">News</option>
+  <option value="./tickets.html">Tickets</option>
+</select>
+
+Requirements:
+1. Confirm what the accessibility problem is and explain why (reference WCAG criterion number and name)
+2. Provide the corrected code snippet
+3. Explain why the fix works
+```
+
+**AI Response:**
+
 
 ### Accessibility Problem
 
@@ -110,15 +165,30 @@ This fix ensures compliance with accessibility standards, improving navigation a
 
 ## link-name (serious)
 
-**Description:** Ensure links have discernible text  
-
 **Original code:**
 ```html
 <a href="javascript:location.href='home.html';" onfocus="blur();"><img name="nav_home" src="./img/nav_home.gif" width="88" height="27" hspace="15" border="0px"></a>
 ```
 
-**AI Analysis:**
+**Prompt sent:**
+```
+You are an accessibility expert.
 
+Analyze the following accessibility issue and suggest a fix.
+
+Issue:
+Ensure links have discernible text
+
+HTML:
+<a href="javascript:location.href='home.html';" onfocus="blur();"><img name="nav_home" src="./img/nav_home.gif" width="88" height="27" hspace="15" border="0px"></a>
+
+Requirements:
+1. Confirm what the accessibility problem is and explain why (reference WCAG criterion number and name)
+2. Provide the corrected code snippet
+3. Explain why the fix works
+```
+
+**AI Response:**
 ### 1. Accessibility Problem
 
 The provided HTML code contains an accessibility issue where a link does not have discernible text. According to the Web Content Accessibility Guidelines (WCAG) 2.1, this issue violates **Criterion 2.4.4: Link Purpose (In Context)**, which states that the purpose of each link should be identifiable from the link text alone or the link text together with its context. Links without discernible text are problematic for users who rely on screen readers, as the purpose of the link is not announced, leaving them with no useful information about where the link will navigate them.
@@ -141,7 +211,6 @@ To fix the issue, provide an alternative text description for the image within t
 
 ## region (moderate)
 
-**Description:** Ensure all page content is contained by landmarks  
 
 **Original code:**
 ```html
@@ -155,7 +224,32 @@ To fix the issue, provide an alternative text description for the image within t
 </p>
 ```
 
-**AI Analysis:**
+**Prompt sent:**
+```
+You are an accessibility expert.
+
+Analyze the following accessibility issue and suggest a fix.
+
+Issue:
+Ensure all page content is contained by landmarks
+
+HTML:
+<p id="logos">
+  <a href="https://www.w3.org/" title="W3C Home">
+    <img alt="W3C logo" src="../img/w3c.png" height="48" width="72">
+  </a>
+  <a href="https://www.w3.org/WAI/" title="WAI Home">
+    <img alt="Web Accessibility Initiative (WAI) logo" src="../img/wai.png" height="48">
+  </a>
+</p>
+
+Requirements:
+1. Confirm what the accessibility problem is and explain why (reference WCAG criterion number and name)
+2. Provide the corrected code snippet
+3. Explain why the fix works
+```
+
+**AI Response:**
 
 ### Issue Analysis
 

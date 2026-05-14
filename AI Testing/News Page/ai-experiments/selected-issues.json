@@ -1,0 +1,37 @@
+[
+  {
+    "id": "html-has-lang",
+    "impact": "serious",
+    "description": "Ensure every HTML document has a lang attribute",
+    "thoroughDescription": "The HTML root element is missing a lang attribute. This means assistive technologies like screen readers cannot determine the language of the page content, which affects correct pronunciation, text-to-speech synthesis, and language-specific rendering. Every HTML document must declare its primary language using the lang attribute on the <html> element.",
+    "snippet": "<html>"
+  },
+  {
+    "id": "image-alt",
+    "impact": "critical",
+    "description": "Ensure <img> elements have alternative text or a role of none or presentation",
+    "thoroughDescription": "This is a small 10x10 pixel decorative border image used purely for visual styling purposes. It carries no informational value and conveys nothing meaningful to the user. Because it is decorative, it should be hidden from assistive technologies entirely — not described. Adding a descriptive alt text would cause screen readers to announce a meaningless decorative element to users.",
+    "snippet": "<img src=\"./img/border_left_top.gif\" width=\"10px\" height=\"10px\">"
+  },
+  {
+    "id": "select-name",
+    "impact": "critical",
+    "description": "Ensure select element has an accessible name",
+    "thoroughDescription": "This is a navigation select element that redirects the user to a different page immediately when an option is selected, using onchange='location.href = this.value'. It has no associated label, so screen readers cannot identify its purpose. Additionally, the onchange handler causes immediate page navigation when a keyboard user presses arrow keys to browse options — before they can confirm their choice. This affects both screen reader users and keyboard-only users.",
+    "snippet": "<select onchange=\"location.href = this.value;\">\n  <option value=\"./home.html\">Home</option>\n  <option value=\"./news.html\">News</option>\n  <option value=\"./tickets.html\">Tickets</option>\n</select>"
+  },
+  {
+    "id": "link-name",
+    "impact": "serious",
+    "description": "Ensure links have discernible text",
+    "thoroughDescription": "This is a navigation link in the site header that uses an image instead of text. It has three separate accessibility problems: (1) the image has no alt attribute so screen readers cannot announce the link purpose, (2) onfocus='blur()' programmatically removes keyboard focus the moment the element is reached, making it completely unreachable for keyboard-only users, (3) the href uses javascript:location.href instead of a standard URL, which breaks browser history, right-click open in new tab, and assistive technology link destination reading.",
+    "snippet": "<a href=\"javascript:location.href='home.html';\" onfocus=\"blur();\"><img name=\"nav_home\" src=\"./img/nav_home.gif\" width=\"88\" height=\"27\" hspace=\"15\" border=\"0px\"></a>"
+  },
+  {
+    "id": "region",
+    "impact": "moderate",
+    "description": "Ensure all page content is contained by landmarks",
+    "thoroughDescription": "This paragraph contains two logo images linking to W3C and WAI homepages. Both images have correct alt text and both links have descriptive title attributes — the content inside is fully accessible. The only problem is that the paragraph itself is not wrapped in any landmark region such as header, nav, main, or footer. Screen reader users who navigate by landmarks will skip this content entirely because it is outside any landmark.",
+    "snippet": "<p id=\"logos\">\n  <a href=\"https://www.w3.org/\" title=\"W3C Home\">\n    <img alt=\"W3C logo\" src=\"../img/w3c.png\" height=\"48\" width=\"72\">\n  </a>\n  <a href=\"https://www.w3.org/WAI/\" title=\"WAI Home\">\n    <img alt=\"Web Accessibility Initiative (WAI) logo\" src=\"../img/wai.png\" height=\"48\">\n  </a>\n</p>"
+  }
+]
