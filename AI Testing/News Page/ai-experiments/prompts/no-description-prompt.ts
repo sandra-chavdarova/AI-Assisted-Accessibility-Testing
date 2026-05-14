@@ -1,7 +1,5 @@
 export function buildPrompt(issue: any): string {
-    return `You are an accessibility expert.
-
-Analyze the following HTML snippet for accessibility issues and suggest a fix.
+    return `Analyze the following HTML snippet for accessibility issues and suggest a fix.
 
 HTML:
 ${issue.snippet}
