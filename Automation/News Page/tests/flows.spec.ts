@@ -15,19 +15,28 @@ const versions = [
 
 for (const v of versions) {
 
-    test(`(${v.name}) News - heading structure is logical`, async ({page}) => {
+    test(`(${v.name}) News - heading structure is logical`, async ({ page }) => {
         await page.goto(v.url);
         const main = page.locator('#page');
 
         const h1Count = await main.locator('h1').count();
-        expect(h1Count).toBe(1); // Must have exactly one h1
+        expect(h1Count).toBe(1);
 
-        const h2Count = await main.locator('h2').count(); // since this is a news page with multiple articles, h2s are expected
+        const h2Count = await main.locator('h2').count();
         expect(h2Count).toBeGreaterThan(0);
 
-        const h3Count = await main.locator('h3').count();
-        if (h3Count > 0) {
-            expect(h2Count).toBeGreaterThan(0);
+        // Collect all headings in DOM order with their level
+        const headings = await main.locator('h1, h2, h3, h4, h5, h6').evaluateAll(
+            els => els.map(el => parseInt(el.tagName.replace('H', '')))
+        );
+
+        for (let i = 1; i < headings.length; i++) {
+            const current = headings[i];
+            const previous = headings[i - 1];
+
+            if (current > previous) {
+                expect(current - previous).toBeLessThanOrEqual(1);
+            }
         }
     });
 
@@ -45,14 +54,13 @@ for (const v of versions) {
         }
     });
 
-    test(`(${v.name}) News - inner skip link moves focus into news content`, async ({page, browserName}) => {
+    test(`(${v.name}) News - inner skip link moves focus into news content`, async ({ page, browserName }) => {
         await page.goto(v.url);
 
-        const outerSkipLink = page.getByRole('link', {name: /skip to/i}).first();
+        const outerSkipLink = page.getByRole('link', { name: /skip to/i }).first();
         await outerSkipLink.focus();
         await expect(outerSkipLink).toBeFocused();
 
-        // WebKit behaves differently with Enter on links
         if (browserName === 'webkit') {
             await outerSkipLink.click();
         } else {
@@ -61,8 +69,15 @@ for (const v of versions) {
 
         const innerSkipLink = page
             .locator('#page')
-            .getByRole('link', {name: /skip to content/i})
+            .getByRole('link', { name: /skip to content/i })
             .first();
+
+        const innerSkipExists = await innerSkipLink.count() > 0;
+
+        if (!innerSkipExists) {
+            test.fail(true, 'Inner skip link not found — before page is missing skip navigation');
+            return;
+        }
 
         await expect(innerSkipLink).toBeVisible();
         await innerSkipLink.focus();
@@ -74,33 +89,47 @@ for (const v of versions) {
             await innerSkipLink.press('Enter');
         }
 
-        const stillOnSkip = await innerSkipLink.evaluate(
-            el => el === document.activeElement
-        );
+        const focusedElementId = await page.evaluate(() => document.activeElement?.id ?? '');
+        const focusedTagName = await page.evaluate(() => document.activeElement?.tagName.toLowerCase() ?? '');
+
+        const landedOnTarget = await page.evaluate(() => {
+            const el = document.activeElement;
+            if (!el) return false;
+
+            const id = el.id ?? '';
+            const tag = el.tagName.toLowerCase();
+
+            if (['main', 'content', 'page', 'maincontent'].includes(id)) return true;
+            if (['h1', 'h2', 'h3'].includes(tag)) return true;
+            if (el.closest('#content') || el.closest('#main')) return true;
+
+            return false;
+        });
 
         expect(
-            stillOnSkip,
-            'Focus did not move — skip link activated but had no effect'
-        ).toBe(false);
+            landedOnTarget,
+            'Skip link target #content exists but is not focusable — add tabindex="-1" to the target element'
+        ).toBe(true);
     });
 
-    test(`(${v.name}) News - keyboard nav, no unlabeled elements in tab order`, async ({page, browserName}) => {
+    test(`(${v.name}) News - keyboard nav, no unlabeled elements in tab order`, async ({ page, browserName }) => {
         await page.goto(v.url);
 
-        const skipLink = page.getByRole('link', {name: /skip to/i}).first(); //skip link to get into the inner page
+        const skipLink = page.getByRole('link', { name: /skip to/i }).first();
         await skipLink.focus();
         await expect(skipLink).toBeFocused();
         await page.keyboard.press('Enter');
 
         const tabOrder: { tag: string; label: string }[] = [];
+        let firstElementKey: string | null = null;
 
-        for (let i = 0; i < 20; i++) {
+        while (true) {
             await page.keyboard.press('Tab');
 
             const el = await page.evaluate(() => {
                 const active = document.activeElement as HTMLElement;
 
-                if (!active?.closest('#page')) return null; // Stop if we've tabbed into the outer shell
+                if (!active?.closest('#page')) return null;
 
                 return {
                     tag: active?.tagName?.toLowerCase() ?? '',
@@ -112,19 +141,29 @@ for (const v of versions) {
                         active?.getAttribute('value') ||
                         active?.getAttribute('placeholder') ||
                         '',
+                    key: `${active?.tagName}-${active?.getAttribute('href') ?? ''}-${active?.textContent?.trim().slice(0, 30)}`,
                 };
             });
+
             if (!el) break;
+
+            if (firstElementKey === null) {
+                firstElementKey = el.key;
+            } else if (el.key === firstElementKey) {
+                break;
+            }
+
             tabOrder.push(el);
 
             expect(
                 el.label.length,
-                `<${el.tag}> at tab position ${i + 1} inside #main has no accessible label`
+                `<${el.tag}> at tab position ${tabOrder.length} inside #page has no accessible label`
             ).toBeGreaterThan(0);
         }
+
         expect(
             tabOrder.length,
-            'No focusable elements were discovered inside #main'
+            'No focusable elements were discovered inside #page'
         ).toBeGreaterThan(0);
 
         console.log('Tab order:');
