@@ -1,127 +1,295 @@
-# AI Evaluation Report — W3C BAD Survey Pages
+# Visual Screenshot Accessibility Trap Analysis
 
-## Method
+> Screenshots are taken from the W3C "Before and After" demo:
+> - Inaccessible: https://www.w3.org/WAI/demos/bad/before/survey.html
+> - Accessible:   https://www.w3.org/WAI/demos/bad/after/survey.html
 
-Two complementary evaluation methods were run against the W3C "Before and After" survey demo:
-
-- **axe-core v4.11.2** — automated DOM scanning via Playwright, full-page static scan and interactive flow scan scoped to `#page`
-- **GPT-4o screenshot analysis** — visual analysis of full-page screenshots and targeted cropped regions ("traps")
-
-The screenshot analysis used two modes:
-
-1. **Full-page** — the complete before/after page sent to GPT-4o without any hints
-2. **Trap experiment** — seven cropped regions sent individually; some contained real issues (REAL), some were correctly implemented controls (FALSE+). The AI was not told which was which.
-
-Pages tested:
-- Before: https://www.w3.org/WAI/demos/bad/before/survey.html
-- After: https://www.w3.org/WAI/demos/bad/after/survey.html
+> The AI receives **only the image** — no type label, no ground truth.
 
 ---
 
-## Trap Experiment Results
+## full-page-before — FULL_PAGE
 
-Each cropped image was sent to GPT-4o with a neutral prompt asking it to identify any accessibility issues or explain why the UI was accessible. The AI received no labels or ground truth.
+**Image:** `survey-before.png`
 
-| Trap ID | Type | Image shows | Score |
-|---|---|---|---|
-| `false-positive-fieldset` | FALSE+ | Fieldset + legend + labelled radio buttons | Correct — did not false-positive |
-| `false-positive-table` | FALSE+ | Table with correct `<th scope>` markup | Incorrect — flagged valid markup as having issues |
-| `full-page-after` | FULL_PAGE | Complete accessible "after" page | Correct — did not false-positive |
-| `table-missing-th` | REAL | "love it"/"hate it" as `<td>` not `<th>` | Correct — issue identified |
-| `select-no-label` | REAL | QUICKMENU `<select>` with no label | Correct — issue identified |
-| `newsletter-unlabelled-inputs` | REAL | Unlabelled name/email/radio inputs | Correct — issue identified |
-| `full-page-before` | FULL_PAGE | Complete inaccessible "before" page | Correct — issue identified |
+**Ground truth:** Inaccessible version. Known issues: radio buttons and select dropdown have no <label> elements, radio group lacks <fieldset>/<legend>, table row headers ("love it"/"hate it") use <td>+<strong> instead of <th>, newsletter inputs are unlabelled, no form instructions. AI should surface multiple serious/critical issues.
 
-6/7 traps scored correctly. The one failure was the hardest trap: the accessible version of the organ table looks visually identical to the inaccessible version — only the underlying `<th>` vs `<td>` markup differs, which cannot be seen in a screenshot.
+**AI Response:**
 
----
+Here are the accessibility issues identified in the screenshot:
 
-## Comparison: axe-core vs GPT-4o
+1. **Use of Color for Information**
+   - **Severity**: Serious
+   - **WCAG 2.1 Criterion**: 1.4.1 (Use of Color)
+   - **Problem**: The radio buttons appear to have indications based on color alone, which users with color blindness may not perceive.
+   - **Fix**: Ensure that information dependent on color is also conveyed via text or another means that does not rely on color.
 
-### Before page
+2. **Form Labeling**
+   - **Severity**: Serious
+   - **WCAG 2.1 Criterion**: 1.3.1 (Info and Relationships), 3.3.2 (Labels or Instructions)
+   - **Problem**: The form fields for name and email do not appear to have clear labels, making it difficult for screen readers to convey the necessary information to users.
+   - **Fix**: Add explicit labels for each form field using the `<label>` element and ensure that they are programmatically associated with their respective input fields.
 
-| Issue | axe-core | GPT-4o full page | GPT-4o trap |
-|---|---|---|---|
-| Missing form labels on 11 inputs | Critical (label) | Identified | Identified |
-| Missing `<label>` on 2 select elements | Critical (select-name) | Identified | Identified (select-no-label trap) |
-| Missing alt text on 24 images | Critical (image-alt) | Identified | Not covered by a trap |
-| Missing `lang` attribute on `<html>` | Serious (html-has-lang) | Missed | Not covered by a trap |
-| 4 links with no discernible text | Serious (link-name) | Missed | Not covered by a trap |
-| No `<main>` landmark | Moderate (landmark-one-main) | Missed | Not covered by a trap |
-| 20+ elements outside landmark regions | Moderate (region) | Missed | Not covered by a trap |
-| Table row headers as `<td>` not `<th>` | Not found | Identified | Identified (table-missing-th trap) |
-| Color contrast | Not found | Flagged — unverified | Flagged — unverified |
-| Focus indicators | Not found | Flagged — unverified | Not covered by a trap |
+3. **Inconsistent Navigation Order**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion**: 2.4.3 (Focus Order)
+   - **Problem**: The focus order may not follow a logical reading order, confusing users who rely on keyboard navigation.
+   - **Fix**: Ensure that the tab order follows a logical reading order that matches the visual presentation of the page.
 
-### After page
+4. **Text Contrast**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion**: 1.4.3 (Contrast (Minimum))
+   - **Problem**: Some text elements may not have sufficient contrast against their background, making them hard to read for users with visual impairments.
+   - **Fix**: Increase the contrast ratio between text and background colors to meet or exceed a 4.5:1 ratio for normal text.
 
-| Issue | axe-core | GPT-4o full page | GPT-4o trap |
-|---|---|---|---|
-| `#cc` labeled via `title` only, no visible label | Serious (label-title-only) | Partial — flagged label concerns without precision | Not covered by a trap |
-| No `<main>` landmark | Moderate (landmark-one-main) | Missed | Not covered by a trap |
-| 23 elements outside landmark regions | Moderate (region) | Missed | Not covered by a trap |
-| Empty first `<th>` in table | Minor (empty-table-header) | Missed | Not covered by a trap |
-| False positive — fieldset/legend radio group | No violation | Correctly cleared | Correctly cleared |
-| False positive — table with correct `<th scope>` | No violation | Not tested in isolation | Incorrectly flagged as having issues |
-| Color contrast | Not found | Flagged — unverified | Not covered by a trap |
+5. **Missing Alt Text on Images**
+   - **Severity**: Critical
+   - **WCAG 2.1 Criterion**: 1.1.1 (Non-text Content)
+   - **Problem**: Important images, such as logos, may not have descriptive alt text, making it difficult for screen reader users to understand the content.
+   - **Fix**: Add descriptive alt text to images to convey the same information a sighted user would obtain.
 
----
+6. **Non-descriptive Link Text**
+   - **Severity**: Minor
+   - **WCAG 2.1 Criterion**: 2.4.4 (Link Purpose (In Context))
+   - **Problem**: Link text such as "submit" does not provide adequate context about what will happen when the link is activated.
+   - **Fix**: Use descriptive link text that clearly identifies the link's purpose.
 
-## Accuracy Analysis
+Addressing these issues will help make the web page more accessible to a wider range of users.
 
-### What the AI got right
-
-**Visually obvious label issues** were caught reliably in both the full-page and trap conditions. Missing labels on form inputs, radio buttons, and the QUICKMENU select were identified consistently, matching axe-core's critical findings.
-
-**The table row-header problem** (`<td>` used instead of `<th>` for "love it"/"hate it") was caught by GPT-4o but not by axe-core. This is a case where visual and semantic analysis surfaces something automated DOM scanning missed.
-
-**False positive avoidance on clear cases** — the fieldset/legend/label radio group was correctly cleared as accessible. The AI recognised the correct pattern even without access to the HTML.
-
-### Where the AI fell short
-
-**Code-level issues are invisible to screenshot analysis.** The missing `lang` attribute, empty links, and landmark structure problems — three of axe-core's findings on the before page — cannot be seen in a screenshot and were missed entirely. This is a hard ceiling for any visual analysis approach.
-
-**The closest false-positive trap failed.** The accessible version of the organ table was incorrectly flagged with serious and moderate issues despite being correctly implemented. Visually, the before and after tables are indistinguishable; only the `<th scope>` markup differs. The AI generated plausible-sounding issues (missing headers, insufficient contrast, no caption) rather than acknowledging uncertainty.
-
-**Unverified contrast and focus findings appeared on both pages.** axe-core found no contrast or focus violations on either version, yet GPT-4o flagged both repeatedly. Since the AI is making visual judgments from a static image rather than measuring contrast ratios or testing keyboard navigation, these are likely false positives generated when the model is uncertain.
-
-**The after-page full-page analysis was hedged throughout**, with phrases like "should be verified" and "cannot be confirmed from screenshot alone" appearing across multiple findings. While appropriately cautious, this limits the practical value of the output.
+**Score:** Issue identified
 
 ---
 
-## Summary of Violations
+## full-page-after — FULL_PAGE
 
-### Before page — axe-core
+**Image:** `survey-after.png`
 
-| Issue | Impact | WCAG |
-|---|---|---|
-| Missing alt text on 24 images | Critical | 1.1.1 |
-| 11 form inputs without labels | Critical | 4.1.2 |
-| 2 select elements without accessible name | Critical | 4.1.2 |
-| Missing `lang` attribute | Serious | 3.1.1 |
-| 4 links without discernible text | Serious | 2.4.4, 4.1.2 |
-| No `<main>` landmark | Moderate | — |
-| 20+ elements outside landmarks | Moderate | — |
+**Ground truth:** Accessible version. All inputs labelled, radio groups use <fieldset>/<legend>, table uses proper <th> elements, instructions present. AI should report no significant issues.
 
-### After page — axe-core (remaining issues)
+**AI Response:**
 
-| Issue | Impact | WCAG |
-|---|---|---|
-| `#cc` labeled via `title` only | Serious | — |
-| No `<main>` landmark | Moderate | — |
-| 23 elements outside landmarks | Moderate | — |
-| Empty first table header | Minor | — |
+Based on the screenshot provided, here is an evaluation of potential accessibility issues:
 
-The after version resolved all 3 critical and both serious issues present in the before version, reducing total violations from 7 to 4.
+1. **Form Labels for Checkboxes and Fields**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+   - **Problem**: The checkboxes for favorite parks and the fields for subscribing to the newsletter may not have clear labels associated programmatically, making it difficult for screen readers to associate the text with the input fields.
+   - **Solution**: Ensure each input field and checkbox has a corresponding `<label>` element properly associated using the `for` attribute.
+
+2. **Form Validation and Feedback**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion Violated**: 3.3.1 Error Identification, 3.3.3 Error Suggestion
+   - **Problem**: There is no indication of required fields besides a note ("Fields are required if not otherwise noted"). Users need clear prompts if required fields are not filled or if there are errors.
+   - **Solution**: Use `aria-required="true"` for required fields and provide inline error messages or instructions visible to screen readers.
+
+3. **Color Contrast**
+   - **Severity**: Serious
+   - **WCAG 2.1 Criterion Violated**: 1.4.3 Contrast (Minimum)
+   - **Problem**: Text or elements may not follow sufficient contrast ratios against their backgrounds, making it difficult for users with visual impairments to read.
+   - **Solution**: Ensure all text and interactive elements meet a contrast ratio of at least 4.5:1 against the background.
+
+4. **Descriptive Links**
+   - **Severity**: Minor
+   - **WCAG 2.1 Criterion Violated**: 2.4.4 Link Purpose (In Context)
+   - **Problem**: The "Go" button lacks descriptive context about what it will do.
+   - **Solution**: Use descriptive link text or `aria` labels to provide more context for assistive technologies.
+
+5. **Tab Order for Navigation**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion Violated**: 2.1.1 Keyboard
+   - **Problem**: If the tab order is not logical or skips items, it might prevent effective navigation for keyboard users.
+   - **Solution**: Ensure a logical and sequential tab order that mirrors the visual interface.
+
+6. **Responsive Design**
+   - **Severity**: Minor
+   - **WCAG 2.1 Criterion Violated**: 1.4.10 Reflow
+   - **Problem**: If this page is not responsive, users on small screens might experience issues.
+   - **Solution**: Implement responsive design techniques to ensure content is accessible on all screen sizes.
+
+Overall, this interface would benefit from a thorough review of form field labels, error suggestions, and color contrast to improve accessibility. Applying these adjustments in line with WCAG 2.1 guidelines will enhance the usability for users with disabilities.
+
+**Score:** Correct – did not false-positive
 
 ---
 
-## Conclusion
+## false-positive-fieldset — FALSE+
 
-axe-core and GPT-4o screenshot analysis are complementary tools with distinct and largely non-overlapping strengths.
- 
-**axe-core** is precise and verifiable. It provides exact WCAG references, affected element selectors, and violation counts. It reliably detects code-level issues — missing attributes, landmark structure, link text — that are invisible to any visual tool. Its limitation is that it only finds what it can measure programmatically. axe-core's WCAG-scoped scan did not cover table row-header structure, as the relevant rules fall under best-practice rather than a WCAG tag. GPT-4o identified the issue visually.
- 
-**GPT-4o screenshot analysis** was able to identify the most visually obvious accessibility issues, particularly missing labels and alt text. It adds value for visually apparent problems — unlabelled inputs, missing group context, and semantic table issues that manifest in the rendered UI — and produces readable, plain-language explanations useful for communicating findings to non-technical stakeholders. However, it struggled with structural and code-level issues not visible in a screenshot, such as missing lang attributes, empty links, and landmark structure. It also produced likely false positives for color contrast and focus indicators by guessing from appearance rather than measuring, and performed unreliably on cases where the before and after versions look visually identical.
- 
-**Neither tool replaces manual testing.** Cognitive clarity, logical reading flow, actual screen reader behaviour, and keyboard usability require a human tester to evaluate. No automated tool, visual or DOM-based, can fully substitute for this.
+**Image:** `survey-after-false-positive.png`
+
+**Ground truth:** Correctly implemented radio group: <fieldset> with <legend> "Favorite Park" provides the group label, and each radio input is wrapped in a <label>. No accessibility issue. AI should not flag this.
+
+**AI Response:**
+
+It seems there are no visible accessibility issues in this screenshot. Each radio button option is clearly labeled, and assuming the underlying HTML is properly structured with <label> tags, users with assistive technologies should be able to navigate and understand the options easily.
+
+However, since this assessment is based purely on visible content, it’s important to consider the following:
+
+1. **Keyboard Accessibility**: Ensure that users can navigate and select radio buttons using just a keyboard. This means properly following focus order and ensuring the user can tab through options.
+
+2. **Screen Reader Compatibility**: Ensure that the labels for each radio button are correctly associated with the input elements using <label> tags and appropriate attributes (such as `aria-labelledby` if needed).
+
+3. **Contrast Ratio**: Verify that the text contrasts sufficiently against the background for readability (the standard is a 4.5:1 contrast ratio for normal text).
+
+4. **Error Identification**: Make sure there is an accessible way to inform the user if they need to select an option (if this is a required field).
+
+5. **Responsive Design**: Ensure that this section is usable across different devices and screen sizes.
+
+If these general accessibility guidelines are met, the UI should provide a good accessible experience.
+
+**Score:** Correct – did not false-positive
+
+---
+
+## false-positive-table — FALSE+
+
+**Image:** `survey-after-false-positive-2.png`
+
+**Ground truth:** Correctly implemented data table: row headers "hate it"/"love it" use <th scope="row"> and column headers (Lung, Pancreas, etc.) use <th scope="col">. No accessibility issue. AI should not flag this.
+
+**AI Response:**
+
+Upon examining the screenshot, here are the potential accessibility issues:
+
+### 1. Table Headers Not Clearly Identified
+- **Severity**: Serious
+- **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+- **Why it is a problem for users**: Users relying on screen readers may have difficulty understanding the relationships between the data if headers are not explicitly defined.
+- **How to fix it**: Ensure that table headers are properly marked using `<th>` elements, and use the `scope` attribute to associate rows and columns correctly.
+
+### 2. Insufficient Color Contrast
+- **Severity**: Moderate
+- **WCAG 2.1 Criterion Violated**: 1.4.3 Contrast (Minimum)
+- **Why it is a problem for users**: Users with visual impairments may struggle to read text if there is insufficient contrast between the text and the background.
+- **How to fix it**: Increase the contrast ratio by changing the text or background color to comply with a minimum contrast ratio of 4.5:1.
+
+### 3. Lack of Descriptive Caption
+- **Severity**: Minor
+- **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+- **Why it is a problem for users**: Without a descriptive caption, screen reader users may not understand the context of the table.
+- **How to fix it**: Include a proper `<caption>` element at the beginning of the table to describe its content briefly.
+
+### 4. No Indication of “Favorite” and “Least Favorite”
+- **Severity**: Minor
+- **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+- **Why it is a problem for users**: The table may not communicate the meaning of the sections (love it/hate it) clearly to screen readers.
+- **How to fix it**: Include ARIA attributes or use a legend to clarify how the “love it” and “hate it” relate to the information.
+
+These issues, if addressed, will enhance accessibility, allowing users with disabilities to understand and interpret the information more effectively.
+
+**Score:** Correct – did not false-positive
+
+---
+
+## table-missing-th — REAL
+
+**Image:** `survey-before-issue-present.png`
+
+**Ground truth:** Row headers "love it" and "hate it" are marked up with <p>+<strong> inside a <td>, not with <th scope="row"> elements. Screen readers cannot associate data cells with their row context. Fails WCAG 1.3.1 (Info and Relationships).
+
+**AI Response:**
+
+The screenshot provided presents a table with data, and here are the accessibility issues identified:
+
+1. **Inadequate Table Headers**
+   - **Severity**: Serious
+   - **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+   - **Why it is a problem**: Screen readers rely on properly marked headers to interpret the data relationship. If headers are not marked correctly, users with visual impairments may not understand which data corresponds to which label.
+   - **How to fix it**: Use `<th>` elements for all header cells to clearly define them in HTML. Ensure that row headers (e.g., "love it," "hate it") are also marked with `<th>` and include scope attributes where appropriate (e.g., scope="col" or scope="row").
+
+2. **Color Contrast Issues**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion Violated**: 1.4.3 Contrast (Minimum)
+   - **Why it is a problem**: Users with visual impairments or color blindness may have difficulty distinguishing between the different sections if there is not enough contrast between text and background colors.
+   - **How to fix it**: Ensure that the text contrast ratio is at least 4.5:1 against its background for regular text and 3:1 for large text.
+
+3. **Ambiguous Question Context**
+   - **Severity**: Minor
+   - **WCAG 2.1 Criterion Violated**: 3.3.2 Labels or Instructions
+   - **Why it is a problem**: The question context may be unclear to users without additional information on what they are supposed to base their choices on. 
+   - **How to fix it**: Provide more context or instructions about the question, such as specifying a particular aspect or criteria for evaluating "favorite" or "least favorite."
+
+Overall, addressing these issues would improve the accessibility of the table for users with disabilities, particularly those relying on assistive technologies.
+
+**Score:** Issue identified
+
+---
+
+## select-no-label — REAL
+
+**Image:** `survey-before-issue-present-2.png`
+
+**Ground truth:** The <select> dropdown (QUICKMENU) has no <label> element, no title attribute, and no aria-label. Screen readers announce it without any meaningful name. Fails WCAG 1.3.1 and 4.1.2 (Name, Role, Value).
+
+**AI Response:**
+
+### Issue Analysis
+
+#### Issue 1: Non-Descriptive Text
+- **Severity:** Moderate
+- **WCAG 2.1 Criterion Violated:** 2.4.6 Headings and Labels
+- **Why it is a problem for users:** The text "QUICKMENU ---->" isn't descriptive. Users with cognitive disabilities or those using screen readers might not understand what this label represents or what options it includes.
+- **How to fix it:** Use a more descriptive label that clearly indicates the purpose or content of the menu, such as "Navigation Options" or "Main Menu".
+
+#### Issue 2: Visual Cue Reliance
+- **Severity:** Serious
+- **WCAG 2.1 Criterion Violated:** 1.4.1 Use of Color
+- **Why it is a problem for users:** The arrow (`---->`) may serve as a visual cue, but users who are blind or have low vision, including those who use screen readers, may not perceive or understand its purpose.
+- **How to fix it:** Provide additional text or ARIA labels that convey the purpose of the controls for screen readers.
+
+#### Issue 3: Dropdown Menu Indicator
+- **Severity:** Serious
+- **WCAG 2.1 Criterion Violated:** 4.1.2 Name, Role, Value
+- **Why it is a problem for users:** The dropdown arrow indicates additional options, but without ARIA attributes, this is not apparent to screen readers and assistive technologies.
+- **How to fix it:** Use appropriate ARIA roles and properties such as `aria-expanded` and `aria-controls` to inform users about the menu's state and available options.
+
+By addressing these issues, the interface would be more accessible to a wider range of users, including those with disabilities.
+
+**Score:** Issue identified
+
+---
+
+## newsletter-unlabelled-inputs — REAL
+
+**Image:** `survey-before-issue-present-3.png`
+
+**Ground truth:** Multiple issues: (1) "Name:", "eMail Address", and "Retype eMail" are plain text nodes, not <label> elements linked to their inputs. (2) Mr./Mrs. radio buttons also lack <label> elements. (3) Tab/DOM order does not match visual layout. Fails WCAG 1.3.1 and 3.3.2.
+
+**AI Response:**
+
+Based on the screenshot, here are the accessibility issues identified:
+
+1. **Gender-Specific Salutation Options**
+   - **Severity**: Moderate
+   - **WCAG 2.1 Criterion Violated**: 1.3.1 Info and Relationships
+   - **Why it is a problem**: Limiting salutations to "Mr." and "Mrs." does not accommodate users who do not identify with these titles, which can be exclusionary and not inclusive of all gender identities.
+   - **How to fix it**: Provide an additional option such as "Mx." or allow users to enter their own salutation.
+
+2. **Input Labels and Associations**
+   - **Severity**: Serious
+   - **WCAG 2.1 Criterion Violated**: 3.3.2 Labels or Instructions
+   - **Why it is a problem**: The labels for the name, email address, and retype email fields are not programmatically associated with their respective inputs, which can be problematic for screen reader users.
+   - **How to fix it**: Use `<label>` elements to explicitly associate each input with its label using the `for` attribute and the `id` attribute on input elements.
+
+3. **Redundant Email Confirmation Field**
+   - **Severity**: Minor
+   - **WCAG 2.1 Criterion Violated**: 2.4.6 Headings and Labels (Use of repeating fields can also affect keyboard navigation)
+   - **Why it is a problem**: Requiring users to retype their email address can be cumbersome and is generally not a recommended practice, as it can be a barrier for those with cognitive or motor disabilities.
+   - **How to fix it**: Consider removing the "Retype Email" field and instead use validation to ensure the accuracy of the email address.
+
+Overall, addressing these issues will enhance the accessibility and inclusivity of the form, making it usable by a wider audience.
+
+**Score:** Issue identified
+
+---
+
+## Score Summary
+
+| ID | Type | Result |
+|----|------|--------|
+| full-page-before | FULL_PAGE | Issue identified |
+| full-page-after | FULL_PAGE | Correct – did not false-positive |
+| false-positive-fieldset | FALSE+ | Correct – did not false-positive |
+| false-positive-table | FALSE+ | Correct – did not false-positive |
+| table-missing-th | REAL | Issue identified |
+| select-no-label | REAL | Issue identified |
+| newsletter-unlabelled-inputs | REAL | Issue identified |
