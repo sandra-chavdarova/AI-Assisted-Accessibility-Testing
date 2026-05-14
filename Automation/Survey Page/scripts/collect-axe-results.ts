@@ -10,8 +10,8 @@ const pages = [
 
 async function collectAxeResults() {
   const browser = await chromium.launch();
-  const context = await browser.newContext(); // ← add this
-  const page = await context.newPage();       // ← change this
+  const context = await browser.newContext();
+  const page = await context.newPage();
 
   for (const p of pages) {
     await page.goto(p.url);
