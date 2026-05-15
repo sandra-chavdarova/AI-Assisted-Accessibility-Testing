@@ -187,7 +187,7 @@ async function main() {
   }
 
   const finalReport = report + scoreTable;
-  const outputPath = path.join(process.cwd(), 'visual-trap-experiment-report.md');
+  const outputPath = path.join(process.cwd(), 'ai-evaluation-report.md');
   fs.writeFileSync(outputPath, finalReport);
   console.log(`\nReport saved to ${outputPath}`);
 }

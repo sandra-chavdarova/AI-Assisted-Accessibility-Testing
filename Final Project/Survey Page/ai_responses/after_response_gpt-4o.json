@@ -1,0 +1,47 @@
+{
+  "url": "https://www.w3.org/WAI/demos/bad/after/survey.html",
+  "overall_score": 9.5,
+  "summary": "The accessible survey page demonstrates a high level of compliance with WCAG 2.1 guidelines, effectively addressing common accessibility barriers. Minor issues remain that, if corrected, would further enhance accessibility.",
+  "strengths": [
+    "Proper association of form labels with inputs",
+    "Logical and intuitive tab order",
+    "Clear instructions and error messages"
+  ],
+  "top_priority_fixes": [
+    "Ensure all form elements have appropriate labels",
+    "Provide text alternatives for all non-text content",
+    "Verify sufficient color contrast for all text elements"
+  ],
+  "issues": [
+    {
+      "id": "issue1",
+      "wcag_criterion": "1.1.1 Non-text Content",
+      "wcag_level": "A",
+      "severity": "Minor",
+      "category": "Non-text Content",
+      "element": "Image of 'Sunny Spells'",
+      "description": "The image lacks a descriptive text alternative, which is essential for users relying on screen readers.",
+      "recommendation": "Add a descriptive alt attribute to the image, such as 'Weather forecast: Sunny Spells'."
+    },
+    {
+      "id": "issue2",
+      "wcag_criterion": "1.4.3 Contrast (Minimum)",
+      "wcag_level": "AA",
+      "severity": "Minor",
+      "category": "Visual Contrast",
+      "element": "Navigation menu text",
+      "description": "The color contrast between the navigation menu text and background may not meet the minimum contrast ratio of 4.5:1, potentially making it difficult for users with low vision to read.",
+      "recommendation": "Adjust the text color or background color to achieve a contrast ratio of at least 4.5:1."
+    },
+    {
+      "id": "issue3",
+      "wcag_criterion": "3.3.2 Labels or Instructions",
+      "wcag_level": "A",
+      "severity": "Minor",
+      "category": "Form Labels",
+      "element": "Dropdown for 'Greenest City'",
+      "description": "The dropdown lacks a visible label, which can cause confusion for users, especially those using assistive technologies.",
+      "recommendation": "Ensure the dropdown has a visible and descriptive label, such as 'Select the greenest city'."
+    }
+  ]
+}

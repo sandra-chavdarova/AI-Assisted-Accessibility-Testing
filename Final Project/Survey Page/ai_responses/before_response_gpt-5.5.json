@@ -1,0 +1,378 @@
+{
+  "url": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+  "overall_score": 2,
+  "summary": "The page has major accessibility barriers across perceivable, operable, understandable, and robust requirements. The most significant problems are unlabeled and incorrectly grouped form controls, inaccessible keyboard and focus behavior, missing or incorrect text alternatives, poor document structure caused by layout tables and non-semantic markup, insufficient contrast, unclear links, and unpredictable behavior when controls receive focus or change value. These issues substantially affect screen reader users, keyboard-only users, users with low vision, users with cognitive disabilities, and users of assistive technologies.",
+  "strengths": [
+    "The page contains mostly text-based content rather than requiring audio or video.",
+    "No obvious flashing content was detected.",
+    "Some native HTML form controls are present, which could be made accessible with proper labeling, grouping, and focus handling.",
+    "There is visible survey content and a results section that can be made accessible with semantic markup."
+  ],
+  "top_priority_fixes": [
+    "Rebuild the survey form with semantic HTML: use fieldset and legend for radio groups, label elements for every input/select, correct reading order, clear required-field instructions, and proper accessible names.",
+    "Fix keyboard accessibility and focus management: remove scripts that blur focus, ensure all interactive controls are keyboard operable, preserve a logical focus order, and provide a clearly visible focus indicator.",
+    "Replace layout/image-based structure with semantic HTML: use real headings, lists, tables for tabular data, meaningful links, accurate alt text or empty alt for decorative images, and sufficient color contrast."
+  ],
+  "issues": [
+    {
+      "id": "ISSUE-001",
+      "wcag_criterion": "1.1.1 Non-text Content",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Images and text alternatives",
+      "element": "Multiple decorative and structural images throughout the CityLights header, navigation, spacers, separators, and survey layout",
+      "description": "Many images appear to be decorative, structural, or spacer images but are exposed as generic images or have missing, empty, or inappropriate text alternatives. This adds noise for screen reader users and can obscure meaningful content.",
+      "recommendation": "Give informative images concise, equivalent alt text. Mark purely decorative images with alt=\"\" and avoid exposing spacer/layout images to assistive technologies. Prefer CSS for decoration and spacing."
+    },
+    {
+      "id": "ISSUE-002",
+      "wcag_criterion": "1.1.1 Non-text Content",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Images and text alternatives",
+      "element": "Image-only links and image-based navigation controls in the header, quick menu, and surrounding navigation",
+      "description": "Some linked images appear to have no useful accessible name or have null/placeholder alternatives while serving as links or controls. Screen reader users may hear only 'image' or 'link' without knowing the destination or action.",
+      "recommendation": "Ensure every image used as a link or control has an accessible name that describes the link destination or action. Use visible text links where possible, or provide meaningful alt text on the image inside the link."
+    },
+    {
+      "id": "ISSUE-003",
+      "wcag_criterion": "1.1.1 Non-text Content",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Images and text alternatives",
+      "element": "Images of symbols, bullets, separators, and graphical text-like elements around survey questions and results",
+      "description": "Non-text content used for formatting or to visually represent text/symbols is not consistently given an equivalent text alternative or hidden when decorative.",
+      "recommendation": "Use real text and CSS instead of images of symbols or formatting. If an image conveys information, provide equivalent alt text; if decorative, use alt=\"\"."
+    },
+    {
+      "id": "ISSUE-004",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Radio button group for 'Which is your favorite city park?'",
+      "description": "The related radio buttons are not programmatically grouped. The question is visually associated with the options, but assistive technologies cannot reliably determine the group relationship or prompt.",
+      "recommendation": "Wrap the radio buttons in a fieldset and place the question in a legend. Ensure each radio button also has a programmatically associated label."
+    },
+    {
+      "id": "ISSUE-005",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Radio button options: None, Central Park, Grand Park, Jurassic Park, South Park, Other",
+      "description": "Radio button labels are visually present but are not programmatically associated with their inputs. Screen reader users may encounter unnamed radio buttons and may not know what each option means.",
+      "recommendation": "Use label elements with for/id associations, or wrap each input and label text in a label element. Ensure the accessible name of each radio button matches the visible option text."
+    },
+    {
+      "id": "ISSUE-006",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Select field for 'Which city do you find is the greenest?'",
+      "description": "The select element is missing a programmatically associated label or title. The visual question is not reliably connected to the control for assistive technologies.",
+      "recommendation": "Associate the question with the select using a label element and matching for/id attributes, or use aria-labelledby if the visible text is already present."
+    },
+    {
+      "id": "ISSUE-007",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Newsletter section: Name, Mr., Mrs., eMail Address, Retype eMail fields",
+      "description": "Text labels and form controls are visually arranged but not programmatically associated. The relationship between labels, radio buttons, and text inputs is unclear to assistive technologies.",
+      "recommendation": "Use label elements for every text field and radio button. Group related controls with fieldset and legend. Ensure the DOM order follows the intended visual and logical order."
+    },
+    {
+      "id": "ISSUE-008",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Structure and semantics",
+      "element": "Page headings such as 'Citylights Survey', 'This Week's Survey', and 'Last Weeks's Survey Results'",
+      "description": "Headings appear visually but are not consistently marked up as semantic heading elements. Screen reader users cannot efficiently navigate the page structure by heading.",
+      "recommendation": "Use h1-h6 elements in a logical hierarchy. Do not rely on font size, bold text, images, or table layout to communicate headings."
+    },
+    {
+      "id": "ISSUE-009",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Tables and data relationships",
+      "element": "Last Week's Survey Results table: organ names with 'love it' and 'hate it' values",
+      "description": "The survey results are visually presented as tabular data but are not structured with proper table headers and data cells. Relationships between organ names, rows, and values are not programmatically determinable.",
+      "recommendation": "Use a data table with table, caption, thead/tbody, th, td, and appropriate scope attributes. Provide a concise caption such as 'Last week's survey results by organ'."
+    },
+    {
+      "id": "ISSUE-010",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Structure and semantics",
+      "element": "Overall page layout using tables and presentational markup",
+      "description": "Layout tables and presentational markup are used to create visual positioning. This causes visual relationships to be conveyed through placement rather than semantic structure.",
+      "recommendation": "Use CSS layout rather than tables for page layout. Reserve table markup for genuine tabular data and ensure semantic relationships are represented in HTML."
+    },
+    {
+      "id": "ISSUE-011",
+      "wcag_criterion": "1.3.2 Meaningful Sequence",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Reading and focus order",
+      "element": "Newsletter form fields and labels",
+      "description": "The reading sequence does not match the visual order. The apparent sequence is 'Name, Mr., Mrs., email fields', but the underlying order places controls and labels in a confusing sequence, making it difficult to understand which label belongs to which field.",
+      "recommendation": "Reorder the DOM so that each label immediately precedes or wraps its control. Avoid using layout tables that separate labels from inputs. Test the linearized reading order with a screen reader and keyboard."
+    },
+    {
+      "id": "ISSUE-012",
+      "wcag_criterion": "1.3.2 Meaningful Sequence",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Tables and data relationships",
+      "element": "Last Week's Survey Results section",
+      "description": "When linearized, the survey results do not present a meaningful sequence. Row and column relationships are lost, so users may hear organ names and numeric values without understanding which result each number represents.",
+      "recommendation": "Use proper table markup with headers and data cells. Ensure the DOM order reads logically row by row or column by column."
+    },
+    {
+      "id": "ISSUE-013",
+      "wcag_criterion": "1.3.5 Identify Input Purpose",
+      "wcag_level": "AA",
+      "severity": "Moderate",
+      "category": "Forms",
+      "element": "Name and eMail Address fields",
+      "description": "The form collects common user information such as name and email address, but input purpose is not programmatically identifiable with appropriate autocomplete tokens.",
+      "recommendation": "Add suitable autocomplete attributes, such as autocomplete=\"name\" for the name field and autocomplete=\"email\" for the email field, where the field purpose matches the WCAG-defined input purposes."
+    },
+    {
+      "id": "ISSUE-014",
+      "wcag_criterion": "1.4.1 Use of Color",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Visual design",
+      "element": "Links and visually distinguished states in navigation and content areas",
+      "description": "Some links or states appear to be distinguished primarily by color. Users with color vision deficiencies may not be able to identify links or status differences reliably.",
+      "recommendation": "Ensure links are visually identifiable without relying on color alone, for example by underlining links or adding another persistent visual indicator. Do not use color alone to identify required fields, errors, or states."
+    },
+    {
+      "id": "ISSUE-015",
+      "wcag_criterion": "1.4.3 Contrast (Minimum)",
+      "wcag_level": "AA",
+      "severity": "Serious",
+      "category": "Visual design",
+      "element": "Text in navigation, quick menu, traffic notice, survey content, and other low-contrast areas",
+      "description": "Some foreground text does not appear to provide sufficient contrast against its background. Low contrast makes the page difficult to read for users with low vision, color vision deficiencies, or users viewing the page in poor lighting.",
+      "recommendation": "Ensure normal text has at least a 4.5:1 contrast ratio and large text has at least a 3:1 contrast ratio. Define both foreground and background colors explicitly and test all text states."
+    },
+    {
+      "id": "ISSUE-016",
+      "wcag_criterion": "1.4.5 Images of Text",
+      "wcag_level": "AA",
+      "severity": "Moderate",
+      "category": "Visual design",
+      "element": "Graphical text in the CityLights banner, quick menu, navigation, and other decorative heading areas",
+      "description": "Images of text are used where real HTML text with CSS styling could achieve the same presentation. This prevents users from resizing, restyling, translating, or adapting the text reliably.",
+      "recommendation": "Replace non-essential images of text with real text styled using CSS. Keep images of text only where the presentation is essential, such as a logotype."
+    },
+    {
+      "id": "ISSUE-017",
+      "wcag_criterion": "1.4.10 Reflow",
+      "wcag_level": "AA",
+      "severity": "Moderate",
+      "category": "Responsive layout",
+      "element": "Table-based page layout and wide form/results areas",
+      "description": "The page relies heavily on fixed visual layout patterns and table-based positioning, which can cause content to lose meaning or require two-dimensional scrolling at narrow viewport widths or high zoom.",
+      "recommendation": "Use responsive CSS layout that supports reflow at 320 CSS pixels wide without loss of content or functionality and without horizontal scrolling except where genuinely necessary, such as for large data tables."
+    },
+    {
+      "id": "ISSUE-018",
+      "wcag_criterion": "2.1.1 Keyboard",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Keyboard accessibility",
+      "element": "Interactive controls and scripted behavior in navigation, menus, and form elements",
+      "description": "Some functionality appears to rely on pointing-device-specific event handlers or scripts that interfere with keyboard operation. Keyboard-only users may be unable to operate all controls.",
+      "recommendation": "Ensure every interactive function can be operated with a keyboard alone. Use native buttons, links, and form controls where possible. Pair mouse events with keyboard events and test using only Tab, Shift+Tab, Enter, Space, and arrow keys."
+    },
+    {
+      "id": "ISSUE-019",
+      "wcag_criterion": "2.1.1 Keyboard",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Keyboard accessibility",
+      "element": "Long city select list",
+      "description": "The city select list is extremely long and appears to be sorted by country rather than by the requested city, making keyboard use inefficient and error-prone. The items are not grouped to support faster navigation.",
+      "recommendation": "Sort options according to the task, group options with optgroup where useful, provide filtering/search if appropriate, and ensure the control remains fully operable with keyboard and assistive technologies."
+    },
+    {
+      "id": "ISSUE-020",
+      "wcag_criterion": "2.4.1 Bypass Blocks",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Navigation",
+      "element": "Repeated CityLights header, quick menu, and navigation before the survey content",
+      "description": "The inaccessible demo content does not provide an effective mechanism to bypass repeated navigation and decorative header content before reaching the main survey.",
+      "recommendation": "Add a visible-on-focus skip link to the main content and use semantic landmarks such as header, nav, main, and footer. Ensure the skip target receives focus correctly."
+    },
+    {
+      "id": "ISSUE-021",
+      "wcag_criterion": "2.4.2 Page Titled",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Navigation",
+      "element": "Document title",
+      "description": "The page title does not clearly identify the specific page topic or purpose. A generic title such as 'Welcome to CityLights!' is not sufficient for users who rely on browser tabs, history, or screen reader title announcements.",
+      "recommendation": "Use a descriptive title such as 'CityLights Survey - More city parks - CityLights'. Put the unique page purpose first."
+    },
+    {
+      "id": "ISSUE-022",
+      "wcag_criterion": "2.4.3 Focus Order",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Keyboard accessibility",
+      "element": "Newsletter form and menu/dialog-style navigation areas",
+      "description": "Focusable elements do not receive focus in an order that preserves meaning and operation. In the newsletter form, the keyboard order separates labels from related controls and does not match the visual layout.",
+      "recommendation": "Ensure the DOM order matches the visual and logical order. Place menus or dialogs next to their trigger in the focus sequence, or manage focus programmatically according to accessible interaction patterns."
+    },
+    {
+      "id": "ISSUE-023",
+      "wcag_criterion": "2.4.4 Link Purpose (In Context)",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Links",
+      "element": "Image-only links and links whose purpose is only visually implied",
+      "description": "Some links do not have link text or accessible names that identify their purpose in context. Users navigating by links may not know where the links go or what action they perform.",
+      "recommendation": "Provide meaningful link text or accessible names. Avoid relying on surrounding visual layout alone. For image links, ensure the image alt text describes the link destination or function."
+    },
+    {
+      "id": "ISSUE-024",
+      "wcag_criterion": "2.4.6 Headings and Labels",
+      "wcag_level": "AA",
+      "severity": "Serious",
+      "category": "Structure and forms",
+      "element": "Survey section headings and form labels",
+      "description": "Headings are not programmatically determined, and several labels are missing or not associated with controls. This makes the page difficult to navigate and understand.",
+      "recommendation": "Use semantic headings that describe each section. Provide clear, descriptive, programmatically associated labels for every form control."
+    },
+    {
+      "id": "ISSUE-025",
+      "wcag_criterion": "2.4.7 Focus Visible",
+      "wcag_level": "AA",
+      "severity": "Critical",
+      "category": "Keyboard accessibility",
+      "element": "Focusable links, form fields, radio buttons, select list, and scripted elements",
+      "description": "Keyboard focus is not reliably visible. Scripts or CSS appear to remove or obscure the focus indicator, preventing keyboard users from knowing which element is active.",
+      "recommendation": "Do not remove focus outlines unless replacing them with a highly visible custom focus style. Ensure all focusable controls have a visible indicator with sufficient contrast and persistence."
+    },
+    {
+      "id": "ISSUE-026",
+      "wcag_criterion": "2.5.3 Label in Name",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Forms",
+      "element": "Radio buttons and text inputs with visible labels such as None, Central Park, Name, eMail Address, and Retype eMail",
+      "description": "Visible labels are not consistently included in the accessible names of their controls because labels are missing or not programmatically associated. Speech input users may be unable to activate controls by saying the visible label.",
+      "recommendation": "Ensure each control's accessible name contains the visible label text. Use native label elements or aria-labelledby references to the visible text."
+    },
+    {
+      "id": "ISSUE-027",
+      "wcag_criterion": "2.5.8 Target Size (Minimum)",
+      "wcag_level": "AA",
+      "severity": "Moderate",
+      "category": "Pointer accessibility",
+      "element": "Small radio buttons and image-based navigation controls",
+      "description": "Some interactive targets appear small, and because visible text labels are not associated with radio controls, the clickable target may be limited to the small radio button itself.",
+      "recommendation": "Ensure interactive targets are at least 24 by 24 CSS pixels or have sufficient spacing. Associate labels with radio buttons so the label text is also clickable."
+    },
+    {
+      "id": "ISSUE-028",
+      "wcag_criterion": "3.1.1 Language of Page",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Language",
+      "element": "html element",
+      "description": "The default human language of the page is not programmatically identified. Screen readers may use the wrong pronunciation rules and voice settings.",
+      "recommendation": "Add the appropriate lang attribute to the html element, for example html lang=\"en\"."
+    },
+    {
+      "id": "ISSUE-029",
+      "wcag_criterion": "3.2.1 On Focus",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Predictability",
+      "element": "Focusable controls affected by scripts that remove or change focus",
+      "description": "Some scripted behavior appears to remove focus or trigger unexpected behavior when an element receives focus. This can disorient keyboard and screen reader users.",
+      "recommendation": "Do not initiate unexpected context changes or remove focus when elements receive focus. Focus should remain stable until the user takes an explicit action."
+    },
+    {
+      "id": "ISSUE-030",
+      "wcag_criterion": "3.2.2 On Input",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Predictability",
+      "element": "City select list",
+      "description": "Changing the select value appears to cause a change of context without prior warning. Users may trigger navigation or another context change simply by exploring options.",
+      "recommendation": "Do not change context automatically when a select value changes. Provide a separate submit/go button, or clearly warn users before the control is used."
+    },
+    {
+      "id": "ISSUE-031",
+      "wcag_criterion": "3.2.4 Consistent Identification",
+      "wcag_level": "AA",
+      "severity": "Moderate",
+      "category": "Predictability",
+      "element": "Repeated navigation and image-based controls",
+      "description": "Components with the same or similar functions are not consistently identified because some controls lack accessible names or rely on images without meaningful alternatives.",
+      "recommendation": "Use consistent visible labels and accessible names for repeated controls. Ensure each repeated function is identified the same way across the page and site."
+    },
+    {
+      "id": "ISSUE-032",
+      "wcag_criterion": "3.3.2 Labels or Instructions",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Survey form as a whole",
+      "description": "The form lacks necessary instructions, including clear instructions about required fields and how to complete the survey. Users may not know what information is required or how the form should be completed.",
+      "recommendation": "Provide concise instructions at the beginning of the form. Identify required fields in text, not by color alone, and explain any input format requirements."
+    },
+    {
+      "id": "ISSUE-033",
+      "wcag_criterion": "3.3.2 Labels or Instructions",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Forms",
+      "element": "Radio buttons, select field, name field, title radio buttons, email field, and retype email field",
+      "description": "Several inputs do not have labels or instructions that are programmatically associated with the controls. This prevents users from understanding what each control requires.",
+      "recommendation": "Provide a visible and programmatically associated label for every input. Use fieldset/legend for groups and include helper text with aria-describedby where additional instructions are needed."
+    },
+    {
+      "id": "ISSUE-034",
+      "wcag_criterion": "3.3.7 Redundant Entry",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Forms",
+      "element": "eMail Address and Retype eMail fields",
+      "description": "The form asks users to enter the same email address twice. This creates redundant entry and increases the chance of error, especially for users with cognitive, motor, or memory-related disabilities.",
+      "recommendation": "Avoid requiring duplicate entry. If confirmation is needed, provide a review step, allow users to reveal/check the email address, or auto-populate/select previously entered information unless re-entry is truly essential."
+    },
+    {
+      "id": "ISSUE-035",
+      "wcag_criterion": "4.1.1 Parsing (WCAG 2.1; obsolete in WCAG 2.2)",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Code quality and compatibility",
+      "element": "HTML markup",
+      "description": "The page appears to contain invalid or incorrectly nested markup, including problematic start/end tags or attributes. This can cause inconsistent parsing by browsers and assistive technologies.",
+      "recommendation": "Validate the HTML and fix malformed elements, incorrect nesting, duplicate IDs, duplicate attributes, and invalid table/form structures. Although 4.1.1 is obsolete in WCAG 2.2, valid robust markup remains important."
+    },
+    {
+      "id": "ISSUE-036",
+      "wcag_criterion": "4.1.2 Name, Role, Value",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Assistive technology compatibility",
+      "element": "Form controls, image links, scripted controls, and focusable elements",
+      "description": "Several controls do not expose correct accessible names, roles, values, or focus state information. This affects radio buttons, text inputs, select controls, image links, and scripted interactions.",
+      "recommendation": "Use native HTML controls correctly. Provide accessible names through labels or aria-labelledby, ensure roles and states are exposed correctly, and avoid scripts that prevent assistive technologies from detecting focus or value changes."
+    }
+  ]
+}

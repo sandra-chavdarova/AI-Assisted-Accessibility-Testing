@@ -1,0 +1,115 @@
+{
+  "url": "https://www.w3.org/WAI/demos/bad/before/survey.html",
+  "overall_score": 3,
+  "summary": "The survey page exhibits multiple accessibility issues that hinder users with disabilities from effectively interacting with the content. Key problems include missing alternative text for images, insufficient color contrast, unlabeled form elements, and inaccessible navigation menus. Addressing these issues is crucial to enhance the page's accessibility.",
+  "strengths": [
+    "The page provides a survey form, indicating an intent to engage users."
+  ],
+  "top_priority_fixes": [
+    "Add descriptive alternative text to all informative images.",
+    "Ensure sufficient color contrast between text and background elements.",
+    "Provide clear and descriptive labels for all form inputs."
+  ],
+  "issues": [
+    {
+      "id": "1",
+      "wcag_criterion": "1.1.1 Non-text Content",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Perceivable",
+      "element": "Images throughout the page",
+      "description": "Informative images lack alternative text, making them inaccessible to screen reader users.",
+      "recommendation": "Add descriptive alternative text to all informative images to convey their purpose and content."
+    },
+    {
+      "id": "2",
+      "wcag_criterion": "1.4.3 Contrast (Minimum)",
+      "wcag_level": "AA",
+      "severity": "Serious",
+      "category": "Perceivable",
+      "element": "Text elements on colored backgrounds",
+      "description": "Text does not have sufficient contrast against its background, affecting readability for users with low vision or color blindness.",
+      "recommendation": "Ensure a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text between text and background colors."
+    },
+    {
+      "id": "3",
+      "wcag_criterion": "3.3.2 Labels or Instructions",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Understandable",
+      "element": "Form input fields",
+      "description": "Form inputs lack associated labels, making it difficult for screen reader users to understand the purpose of each field.",
+      "recommendation": "Provide clear and descriptive labels for all form inputs, ensuring they are programmatically associated with their respective fields."
+    },
+    {
+      "id": "4",
+      "wcag_criterion": "2.4.4 Link Purpose (In Context)",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Operable",
+      "element": "Navigation links",
+      "description": "Links are not descriptive, making it unclear to users what the destination or purpose of each link is.",
+      "recommendation": "Use descriptive link text that clearly indicates the purpose or destination of the link."
+    },
+    {
+      "id": "5",
+      "wcag_criterion": "2.1.1 Keyboard",
+      "wcag_level": "A",
+      "severity": "Critical",
+      "category": "Operable",
+      "element": "Navigation menu",
+      "description": "The navigation menu is not accessible via keyboard, preventing users who rely on keyboard navigation from accessing menu items.",
+      "recommendation": "Ensure all interactive elements, including navigation menus, are operable through keyboard inputs."
+    },
+    {
+      "id": "6",
+      "wcag_criterion": "2.4.2 Page Titled",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Perceivable",
+      "element": "Page title",
+      "description": "The page lacks a descriptive title, making it difficult for users to understand the purpose of the page.",
+      "recommendation": "Provide a clear and descriptive title for the page that reflects its content and purpose."
+    },
+    {
+      "id": "7",
+      "wcag_criterion": "1.3.1 Info and Relationships",
+      "wcag_level": "A",
+      "severity": "Serious",
+      "category": "Perceivable",
+      "element": "Form structure",
+      "description": "The form lacks proper structural elements, making it difficult for assistive technologies to interpret the relationships between form controls.",
+      "recommendation": "Use appropriate HTML elements and attributes to define the structure and relationships of form controls."
+    },
+    {
+      "id": "8",
+      "wcag_criterion": "2.4.7 Focus Visible",
+      "wcag_level": "AA",
+      "severity": "Serious",
+      "category": "Operable",
+      "element": "Interactive elements",
+      "description": "Interactive elements do not have a visible focus indicator, making it difficult for keyboard users to determine which element has focus.",
+      "recommendation": "Ensure all interactive elements have a visible focus indicator to assist keyboard navigation."
+    },
+    {
+      "id": "9",
+      "wcag_criterion": "3.1.1 Language of Page",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Understandable",
+      "element": "HTML element",
+      "description": "The page does not specify the default language, which can affect screen reader pronunciation and translation tools.",
+      "recommendation": "Specify the default language of the page using the 'lang' attribute in the HTML element."
+    },
+    {
+      "id": "10",
+      "wcag_criterion": "2.2.2 Pause, Stop, Hide",
+      "wcag_level": "A",
+      "severity": "Moderate",
+      "category": "Operable",
+      "element": "Scrolling news ticker",
+      "description": "The scrolling news ticker cannot be paused, stopped, or hidden, which can be distracting for users.",
+      "recommendation": "Provide controls to pause, stop, or hide moving content that starts automatically and lasts more than five seconds."
+    }
+  ]
+}
