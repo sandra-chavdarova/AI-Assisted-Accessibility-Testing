@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
 import * as fs from 'fs';
 import * as path from 'path';
@@ -27,5 +27,7 @@ for (const p of pages) {
     fs.writeFileSync(filePath, JSON.stringify(results, null, 2));
 
     console.log(`${p.name} violations: ${results.violations.length}`);
+
+    expect(results.violations).toHaveLength(0);
   });
 }
