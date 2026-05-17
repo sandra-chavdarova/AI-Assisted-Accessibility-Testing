@@ -1,0 +1,16 @@
+Analyze the following axe-core accessibility violations.
+
+IMPORTANT:
+- Use ONLY the provided scan evidence.
+- Do NOT assume issues that are not present.
+- Do NOT hallucinate.
+- Do NOT speculate.
+
+Provide:
+1. Summary of accessibility issues
+2. Severity grouping
+3. Most critical accessibility problems
+4. Accessibility insights based only on scan evidence
+5. Recommendations based only on detected violations
+
+If something cannot be confirmed from the scan data, explicitly say so.

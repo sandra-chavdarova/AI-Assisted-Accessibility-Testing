@@ -1,21 +1,17 @@
 ## 1. Summary of accessibility issues
 
-### Confirmed findings from `violations`
+The scan reports **2 axe-core violations**, both with **moderate impact**:
 
-The scan reports **2 accessibility violation rules**, both with **moderate** impact:
+1. **Missing main landmark**
+   - Rule: `landmark-one-main`
+   - Message: “Document does not have a main landmark”
+   - Target: `html`
+   - Evidence: The document root is `<html lang="en">`, and axe reports that the document does not include a main landmark.
 
-1. **`landmark-one-main` — Document should have one main landmark**
-   - Impact: `moderate`
-   - Confirmed issue: **“Document does not have a main landmark.”**
-   - Affected target:
-     - `html`
-   - Failure summary:
-     - “Document does not have a main landmark”
-
-2. **`region` — All page content should be contained by landmarks**
-   - Impact: `moderate`
-   - Confirmed issue: **“Some page content is not contained by landmarks.”**
-   - Affected targets include:
+2. **Page content not contained by landmarks**
+   - Rule: `region`
+   - Message: “Some page content is not contained by landmarks”
+   - 14 affected nodes were reported, including:
      - `#logos`
      - `#meta-header > h1`
      - `.subline`
@@ -31,174 +27,143 @@ The scan reports **2 accessibility violation rules**, both with **moderate** imp
      - `#footer`
      - `#meta-footer`
 
-### Not confirmed as violations
-
-- **Color contrast failure is not explicitly present as a violation.**
-  - `color-contrast` appears in `incomplete`, not `violations`.
-  - The scan states that for some elements, **“Element's background color could not be determined due to a background image.”**
-  - Therefore, a color contrast violation is **not confirmed** by the provided results.
+These issues are related to **page landmark structure and semantic organization**.
 
 ---
 
 ## 2. Severity grouping
 
-### Critical
-- No critical-impact violations are explicitly present in the scan results.
+### Moderate impact
 
-### Serious
-- No serious-impact violations are explicitly present in the scan results.
-- Note: `color-contrast` appears as `serious` in `incomplete`, but incomplete results are not confirmed violations.
+The scan contains only **moderate** impact violations.
 
-### Moderate
-Confirmed moderate violations:
+| Rule ID | Issue | Impact | Affected nodes |
+|---|---|---:|---:|
+| `landmark-one-main` | Document does not have a main landmark | Moderate | 1 |
+| `region` | Some page content is not contained by landmarks | Moderate | 14 |
 
-1. **`landmark-one-main`**
-   - 1 affected node
-   - Issue: Document does not have a main landmark.
+### Serious / Critical / Minor
 
-2. **`region`**
-   - 14 affected nodes
-   - Issue: Some page content is not contained by landmarks.
-
-### Minor
-- No minor-impact violations are explicitly present in the scan results.
+No `critical`, `serious`, or `minor` impact violations are present in the provided scan evidence.
 
 ---
 
 ## 3. Most critical accessibility problems
 
-### Confirmed findings
+Based only on the scan evidence, the most significant problems are:
 
-Because the scan reports only **moderate-impact violations**, the most critical confirmed problems are:
+1. **The page has no main landmark**
+   - Axe reports: “Document does not have a main landmark.”
+   - This affects the overall document structure.
 
-1. **Missing main landmark — `landmark-one-main`**
-   - The document does not have a main landmark.
-   - Affected target: `html`
+2. **Multiple sections of visible or interactive page content are outside landmarks**
+   - Axe reports 14 instances where content is not contained by landmarks.
+   - This includes structural areas such as:
+     - Header-like content: `#logos`, `#meta-header > h1`, `.subline`
+     - Navigation-like content: `#mnav`, skip links
+     - Main content container: `#main`
+     - Footer-like content: `#footer`, `#meta-footer`
+     - Form-related content: `#qklabel`, `#qkmenu`
 
-2. **Content outside landmarks — `region`**
-   - Some page content is not contained by landmarks.
-   - Affected areas include header/meta content, navigation-related content, form controls, informational content, main content container, footer, and meta-footer.
-
-### Interpretation based only on scan evidence
-
-These issues relate to **page landmarks and structural organization**, based on the axe rule descriptions:
-
-- `landmark-one-main`: “Ensure the document has a main landmark”
-- `region`: “Ensure all page content is contained by landmarks”
-
-No critical or serious accessibility problems are confirmed in the `violations` array.
+There are no higher-severity issues reported in the provided data.
 
 ---
 
 ## 4. Accessibility insights based only on scan evidence
 
-### Confirmed violation evidence
-
-- The page is missing a main landmark:
-  - Violation ID: `landmark-one-main`
-  - Message: “Document does not have a main landmark”
-
-- Some page content is not contained by landmarks:
-  - Violation ID: `region`
-  - Message: “Some page content is not contained by landmarks”
-
-### Confirmed passing evidence
-
-The scan also includes many passing checks. Examples explicitly present in `passes` include:
-
-- **Document title present**
-  - Rule: `document-title`
-  - Message: “Document has a non-empty `<title>` element”
-
-- **HTML language attribute present and valid**
-  - Rules:
-    - `html-has-lang`
-    - `html-lang-valid`
-  - Evidence:
-    - `<html lang="en">`
-    - “The `<html>` element has a lang attribute”
-    - “Value of lang attribute is included in the list of valid languages”
-
-- **Images have alternative text**
-  - Rule: `image-alt`
-  - Example targets:
-    - `img[alt="W3C logo"]`
-    - `img[src$="wai.png"]`
-    - `img[src$="toplogo.png"]`
-    - `img[src$="weather.png"]`
-  - Message: “Element has an alt attribute”
-
-- **Links have discernible text**
-  - Rule: `link-name`
-  - Multiple links passed with message:
-    - “Element has text that is visible to screen readers”
-
-- **The select element has an accessible name**
-  - Rule: `select-name`
-  - Target: `#qkmenu`
-  - Related label:
-    - `<label for="qkmenu" id="qklabel">Explore Site by Topic:</label>`
-  - Message: “Element has an explicit `<label>`”
-
-- **A skip link target exists**
-  - Rule: `skip-link`
-  - Target:
-    - `a[href$="#page"]`
-  - Message: “Skip link target exists”
-
-### Incomplete evidence
-
-- Rule: `color-contrast`
-- Status: `incomplete`
-- Impact: `serious`
-- Confirmed scan message:
-  - “Element's background color could not be determined due to a background image”
-- Interpretation:
-  - This is not a confirmed violation in the provided results.
-  - A failed color contrast issue is **not explicitly present in the scan results**.
+- The page lacks a recognized **main landmark**.
+- Several containers use generic elements such as `<div>` and `<p>` for important page regions.
+  - Examples from the evidence:
+    - `<div id="main">`
+    - `<div id="footer">`
+    - `<div id="meta-footer" class="meta">`
+    - `<div id="mnav" class="accessible">`
+- The presence of `id="main"` does **not** by itself create a main landmark. Axe still reports that the document has no main landmark.
+- The scan confirms that some page content is outside landmarks, but it does **not** confirm the full landmark structure of the entire page.
+- The scan does **not** report issues with image alternative text, form labels, color contrast, keyboard traps, or heading order in the provided evidence. Those cannot be inferred from this data.
 
 ---
 
 ## 5. Recommendations based only on detected violations
 
-### For `landmark-one-main`
+### Add one main landmark
 
-Add or expose **one main landmark** for the document.
+Use a semantic `<main>` element or add `role="main"` to the primary content container.
 
-Confirmed issue:
-- “Document does not have a main landmark”
+For example, based on the reported `#main` element:
 
-Recommendation based on the violation:
-- Provide a main landmark, for example by using a semantic `<main>` element or an element with an appropriate main landmark role.
+```html
+<main id="main">
+  ...
+</main>
+```
 
-### For `region`
+Alternatively:
 
-Ensure all identified page content is contained within landmarks.
+```html
+<div id="main" role="main">
+  ...
+</div>
+```
 
-Confirmed issue:
-- “Some page content is not contained by landmarks”
+The axe rule specifically expects the document to have one main landmark.
 
-Affected content explicitly listed by the scan includes:
-- `#logos`
-- `#meta-header > h1`
-- `.subline`
-- `#mnav`
-- `#startcontent`
-- `.skip:nth-child(2)`
-- `#header > a[href$="home.html"]`
-- `img[src$="weather.png"]`
-- `#qklabel`
-- `#qkmenu`
-- `#info`
-- `#main`
-- `#footer`
-- `#meta-footer`
+---
 
-Recommendation based on the violation:
-- Place these content areas inside appropriate landmark containers.
-- Ensure the page structure includes landmarks that contain the page’s header, navigation, main content, and footer areas.
+### Place all page content inside appropriate landmarks
 
-### Not recommended as confirmed fixes
+Move or wrap the reported content inside semantic landmark regions such as:
 
-- Color contrast remediation is **not recommended as a confirmed violation fix**, because `color-contrast` is present only under `incomplete`, not `violations`.
-- A confirmed color contrast failure is **not explicitly present in the scan results**.
+```html
+<header>
+  ...
+</header>
+
+<nav>
+  ...
+</nav>
+
+<main>
+  ...
+</main>
+
+<footer>
+  ...
+</footer>
+```
+
+Based on the affected nodes, likely candidates for landmark placement include:
+
+- `#logos`, `#meta-header > h1`, `.subline` inside a header/banner area
+- `#mnav` and skip/navigation links inside a navigation landmark
+- `#main` as the main landmark
+- `#footer` and `#meta-footer` inside a footer/contentinfo area
+
+If using non-semantic containers, add appropriate landmark roles where valid, such as:
+
+```html
+<div role="banner">
+  ...
+</div>
+
+<div role="navigation">
+  ...
+</div>
+
+<div role="main">
+  ...
+</div>
+
+<div role="contentinfo">
+  ...
+</div>
+```
+
+---
+
+### Re-test after landmark changes
+
+After adding a main landmark and placing the flagged content inside landmarks, run axe-core again to confirm:
+
+- The `landmark-one-main` violation is resolved.
+- The `region` violations are resolved for the listed targets.

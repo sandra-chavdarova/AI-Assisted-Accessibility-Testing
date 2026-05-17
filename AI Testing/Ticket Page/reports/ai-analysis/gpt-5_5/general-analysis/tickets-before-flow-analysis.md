@@ -1,26 +1,17 @@
 ## 1. Summary of accessibility issues
 
-The scan found **8 accessibility violation types** affecting approximately **48 elements**, plus **3 items requiring manual review**.
+The scan found **8 axe-core violation types** across **48 affected nodes**.
 
-Key issues:
-
-- **Missing alternative text on images** — many layout, navigation, spacer, border, and heading images lack `alt`, `aria-label`, or presentational roles.
-- **Unlabeled `<select>` control** — the “QUICKMENU” dropdown has no accessible name.
-- **Image-only links with no accessible text** — several navigation links contain only unlabeled images, making the links unnamed to screen readers.
-- **Insufficient color contrast** — table/category header text uses `#41545D` on `#A9B8BF`, producing a contrast ratio of **3.88:1**, below the required **4.5:1**.
-- **Missing page language** — the `<html>` element has no `lang` attribute.
-- **Landmark structure issues** — the page lacks a `<main>` landmark and some content is outside landmarks.
-- **Empty table header** — a `<th>` contains only an unlabeled image, so it has no discernible text.
-- **Manual contrast review needed** — three elements could not be automatically evaluated because of background images or obscured backgrounds.
-
-Positive findings:
-
-- The document has a non-empty `<title>`.
-- A level-one heading exists.
-- A skip link exists and its target exists.
-- Many text elements pass color contrast.
-- List structure appears valid.
-- No major ARIA misuse was detected in the scanned rules.
+| Issue | Impact | Affected nodes | Summary |
+|---|---:|---:|---|
+| `image-alt` | Critical | 26 | Multiple `<img>` elements have no accessible text alternative, no `alt`, no ARIA label, no title, and are not marked presentational. |
+| `select-name` | Critical | 1 | A `<select>` element has no accessible name or associated label. |
+| `color-contrast` | Serious | 8 | Text using foreground `#41545d` on background `#a9b8bf` has contrast ratio `3.88:1`, below the required `4.5:1`. |
+| `html-has-lang` | Serious | 1 | The `<html>` element does not have a `lang` attribute. |
+| `link-name` | Serious | 4 | Four links are in the tab order but have no accessible text/name. They contain images that also lack alt text. |
+| `landmark-one-main` | Moderate | 1 | The document does not have a main landmark. |
+| `region` | Moderate | 6 | Several page sections/content areas are not contained within landmarks. |
+| `empty-table-header` | Minor | 1 | A table header `<th>` contains an image but has no text visible to screen readers. |
 
 ---
 
@@ -28,178 +19,118 @@ Positive findings:
 
 ### Critical
 
-| Rule | Instances | Issue |
-|---|---:|---|
-| `image-alt` | 26 | Images lack alternative text or presentational semantics |
-| `select-name` | 1 | `<select>` element has no accessible name |
+**2 violation types, 27 affected nodes**
 
-**Total critical instances:** 27
-
----
+- `image-alt` — 26 image elements lack alternative text or presentational semantics.
+- `select-name` — 1 `<select>` element lacks an accessible name.
 
 ### Serious
 
-| Rule | Instances | Issue |
-|---|---:|---|
-| `color-contrast` | 8 | Text contrast ratio is 3.88:1 instead of 4.5:1 |
-| `html-has-lang` | 1 | `<html>` element lacks `lang` |
-| `link-name` | 4 | Links have no accessible text/name |
+**3 violation types, 13 affected nodes**
 
-**Total serious instances:** 13
-
----
+- `color-contrast` — 8 text elements fail WCAG AA contrast requirements.
+- `html-has-lang` — the document `<html>` element lacks `lang`.
+- `link-name` — 4 links lack discernible accessible text.
 
 ### Moderate
 
-| Rule | Instances | Issue |
-|---|---:|---|
-| `landmark-one-main` | 1 | Document lacks a main landmark |
-| `region` | 6 | Some content is not contained in landmarks |
+**2 violation types, 7 affected nodes**
 
-**Total moderate instances:** 7
-
----
+- `landmark-one-main` — no main landmark exists.
+- `region` — 6 pieces of content are outside landmarks.
 
 ### Minor
 
-| Rule | Instances | Issue |
-|---|---:|---|
-| `empty-table-header` | 1 | Table header has no discernible text |
+**1 violation type, 1 affected node**
 
-**Total minor instances:** 1
-
----
-
-### Needs manual review
-
-| Rule | Instances | Issue |
-|---|---:|---|
-| `color-contrast` | 3 | Contrast could not be determined due to background images or overlapping content |
+- `empty-table-header` — 1 table header lacks discernible screen-reader text.
 
 ---
 
 ## 3. Most critical accessibility problems
 
-### 1. Missing alternative text on images
+### 1. Images without alternative text
 
-This is the most widespread issue. Many images have no `alt` text and are not marked as decorative.
+The most widespread critical issue is `image-alt`, affecting **26 images**.
 
 Examples include:
 
-- Border images:
-  - `border_left_top.gif`
-  - `border_top.gif`
-  - `border_right.gif`
-  - `border_bottom.gif`
-- Spacer/marker images:
-  - `marker2_w.gif`
-  - `marker2_t.gif`
-  - `blank_5x5.gif`
 - Navigation images:
   - `nav_home.gif`
   - `nav_news.gif`
   - `nav_facts.gif`
   - `nav_survey.gif`
-- Heading images:
+- Header/content images:
   - `headline_ticket_offers.gif`
   - `headline_ticket_prices.gif`
+  - `top_weather.gif`
+- Decorative/layout images:
+  - `border_left_top.gif`
+  - `border_top.gif`
+  - `border_right_top.gif`
+  - `border_left.gif`
+  - `border_right.gif`
+  - `border_bottom.gif`
+  - `blank_5x5.gif`
+  - `marker2_w.gif`
 
-Impact:
+The scan evidence shows these images do not have:
 
-- Screen reader users may hear meaningless file names or receive no useful information.
-- Image-only navigation becomes unusable when the image has no text alternative.
-- Content rendered as images, such as section headings, may be invisible to assistive technologies.
+- `alt`
+- `aria-label`
+- valid `aria-labelledby`
+- `title`
+- `role="none"` or `role="presentation"`
 
-Recommended approach:
-
-- Decorative layout images should use `alt=""` or `role="presentation"`.
-- Functional images inside links should have meaningful `alt` text describing the link purpose.
-- Text images should be replaced with real HTML text where possible.
+This is especially important for images used inside links, because those links also fail `link-name`.
 
 ---
 
-### 2. Unlabeled quick menu `<select>`
+### 2. Select element without accessible name
 
-The dropdown:
+One `<select>` element fails `select-name`:
 
 ```html
 <select onchange="location.href = this.value;">
 ```
 
-has no accessible name.
+The scan reports that it has no:
 
-Impact:
+- implicit label
+- explicit label
+- `aria-label`
+- valid `aria-labelledby`
+- `title`
 
-- Screen reader users may not know what the dropdown is for.
-- Voice control users cannot reliably identify the control.
-- Keyboard users may trigger navigation unexpectedly when changing the selection.
-
-Recommended fix:
-
-```html
-<label for="quickmenu">Quick menu</label>
-<select id="quickmenu" name="quickmenu">
-  ...
-</select>
-```
-
-Preferably, avoid auto-navigation on `change`; use a separate “Go” button.
+This means the control has no accessible name according to the scan.
 
 ---
 
-### 3. Links without accessible names
+### 3. Links without discernible text
 
-Four navigation links are image-only and have no text alternative.
+Four links fail `link-name`:
 
-Examples:
+- `#home > a`
+- `#news > a`
+- `#tickets > a`
+- `#survey > a`
 
-```html
-<a href="javascript:location.href='home.html';" onfocus="blur();">
-  <img name="nav_home" src="./img/nav_home.gif">
-</a>
-```
+Each link is reported as:
 
-Problems:
+> Element is in tab order and does not have accessible text
 
-- The link has no accessible name.
-- The image inside the link also lacks `alt`.
-- `href="javascript:..."` is poor practice.
-- `onfocus="blur();"` removes keyboard focus, which is especially problematic for keyboard and assistive technology users.
-
-Impact:
-
-- Screen reader users encounter unlabeled links.
-- Keyboard users may be unable to track or activate navigation reliably.
-- Focus management is hostile to accessibility.
-
-Recommended fix:
-
-```html
-<a href="home.html">Home</a>
-```
-
-If an image must remain:
-
-```html
-<a href="home.html">
-  <img src="./img/nav_home.gif" alt="Home">
-</a>
-```
-
-Remove `onfocus="blur();"`.
+The links contain image-only navigation, but the images lack alt text, so the links do not receive accessible names from their contents.
 
 ---
 
-### 4. Insufficient contrast in table headers
+### 4. Insufficient color contrast
 
-Several table header/category labels fail contrast requirements.
+Eight text elements use:
 
-Detected colors:
-
-- Foreground: `#41545D`
-- Background: `#A9B8BF`
-- Contrast ratio: **3.88:1**
-- Required: **4.5:1**
+- Foreground: `#41545d`
+- Background: `#a9b8bf`
+- Contrast ratio: `3.88:1`
+- Expected: `4.5:1`
 
 Affected text includes:
 
@@ -212,130 +143,199 @@ Affected text includes:
 - `ST`
 - `Group (5 or more)`
 
-Impact:
+---
 
-- Users with low vision, color vision deficiencies, or poor display conditions may struggle to read these labels.
+## 4. Accessibility insights based only on scan evidence
 
-Recommended fix:
-
-Use a darker foreground or lighter background. For example:
-
-```css
-.table-header {
-  color: #1f2f36;
-  background-color: #a9b8bf;
-}
-```
-
-Or:
-
-```css
-.table-header {
-  color: #41545d;
-  background-color: #dbe3e6;
-}
-```
-
-Verify new combinations meet at least **4.5:1** for normal text.
+- The page relies heavily on images for visual structure and navigation.
+- Several navigation links are image-only and have no accessible names.
+- Some images appear to be decorative or layout-related based on filenames such as `border_*`, `blank_5x5.gif`, and `marker2_w.gif`, but the scan only confirms that they are not marked as decorative or given alt text.
+- The page has a language identification issue because the root `<html>` element lacks `lang`.
+- The page lacks landmark structure:
+  - No main landmark is present.
+  - Several visible content areas are outside landmarks, including `#logos`, `h1`, `.subline`, `#mnav`, `#page`, and `#meta-footer`.
+- A table header contains an image, `headline_ticket_prices.gif`, but no screen-reader-visible text.
+- The same image, `headline_ticket_prices.gif`, is also flagged under `image-alt`, meaning the table header issue is directly related to the missing accessible text for that image.
+- The color contrast failures are consistent: all reported failures use the same foreground/background color combination and contrast ratio.
 
 ---
 
-### 5. Missing document language
+## 5. Recommendations based only on detected violations
 
-The page is missing a `lang` attribute:
+### Fix critical issues first
+
+#### Add alternative text or decorative semantics to images
+
+For each affected `<img>`:
+
+- If the image conveys information, add an appropriate `alt` value.
+- If the image is decorative/layout-only, use `alt=""` or mark it with `role="presentation"` / `role="none"`.
+
+Example for informative image:
 
 ```html
-<html>
+<img src="./img/nav_home.gif" alt="Home">
 ```
 
-Impact:
+Example for decorative image:
 
-- Screen readers may use the wrong pronunciation rules.
-- Browser translation and spell-check features may behave incorrectly.
+```html
+<img src="./img/border_top.gif" alt="">
+```
 
-Recommended fix:
+For image links, make sure the link receives an accessible name, for example through the image `alt`:
+
+```html
+<a href="...">
+  <img src="./img/nav_news.gif" alt="News">
+</a>
+```
+
+---
+
+#### Add an accessible name to the `<select>`
+
+The detected `<select>` needs a label or accessible name.
+
+Preferred approach:
+
+```html
+<label for="page-select">Choose a page</label>
+<select id="page-select" onchange="location.href = this.value;">
+```
+
+Other valid approaches based on the rule include `aria-label`, `aria-labelledby`, or `title`, but an explicit `<label>` is typically the clearest fix.
+
+---
+
+### Fix serious issues
+
+#### Add accessible names to image-only links
+
+The four navigation links need discernible text. Since they contain images, adding meaningful `alt` text to the image may resolve both the `image-alt` and `link-name` violations.
+
+Examples:
+
+```html
+<a href="javascript:location.href='home.html';">
+  <img name="nav_home" src="./img/nav_home.gif" alt="Home">
+</a>
+```
+
+```html
+<a href="javascript:location.href='news.html';">
+  <img src="./img/nav_news.gif" name="nav_news" alt="News">
+</a>
+```
+
+```html
+<a href="javascript:location.href='tickets.html';">
+  <img name="nav_facts" src="./img/nav_facts.gif" alt="Tickets">
+</a>
+```
+
+```html
+<a href="javascript:location.href='survey.html';">
+  <img src="./img/nav_survey.gif" name="nav_survey" alt="Survey">
+</a>
+```
+
+The exact accessible text should match the purpose of each link.
+
+---
+
+#### Add a `lang` attribute to `<html>`
+
+The document root should include a language attribute.
+
+Example:
 
 ```html
 <html lang="en">
 ```
 
-If parts of the page use another language, mark them individually, for example:
+Use the correct language value for the page content.
+
+---
+
+#### Improve color contrast
+
+The following color combination fails:
+
+```text
+Foreground: #41545d
+Background: #a9b8bf
+Current contrast: 3.88:1
+Required contrast: 4.5:1
+```
+
+Adjust either the foreground or background color so the contrast ratio is at least `4.5:1` for the affected text.
+
+Affected text includes table/header labels such as:
+
+- `Les Garçons`
+- `The Obelisks`
+- `ADULT`
+- `FS`
+- `RS`
+- `DC`
+- `ST`
+- `Group (5 or more)`
+
+---
+
+### Fix moderate issues
+
+#### Add a main landmark
+
+The document does not have a main landmark. Add one main content landmark, for example:
 
 ```html
-<span lang="fr">Les Garçons</span>
+<main>
+  ...
+</main>
+```
+
+or:
+
+```html
+<div role="main">
+  ...
+</div>
 ```
 
 ---
 
-## 4. Accessibility insights
+#### Place page content inside landmarks
 
-### The page appears to rely heavily on legacy layout techniques
+The scan reports these elements are not contained by landmarks:
 
-The markup uses many old or presentational patterns:
+- `#logos`
+- `h1`
+- `.subline`
+- `#mnav`
+- `#page`
+- `#meta-footer`
 
-- Table-based layout
-- Spacer images
-- Border images
-- Image-based navigation
-- `<font>` elements
-- Inline styles
-- JavaScript-based links
-- `onfocus="blur();"`
-- `bgcolor`, `width`, `height`, `align`, `valign`, and similar presentational attributes
+Place content inside appropriate landmark regions such as:
 
-These patterns increase accessibility risk because they separate the visual experience from the semantic structure assistive technologies depend on.
+- `<header>`
+- `<nav>`
+- `<main>`
+- `<footer>`
 
----
-
-### Some visual text is implemented as images
-
-Images such as:
-
-```html
-<img src="./img/headline_ticket_offers.gif">
-<img src="./img/headline_ticket_prices.gif">
-```
-
-appear to represent textual headings. Because they lack `alt`, users of screen readers may miss the section titles entirely.
-
-Better approach:
-
-```html
-<h2>Ticket offers</h2>
-<h2>Ticket prices</h2>
-```
-
-Use CSS for visual styling instead of rendering headings as images.
-
----
-
-### Navigation is not robust
-
-There appear to be two navigation systems:
-
-1. Text-based navigation that passes link-name checks.
-2. Image/JavaScript-based navigation that fails link-name checks.
-
-The image-based navigation is especially problematic because the links are unnamed and keyboard focus is intentionally removed.
-
----
-
-### The page lacks modern landmark structure
-
-The page has a heading and skip link, but it lacks a proper main landmark. Content is also reported outside landmarks.
-
-A modern structure should include:
+Example structure:
 
 ```html
 <header>
   ...
 </header>
 
-<nav aria-label="Primary">
+<nav>
   ...
 </nav>
 
-<main id="main">
+<main>
   ...
 </main>
 
@@ -344,152 +344,32 @@ A modern structure should include:
 </footer>
 ```
 
-This helps screen reader users navigate quickly between major page regions.
-
 ---
 
-### Automated testing did not catch everything
+### Fix minor issue
 
-axe-core found several important issues, but manual testing is still needed, especially for:
+#### Provide discernible text for the empty table header
 
-- Keyboard-only navigation
-- Focus visibility
-- Whether the quick menu behaves predictably
-- Whether tables are semantically correct
-- Whether image alternatives are meaningful, not merely present
-- Whether the visual reading order matches the DOM order
-- Contrast on elements with background images
-
----
-
-## 5. Recommendations for improvement
-
-### Highest priority fixes
-
-1. **Fix all critical image alternative issues**
-   - Use `alt=""` for decorative images.
-   - Use meaningful `alt` for functional images.
-   - Replace text-as-image headings with real headings.
-   - Add appropriate `alt` to navigation images if images remain.
-
-2. **Label the quick menu**
-   - Add a visible `<label>`.
-   - Avoid navigation on `change`.
-   - Add a separate “Go” button.
-
-3. **Fix unnamed image links**
-   - Replace JavaScript links with normal links.
-   - Add link text or image `alt`.
-   - Remove `onfocus="blur();"`.
-
-4. **Correct color contrast failures**
-   - Increase contrast for `#41545D` text on `#A9B8BF`.
-   - Re-test the three incomplete contrast items manually.
-
-5. **Add document language**
-   - Add `lang="en"` to `<html>`.
-   - Mark foreign-language phrases with appropriate `lang` values if needed.
-
----
-
-### Structural improvements
-
-6. **Add landmarks**
-   - Wrap top content in `<header>`.
-   - Wrap navigation in `<nav>`.
-   - Wrap primary page content in `<main>`.
-   - Wrap footer content in `<footer>`.
-
-7. **Replace layout tables with CSS**
-   - Use CSS layout instead of tables for page structure.
-   - Reserve tables for actual tabular data.
-
-8. **Improve table semantics**
-   - Use `<caption>` for data tables.
-   - Use `<th scope="col">` and `<th scope="row">` where appropriate.
-   - Avoid empty `<th>` elements.
-   - Do not use tables solely for spacing or presentation.
-
-9. **Remove deprecated/presentational markup**
-   - Replace `<font>`, `bgcolor`, `align`, `valign`, fixed pixel widths, and inline styling with CSS.
-   - Use semantic HTML elements.
-
----
-
-### Example fixes
-
-#### Decorative image
+The table header contains:
 
 ```html
-<img src="./img/border_top.gif" alt="">
-```
-
-or:
-
-```html
-<img src="./img/border_top.gif" role="presentation" alt="">
-```
-
-#### Functional image link
-
-```html
-<a href="home.html">
-  <img src="./img/nav_home.gif" alt="Home">
-</a>
-```
-
-Better:
-
-```html
-<a href="home.html">Home</a>
-```
-
-#### Heading image replacement
-
-Current:
-
-```html
-<th>
+<th style="padding-bottom:10px;">
   <img src="./img/headline_ticket_prices.gif" border="0">
 </th>
 ```
 
-Better:
+The scan reports the `<th>` has no text visible to screen readers. Provide accessible text for the header, either as text content or by giving the image meaningful alt text.
+
+Example:
 
 ```html
-<h2>Ticket prices</h2>
+<th style="padding-bottom:10px;">
+  <img src="./img/headline_ticket_prices.gif" alt="Ticket prices">
+</th>
 ```
 
-#### Select label
+Or use actual text:
 
 ```html
-<label for="quickmenu">Quick menu</label>
-<select id="quickmenu" name="quickmenu">
-  <option selected>Choose a service</option>
-  <option value="../offsite.html">Broadcasting</option>
-  <option value="../offsite.html">Education</option>
-</select>
-<button type="button">Go</button>
+<th style="padding-bottom:10px;">Ticket prices</th>
 ```
-
-#### Main landmark
-
-```html
-<main id="main">
-  ...
-</main>
-```
-
-#### HTML language
-
-```html
-<html lang="en">
-```
-
----
-
-## Overall assessment
-
-The page has several severe accessibility barriers, especially for screen reader and keyboard users. The most urgent issues are the **missing image alternatives**, **unnamed navigation links**, and **unlabeled select control**. The page also shows broader structural problems caused by legacy table-based layout and image-based text/navigation.
-
-Addressing the critical and serious issues first would significantly improve usability for assistive technology users. After that, the page should be modernized with semantic HTML, proper landmarks, CSS-based layout, accessible tables, and verified color contrast.

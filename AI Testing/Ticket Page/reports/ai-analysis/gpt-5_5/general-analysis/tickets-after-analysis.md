@@ -1,52 +1,59 @@
 ## 1. Summary of accessibility issues
 
-Scan target: `https://www.w3.org/WAI/demos/bad/after/tickets.html`  
-Tool: axe-core `4.11.4`
+The scan found **2 axe-core violations**, both with **moderate impact**:
 
-The scan reports **2 accessibility violations**, both with **moderate impact**, plus a large set of **incomplete color-contrast checks** requiring manual review.
+1. **Missing main landmark**
+   - Rule: `landmark-one-main`
+   - Issue: The document does not have a recognized `<main>` landmark.
+   - Evidence: The failing node is the root `<html lang="en">`, with the message:  
+     “Document does not have a main landmark.”
 
-### Detected violations
+2. **Page content is not contained by landmarks**
+   - Rule: `region`
+   - Issue: Multiple pieces of page content are outside recognized landmark regions.
+   - Evidence: 14 nodes were flagged, including:
+     - `#logos`
+     - `#meta-header > h1`
+     - `.subline`
+     - `#mnav`
+     - `#startcontent`
+     - skip links list
+     - header logo link
+     - weather image
+     - quick menu label/select
+     - `#info`
+     - `#main`
+     - `#footer`
+     - `#meta-footer`
 
-| Rule | Impact | Issue | Affected nodes |
-|---|---:|---|---:|
-| `landmark-one-main` | Moderate | The document does not have a main landmark | 1 |
-| `region` | Moderate | Some page content is not contained by landmarks | 14 |
-
-### Incomplete/manual checks
-
-| Rule | Impact | Issue |
-|---|---:|---|
-| `color-contrast` | Serious | axe could not determine contrast for many elements because their backgrounds use images |
-
-### Positive findings
-
-The page passed many important checks, including:
-
-- Page has a non-empty `<title>`
-- `<html lang="en">` is present and valid
-- Images have `alt` text
-- Links have discernible text
-- Form controls have labels / accessible names
-- Skip link exists
-- Lists are structurally valid
-- Tables use headers, captions, and header associations
-- Many visible text elements have sufficient color contrast where axe could calculate it
+The scan indicates that the page uses elements such as `<div id="main">`, `<div id="footer">`, and `<div id="mnav">`, but these are **not being recognized as landmarks** in their current form.
 
 ---
 
 ## 2. Severity grouping
 
-### Moderate violations
+### Moderate impact
 
-#### 1. Missing main landmark
+| Rule ID | Issue | Affected nodes |
+|---|---|---:|
+| `landmark-one-main` | Document does not have a main landmark | 1 |
+| `region` | Some page content is not contained by landmarks | 14 |
 
-**Rule:** `landmark-one-main`  
-**Impact:** Moderate  
-**Problem:** The page does not expose a `<main>` element or `role="main"` landmark.
+### No higher-severity issues reported
 
-This affects users of screen readers and other assistive technologies who rely on landmark navigation to jump directly to the main content.
+Based on the provided scan evidence, there are **no critical, serious, or minor violations** reported.
 
-Example affected target:
+---
+
+## 3. Most critical accessibility problems
+
+Since all detected violations are **moderate**, the most important issues are:
+
+### 1. No main landmark
+
+The page does not expose a recognized main content landmark. This can make it harder for users of assistive technologies to quickly navigate to the primary content area.
+
+Evidence:
 
 ```html
 <html lang="en">
@@ -58,432 +65,146 @@ Failure message:
 
 ---
 
-#### 2. Content not contained by landmarks
+### 2. Large portions of content are outside landmarks
 
-**Rule:** `region`  
-**Impact:** Moderate  
-**Problem:** Several areas of page content are outside semantic landmarks.
+Many visible and interactive page elements are not contained within recognized landmark regions. This includes page header content, navigation-related content, form controls, informational content, main content, and footer areas.
 
-Affected examples include:
+Examples from the scan:
 
-- Logo area: `#logos`
-- Meta page heading: `#meta-header > h1`
-- Meta navigation: `#mnav`
-- Demo skip links
-- Header logo link
-- Weather image
-- Quick-menu form label and select
-- Info section: `#info`
-- Main content wrapper: `#main`
-- Footer: `#footer`
-- Meta footer: `#meta-footer`
+```html
+<div id="main">
+```
 
-This makes page navigation less efficient for users who browse by landmarks.
+```html
+<div id="footer">
+```
 
----
+```html
+<div id="mnav" class="accessible">
+```
 
-### Serious incomplete checks
+```html
+<select name="qkemnu" id="qkmenu">
+```
 
-#### Color contrast could not be determined
-
-**Rule:** `color-contrast`  
-**Impact:** Serious  
-**Status:** Incomplete, not confirmed failure  
-**Problem:** axe could not determine the background color for many elements because background images are involved.
-
-Examples include:
-
-- Current page tab: `.page.current`
-- Annotation toggle: `.annotoggle`
-- Main navigation links: `.home`, `.news`, `.facts_set`, `.survey`
-- Main heading: `#content > h1`
-- Body text inside `#main`
-- Tables, captions, headers, and data cells
-- Terms and conditions heading and list items
-
-This does not necessarily mean the page fails WCAG contrast requirements, but it does mean these items need **manual contrast verification**.
+These elements may be visually structured, but the scan evidence shows they are not inside semantic landmark containers.
 
 ---
 
-### No critical or serious confirmed violations
+## 4. Accessibility insights based only on scan evidence
 
-The scan does **not** report any confirmed `critical` or `serious` violations. Several serious or critical rules appear in the `passes` section, but those are successful checks, not failures.
+- The document has `lang="en"`, but it lacks a recognized main landmark.
+- The page appears to have structural sections such as:
+  - `#main`
+  - `#footer`
+  - `#mnav`
+  - `#meta-header`
+  - `#meta-footer`
+- However, these are not being identified as landmarks by axe-core.
+- The presence of IDs like `main` and `footer` does not automatically create landmarks when they are applied to generic `<div>` elements.
+- The scan reports repeated landmark containment failures across many page areas, suggesting the page structure is not semantically exposed to assistive technologies.
+- The violations are tagged as **best-practice** issues, and the `region` rule is also tagged with `cat.keyboard`, `RGAAv4`, and `RGAA-9.2.1`.
 
 ---
 
-## 3. Most critical accessibility problems
+## 5. Recommendations based only on detected violations
 
-Although there are no confirmed critical violations, the most important issues are:
+### Add a single main landmark
 
-### 1. Missing main landmark
+Convert the existing main content container into a real main landmark.
 
-The absence of a main landmark is the clearest structural issue. Users of assistive technology often use landmarks to quickly move to:
+For example, change:
 
-- Header
-- Navigation
-- Main content
-- Footer
-- Complementary content
+```html
+<div id="main">
+```
 
-Without a main landmark, users may have to tab or browse through repeated header and navigation content before reaching the ticket information.
-
-Recommended fix:
+to:
 
 ```html
 <main id="main">
-  ...
-</main>
 ```
 
-Or, if changing the element is difficult:
+Or, if changing the element is not possible:
 
 ```html
 <div id="main" role="main">
-  ...
-</div>
 ```
+
+Ensure there is **only one** main landmark on the page.
 
 ---
 
-### 2. Incomplete landmark structure
+### Place all page content inside appropriate landmarks
 
-Multiple sections are not contained in appropriate landmarks. This weakens the semantic structure of the page.
+Wrap page regions in semantic landmarks where appropriate.
+
+Examples:
+
+- Use `<header>` for page header content.
+- Use `<nav>` for navigation areas such as `#mnav`.
+- Use `<main>` for the primary page content.
+- Use `<footer>` for footer content.
+- Use other landmark roles only where appropriate, such as `role="contentinfo"` or `role="banner"` if native elements cannot be used.
 
 For example:
 
 ```html
-<div id="footer">
-```
-
-should likely be:
-
-```html
-<footer id="footer">
-```
-
-And navigation areas such as:
-
-```html
-<div id="mnav">
-```
-
-should likely be:
-
-```html
-<nav id="mnav" aria-label="Demo navigation">
-```
-
----
-
-### 3. Color contrast needs manual validation
-
-The biggest potential risk is the large number of incomplete color contrast checks. Many of these are important content areas, including:
-
-- Navigation links
-- Main page heading
-- Ticket pricing table
-- Concert dates
-- Terms and conditions
-
-Because the page uses background images, axe cannot automatically determine whether text meets WCAG contrast thresholds.
-
-If any of these fail contrast, the impact would be significant for users with low vision, color-vision differences, or users viewing the page in poor lighting.
-
----
-
-## 4. Accessibility insights
-
-### The page is generally accessible in many core areas
-
-The scan shows strong accessibility support in several foundational areas:
-
-- Images have alternative text.
-- Links have accessible names.
-- Form controls are labeled.
-- Skip links exist.
-- Language is declared correctly.
-- Tables appear to be semantically structured.
-- List markup is valid.
-- Many text elements have sufficient calculated contrast.
-
-This suggests the page has already addressed many common accessibility failures.
-
----
-
-### The remaining issues are mostly structural
-
-The confirmed violations are not about missing labels, broken ARIA, empty links, or image alternatives. They are about **page regions and landmarks**.
-
-This means the page may be understandable once a user reaches the content, but it is less efficient to navigate.
-
----
-
-### The page uses older layout patterns
-
-The markup appears to use many generic containers:
-
-```html
-<div id="header">
-<div id="nav">
-<div id="main">
-<div id="footer">
-```
-
-These are visually meaningful but not automatically meaningful to assistive technologies unless they are converted to semantic HTML or given landmark roles.
-
-Modern HTML should prefer:
-
-```html
-<header>
-<nav>
-<main>
-<footer>
-```
-
----
-
-### Some content may be duplicated between demo wrapper and demo page
-
-The page appears to contain both W3C demo wrapper content and the Citylights demo page content. This may explain the multiple headers, navigation areas, and footers.
-
-If this page is intended as a demo embedded inside a larger instructional page, landmarks should be carefully labeled to distinguish:
-
-- W3C/WAI demo wrapper navigation
-- Citylights demo navigation
-- Main demo content
-- Meta footer
-- Demo page footer
-
-Use `aria-label` where multiple landmarks of the same type exist.
-
-Example:
-
-```html
-<nav aria-label="WAI demo navigation">
-```
-
-```html
-<nav aria-label="Citylights site navigation">
-```
-
----
-
-### Color contrast cannot be assumed to pass
-
-The calculated contrast results that did pass are very good in many cases, often with high ratios such as `21:1`, `13.71:1`, and `8.59:1`.
-
-However, many important areas could not be checked because of background images. These need human verification using a color picker or browser dev tools.
-
----
-
-## 5. Recommendations for improvement
-
-### Priority 1: Add a main landmark
-
-Wrap the primary page content in a `<main>` element.
-
-Current pattern:
-
-```html
-<div id="main">
-  ...
-</div>
-```
-
-Recommended:
-
-```html
-<main id="main">
-  ...
-</main>
-```
-
-If preserving the existing element is necessary:
-
-```html
-<div id="main" role="main">
-  ...
-</div>
-```
-
-There should generally be **one** main landmark per page.
-
----
-
-### Priority 2: Convert structural `<div>` elements into semantic landmarks
-
-Recommended changes:
-
-| Current element | Recommended element |
-|---|---|
-| `#meta-header` | `<header>` or `<div role="banner">` |
-| `#mnav` | `<nav aria-label="WAI demo navigation">` |
-| `#header` | `<header>` |
-| `#nav` | `<nav aria-label="Citylights navigation">` |
-| `#main` | `<main>` |
-| `#footer` | `<footer>` |
-| `#meta-footer` | `<footer>` or clearly labeled complementary/contentinfo region |
-
-Example:
-
-```html
-<header id="meta-header">
-  ...
-</header>
-
-<nav id="mnav" aria-label="Demo navigation">
+<nav id="mnav" class="accessible">
   ...
 </nav>
+```
 
-<main id="main">
+Instead of:
+
+```html
+<div id="mnav" class="accessible">
   ...
-</main>
+</div>
+```
 
+And:
+
+```html
 <footer id="footer">
   ...
 </footer>
 ```
 
-If there are multiple footers or headers, make their purposes clear with labels where appropriate.
+Instead of:
+
+```html
+<div id="footer">
+  ...
+</div>
+```
 
 ---
 
-### Priority 3: Ensure all meaningful content is inside landmarks
+### Ensure header, navigation, main content, and footer areas are all landmark-contained
 
-Move or wrap the following content into appropriate landmark containers:
+The flagged elements should be placed within appropriate landmarks, including:
 
 - `#logos`
 - `#meta-header > h1`
 - `.subline`
 - `#mnav`
-- Demo skip links
-- `#header > a`
-- Weather image
-- Quick menu label and select
+- `#startcontent`
+- skip links
+- header logo link
+- weather image
+- quick menu label and select
 - `#info`
 - `#main`
 - `#footer`
 - `#meta-footer`
 
-For example:
-
-```html
-<header id="header">
-  <a href="home.html">
-    <img src="./img/toplogo.png" alt="Citylights: your access to the city.">
-  </a>
-
-  <form>
-    ...
-  </form>
-
-  <div id="info">
-    ...
-  </div>
-</header>
-```
-
 ---
 
-### Priority 4: Manually verify color contrast for image-backed elements
+### Re-test after landmark changes
 
-Because axe could not compute contrast where background images are used, manually check contrast for:
+After adding the main landmark and wrapping content in appropriate landmark regions, run axe-core again to verify that:
 
-- Navigation tabs
-- Current page indicator
-- Main heading
-- Body copy over background images
-- Table captions
-- Table headers and data cells
-- Terms and conditions section
-
-Use WCAG thresholds:
-
-| Text type | Minimum contrast |
-|---|---:|
-| Normal text | 4.5:1 |
-| Large text, 18pt+ or 14pt+ bold | 3:1 |
-| UI components / graphical objects | 3:1 |
-
-If contrast is insufficient, consider:
-
-- Replacing image backgrounds with solid colors
-- Adding a solid background behind text
-- Using darker text
-- Using lighter background overlays
-- Avoiding text directly over patterned or gradient images
-
-Example improvement:
-
-```css
-#main {
-  background-color: #ffffff;
-  background-image: none;
-}
-
-#main p,
-#main td,
-#main th {
-  color: #000000;
-}
-```
-
-Or:
-
-```css
-.text-on-image {
-  background-color: rgba(255, 255, 255, 0.95);
-  color: #000;
-}
-```
-
----
-
-### Priority 5: Preserve existing good practices
-
-The page already does many things well. Keep the following:
-
-- Meaningful image `alt` attributes
-- Visible form labels
-- Skip links
-- Valid language attributes
-- Discernible link text
-- Semantic lists
-- Table captions and header associations
-- High contrast where already confirmed
-
----
-
-### Priority 6: Re-test after changes
-
-After applying landmark and contrast updates:
-
-1. Re-run axe-core.
-2. Confirm `landmark-one-main` is resolved.
-3. Confirm `region` is resolved or significantly reduced.
-4. Manually test contrast for background-image areas.
-5. Test keyboard navigation.
-6. Test screen reader landmark navigation.
-
-Recommended manual checks:
-
-- Can a screen reader user jump directly to main content?
-- Are navigation regions clearly named?
-- Are there multiple landmarks with the same role and no label?
-- Does the visual focus indicator remain visible?
-- Does text remain readable at 200% zoom?
-- Are background images still compatible with high-contrast or forced-colors modes?
-
----
-
-## Overall assessment
-
-The page has a relatively good accessibility foundation. The confirmed failures are limited to **landmark structure**, especially the missing main landmark and content outside landmarks.
-
-The main remediation work should focus on:
-
-1. Adding a proper `<main>` landmark.
-2. Wrapping header, navigation, content, and footer areas in semantic landmarks.
-3. Manually validating color contrast for image-backed content.
-
-Once those are addressed, the page should be significantly easier to navigate for screen reader and keyboard users.
+- The document has exactly one main landmark.
+- All page content is contained within landmarks.
+- The `landmark-one-main` and `region` violations are resolved.

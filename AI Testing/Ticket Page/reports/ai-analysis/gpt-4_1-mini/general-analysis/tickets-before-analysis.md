@@ -1,134 +1,58 @@
-Here is a detailed analysis of the provided axe-core accessibility scan results for the URL: https://www.w3.org/WAI/demos/bad/before/tickets.html
+1. Summary of Accessibility Issues:
+   - Color Contrast (Serious): Multiple elements, mostly table cells with bold text, have insufficient contrast (3.88:1) against their background. The minimum WCAG 2.0 AA contrast ratio of 4.5:1 is not met.
+   - Empty Table Header (Minor): A table header `<th>` contains only an image without any visible text, making it impossible for screen readers to discern the header content.
+   - Missing HTML Lang Attribute (Serious): The `<html>` element lacks a `lang` attribute to declare the language of the document.
+   - Missing Alternative Text on Images (Critical): Numerous `<img>` elements are missing alternative text (`alt` attribute) and do not have roles of presentation/none, titles, or aria-labels, resulting in lack of accessible names.
+   - Missing Main Landmark (Moderate): The document does not contain one `main` landmark element to signify primary content.
+   - Content Not Contained in Landmarks (Moderate): Several content elements including paragraphs, divs, and headings exist outside of any ARIA landmarks.
+   - Select Element Missing Accessible Name (Critical): A `<select>` element lacks any accessible name via label, aria-label, aria-labelledby, or title attribute.
 
----
+2. Severity Grouping:
+   - Critical:
+     - Missing alt text on numerous images (image-alt).
+     - Select element without accessible name (select-name).
+   - Serious:
+     - Insufficient color contrast (color-contrast).
+     - Missing lang attribute on `<html>` (html-has-lang).
+     - Links without discernible text (link-name).
+   - Moderate:
+     - Missing main landmark (landmark-one-main).
+     - Page content not contained within landmarks (region).
+   - Minor:
+     - Empty table headers without text (empty-table-header).
 
-### 1. Summary of Accessibility Issues
+3. Most Critical Accessibility Problems:
+   - Missing Alternative Text on Images: Many images lack alt text or equivalent, which prevents screen reader users from understanding the visual content. This affects navigation, orientation, and understanding.
+   - Select Element Without Accessible Name: The missing accessible name on the select control means users of assistive technologies will not know its purpose or options.
 
-The scan results show:
+4. Accessibility Insights Based on Scan Evidence:
+   - Text elements with color #41545d on background #a9b8bf in table rows fail contrast requirements, which might impair users with low vision or color blindness.
+   - Table headers containing only images without alt text or any text are not accessible as headers to screen readers.
+   - The root `<html>` element missing the language declaration can cause screen readers to misinterpret pronunciation or language rules.
+   - Many images appear to be used as navigation buttons or decorative elements but lack alt attributes or meaningful roles, causing confusion.
+   - Documents lacking a `main` landmark and having content outside of landmarks reduce navigability for screen reader users who rely on landmarks.
+   - Interactive form control (`select`) lacking an accessible name prevents users from understanding or using the control.
 
-- **Violations**: Accessibility failures impacting users that must be fixed.
-- **Incomplete**: Items requiring manual review or where automatic checks couldn’t determine issues fully.
-- **Passes**: Accessibility best practices correctly implemented.
-- **Inapplicable**: Rules that don’t apply to this page or context.
+5. Recommendations Based on Detected Violations:
+   - Color Contrast:
+     - Adjust the foreground text color or background color in table rows to meet or exceed a 4.5:1 contrast ratio for normal text.
+     - Avoid using colors that do not meet WCAG 2.0 minimum contrast thresholds, especially on small font sizes and bold weights.
+   - Empty Table Headers:
+     - Provide discernible text inside table headers or add appropriate alt text on images within headers.
+     - Alternatively, consider using `aria-label` or `aria-labelledby` to provide accessible names to such headers.
+   - HTML Lang Attribute:
+     - Add a `lang` attribute to the `<html>` element with the correct language code (e.g., `<html lang="en">`).
+   - Image Alternative Text:
+     - Add meaningful `alt` attributes describing the purpose or content of each `<img>`.
+     - For purely decorative images, add `alt=""` and/or `role="presentation"` or `role="none"` to hide them from assistive technologies.
+     - Avoid missing title or aria-label attributes on images that convey information or provide navigation.
+   - Main Landmark:
+     - Wrap the primary content in a `<main>` element or add `role="main"` to an appropriate container to define the main landmark.
+   - Landmark Regions:
+     - Ensure all page content is contained within ARIA landmarks such as `<header>`, `<nav>`, `<main>`, `<aside>`, and `<footer>`.
+     - This helps users navigate efficiently using assistive technology.
+   - Select Element Accessible Name:
+     - Provide an accessible name for the `<select>` element using either a `<label>`, `aria-label`, `aria-labelledby`, or a descriptive `title`.
+     - Avoid relying solely on visual context or placeholder text for labeling form controls.
 
-#### Key categories and findings:
-- **Critical Violations:**
-  - Many `<img>` elements missing proper alternative text or equivalent accessible labels.
-  - `<select>` element missing accessible name (label).
-- **Serious Violations:**
-  - Insufficient color contrast (especially for table headers and some text in colored backgrounds).
-  - Links without accessible discernible text.
-- **Moderate Issues:**
-  - Missing or no main landmark element.
-  - Some content not contained within landmark regions.
-- **Minor Issues:**
-  - Empty table headers (headers have images instead of text).
-
----
-
-### 2. Severity Grouping
-
-| Severity | Number of Issues | Key Issues Summary                                            |
-| -------- | ---------------- | -------------------------------------------------------------|
-| Critical | Multiple         | - Missing alt text on many images<br>- Select element missing label |
-| Serious  | Multiple         | - Color contrast issues (esp. text on light blue backgrounds)<br>- Links without discernible names |
-| Moderate | Multiple         | - Missing main landmark<br>- Some page content not contained within landmarks<br>- Heading order and label usage |
-| Minor    | Few              | - Empty table headers<br>- Some best practice issues (e.g., visible labels) |
-| Incomplete | Few            | - Color contrast tests affected by background images or obscured elements |
-
----
-
-### 3. Most Critical Accessibility Problems
-
-#### a) **Image Alternative Text Issues (image-alt)**
-- Numerous `<img>` elements do not have alt attributes or other accessible text alternatives.
-- Examples include border images, decorative images, and navigation icons.
-- These images are meaningful or used as links/buttons but lack any text alternatives.
-
-#### b) **Select Element Accessible Name (select-name)**
-- The `<select>` element on the page does not have any:
-  - Wrapped or explicit `<label>`.
-  - `aria-label` or `aria-labelledby`.
-  - Title attribute.
-- This causes problems for keyboard and screen reader users who cannot identify the purpose of the select field.
-
-#### c) **Links Without Names (link-name)**
-- Several actionable links contain only images without alt, aria-label, or title attributes.
-- These links have no discernible text for assistive technology users.
-- Examples include navigation image links (`nav_home`, `nav_news`, `nav_facts`, etc.) with zero textual accessible name.
-
----
-
-### 4. Accessibility Insights
-
-- The page relies heavily on images for UI elements (navigation, buttons, headers) but fails to provide accessible alternatives for those images.
-- Use of images without alt text or with empty/invalid alt text impacts screen reader users.
-- The select drop-down is not labeled, making it inaccessible.
-- Multiple color contrast problems affect readability, especially on table headers with foreground #41545d (~dark muted blue) on background #a9b8bf (light desaturated blue), resulting in contrast ratios below WCAG 2.1 AA requirements.
-- Several sections and parts of the content are *not* properly contained inside semantic *landmark* elements, which negatively impacts navigation ease with assistive technologies.
-- No `<main>` landmark is found, so screen readers cannot easily jump to the primary content.
-- Links without visible or programmatic names typically rely on images, which have missing or invalid alt text, causing navigation confusion.
-- Best practices such as unique ARIA roles, labelled buttons, and proper heading structures appear to be followed or marked inapplicable.
-- Inline CSS for spacing is used but does not employ styles with `!important` for user style overrides, which might restrict user control for adjusting spacing.
-- The page has a valid non-empty `<title>` element and level-one headings, aiding navigation and orientation.
-- Some color contrast validations are marked incomplete due to background images or partial element coverage, which requires manual review.
-
----
-
-### 5. Recommendations for Improvement
-
-#### Image Alternative Text
-- **Provide meaningful `alt` text** for all informative images.
-- For purely decorative images, use `alt=""` or roles like `role="presentation"` to ensure they are ignored by screen readers.
-- Avoid images without any accessible name or role being interactive (clickable/linkable) without properly labeled alternatives.
-
-#### Select Element Labeling
-- Add an explicit label for the `<select>` element using either:
-  - A visible `<label for="...">` associated with the `<select>` via `id`.
-  - Or an `aria-label` or `aria-labelledby` attribute on the select element.
-- Avoid relying solely on the `title` attribute, as it is not a robust or fallback accessible name.
-
-#### Link Accessibility
-- Ensure all links have accessible text or labels:
-  - If a link uses an image only, the image must have descriptive alt text.
-  - Alternatively, use aria-label or add visible text next to or inside links.
-- Avoid links with no focus text or labelled only with empty alt attributes.
-- Review navigation links and hotspot images for accessible names.
-
-#### Color Contrast
-- Fix insufficient color contrast issues, especially:
-  - Table headers with foreground color #41545d on background #a9b8bf (~3.88 ratio, below 4.5:1).
-  - Ensure text meets at least 4.5:1 contrast for normal font weight or 3:1 for large/bold fonts.
-- Avoid colors with low contrast, or use additional means (underline, boldness) to distinguish visually.
-- Manually review incomplete color-contrast tests where background images interfere.
-
-#### Landmark and Structure
-- Include exactly one `<main>` landmark to contain the primary page content.
-- Ensure all meaningful page content is contained within landmarks like `header`, `main`, `nav`, and `footer`.
-- This helps screen reader users jump directly to relevant parts of the page.
-
-#### General Practices
-- Avoid inline styles for text spacing unless necessary; use CSS with `!important` to allow user override.
-- Review table headers:
-  - Ensure `<th>` elements have discernible text (do not use images alone).
-  - Use proper association between headers and cells via `scope`, `headers` attributes.
-- Test with different assistive technologies to confirm ARIA attributes and labels work as expected.
-- Avoid deprecated or confusing ARIA roles or attributes (passed as inapplicable here but worth verifying).
-
----
-
-### Summary
-
-While this page includes some structural and semantic elements correctly, the most significant barriers are:
-
-- Lack of descriptive alt text on many images, especially those used in navigation and layout.
-- A missing accessible name for form controls (select).
-- Links without accessible text.
-- Color contrast issues in table headers and other text on backgrounds reducing readability.
-- Missing main landmark and partial lack of landmark containment hindering screen reader navigation.
-
-Addressing these issues will greatly improve accessibility compliance and user experience for persons with disabilities.
-
----
-
-Please let me know if you want a prioritized action plan or code examples for remediation!
+   By addressing these issues, the site will better comply with accessibility standards (WCAG 2.0 Level AA and Section 508), improving usability for all users, including those relying on screen readers or with visual impairments.
