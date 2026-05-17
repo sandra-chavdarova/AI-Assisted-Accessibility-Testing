@@ -1,0 +1,36 @@
+<!-- Navigation accessibility issue -->
+<td WIDTH=154px bgcolor="#EDEDED" id="home"
+onMouseOver="switchImage('nav_home', './img/nav_home2.gif'); ChangeColor('home','#FFF')"
+onMouseOut="switchImage('nav_home', './img/nav_home.gif'); ChangeColor('home','#EDEDED')">
+<A HREF="javascript:location.href='home.html';" onFocus="blur();">
+<img name="nav_home" src=./img/nav_home.gif width=88 height=27 hspace="15" border=0px>
+</a>
+</TD>
+
+<!-- Missing label for select menu -->
+<SELECT ONCHANGE="location.href = this.value;">
+    <OPTION SELECTED>QUICKMENU ---->
+    <OPTION VALUE="../offsite.html">Broadcasting
+    <OPTION VALUE="../offsite.html">Education
+    <OPTION VALUE="../offsite.html">Transportation
+</SELECT>
+
+<!-- Inaccessible concert table -->
+<table width="250px" border="1" bordercolor="#C0C0C0" rules="rows">
+    <tr bgcolor="#A9B8BF">
+        <td><b><font color="41545D">Les Garçons</font></b></td>
+        <td><b><font color="41545D">The Obelisks</font></b></td>
+    </tr>
+    <tr>
+        <td>12/2/06</td>
+        <td>24/3/06</td>
+    </tr>
+</table>
+
+<!-- Deprecated and inaccessible formatting -->
+<p id="terms" align="justify">
+<b>
+[1] YOU AGREE THROUGH THE ACT OF CALLING THE M-U-S-I-C LINE...
+<U>SINCE CITYLIGHTS WOULD BE IRREPARABLY DAMAGED...</U>
+</b>
+</p>

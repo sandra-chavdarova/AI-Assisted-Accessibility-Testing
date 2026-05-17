@@ -1,0 +1,67 @@
+<!-- Accessible navigation -->
+<div id="nav">
+  <ul>
+    <li class="home"><a href="home.html">Home</a></li>
+    <li class="news"><a href="news.html">News</a></li>
+    <li class="facts_set"><a>Tickets</a></li>
+    <li class="survey"><a href="survey.html">Survey</a></li>
+  </ul>
+</div>
+
+<!-- Accessible select menu with label -->
+<form action="../offsite.html" method="post"
+onsubmit="if(qkmenu.value=='0'){return false;}">
+  <div>
+    <label for="qkmenu" id="qklabel">
+      Explore Site by Topic:
+    </label>
+
+    <select name="qkemnu" id="qkmenu">
+      <option value="0">Quick Menu</option>
+      <option>Broadcasting</option>
+      <option>Education</option>
+      <option>Transportation</option>
+    </select>
+
+    <input type="submit" value="Go">
+  </div>
+</form>
+
+<!-- Accessible concert table -->
+<table id="sfdatetable">
+  <caption>Concert Dates</caption>
+
+  <tr class="datahead">
+    <th scope="col">Date</th>
+    <th scope="col">Event</th>
+  </tr>
+
+  <tr>
+    <td>12 Feb 09</td>
+    <td lang="fr">Les Garçons</td>
+  </tr>
+
+  <tr>
+    <td>24 Mar 09</td>
+    <td>The Obelisks</td>
+  </tr>
+</table>
+
+<!-- Semantic and accessible terms section -->
+<div class="boxcontent">
+  <h2>Citylights Terms and Conditions</h2>
+
+  <ol>
+    <li>
+      You agree through the act of calling the M-U-S-I-C Line...
+    </li>
+
+    <li>
+      Citylights shall not be liable to you for any damages...
+    </li>
+
+    <li>
+      Remedies: Since Citylights would be irreparably damaged...
+    </li>
+  </ol>
+</div>
