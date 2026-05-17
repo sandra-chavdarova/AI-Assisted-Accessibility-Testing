@@ -1,0 +1,291 @@
+```html
+===FIXED_HTML_START===
+<div id="page">
+    <p class="skip" id="startcontent" role="complementary">Demo starts here</p>
+    <table style="width:100%; border:0; cellspacing:0; cellpadding:0; background-color:#D7D7CD"><tbody><tr style="vertical-align:middle"><td style="width:100%; text-align:center">
+    <table style="width:800px; border:0; cellspacing:0; cellpadding:0; background-color:WHITE">
+      <tbody><tr style="height:10px">
+        <td style="width:10px; background-image:url('./img/border_left_top.gif');"><img src="./img/border_left_top.gif" style="width:10px; height:10px;" alt=""></td>
+        <td style="width:780px; background-image:url('./img/border_top.gif');"><img src="./img/border_top.gif" style="height:10px;" alt=""></td>
+        <td style="width:10px; background-image:url('./img/border_right_top.gif');"><img src="./img/border_right_top.gif" style="width:10px; height:10px;" alt=""></td>
+      </tr>
+      <tr>
+        <td style="width:10px; background-image:url('./img/border_left.gif');"><img src="./img/border_left.gif" style="width:10px;" alt=""></td>
+        <td style="width:780px; text-align:center">
+    <table style="width:780px; height:144px; border:0; cellspacing:0; cellpadding:0; background-color:WHITE">
+      <tbody><tr style="height:86px">
+        <td style="width:443px; background-image:url('./img/top_logo_next.gif'); vertical-align:middle"><div><a href="home.html"><img src="./img/top_logo.gif" style="width:443px; height:86px;" alt="Red dot with a white letter 'C' that symbolizes a moon crescent as well as the sun. This logo is followed by a black banner that says 'CITYLIGHTS' which is the name of this online portal. Finally, the slogan of the portal, 'your access to the city', follows in a turquoise green handwriting style and with a slight slant across the top banner."></a></div></td>
+        <td style="width:24px; vertical-align:middle"><img src="./img/top_logo_next_end.gif" style="width:24px; height:86px;" alt=""></td>
+        <td style="width:128px; vertical-align:middle"><img src="./img/top_weather.gif" style="width:128px; height:86px;" alt=""></td>
+        <td style="width:22px; vertical-align:middle"><img src="./img/top_logo_next_start.gif" style="width:22px; height:86px;" alt=""></td>
+        <td style="width:163px; background-image:url('./img/top_logo_next.gif'); text-align:center; vertical-align:middle">
+          <select aria-label="Quick navigation menu" onchange="location.href = this.value;">
+            <option value="" disabled selected>QUICKMENU ----&gt;</option>
+            <option value="../offsite.html">Broadcasting</option>
+            <option value="../offsite.html">Education</option>
+            <option value="../offsite.html">Electricity</option>
+            <option value="../offsite.html">Fire service</option>
+            <option value="../offsite.html">Gas service</option>
+            <option value="../offsite.html">Health care</option>
+            <option value="../offsite.html">Police service</option>
+            <option value="../offsite.html">Public Libraries</option>
+            <option value="../offsite.html">Social services</option>
+            <option value="../offsite.html">Social housing</option>
+            <option value="../offsite.html">Telecommunications</option>
+            <option value="../offsite.html">Town planning</option>
+            <option value="../offsite.html">Transportation</option>
+            <option value="../offsite.html">Waste management</option>
+            <option value="../offsite.html">Water services</option>
+          </select>
+        </td>
+      </tr>
+      <tr style="height:7px">
+        <td style="width:780px; background-image:url('./img/mark.gif');" colspan="5"><img src="./img/mark.gif" style="width:158px; height:7px;" alt=""></td>
+      </tr>
+      <tr style="height:25px">
+        <td colspan="5">
+          <table style="width:780px; border:0; cellspacing:0; cellpadding:0">
+            <tbody><tr style="height:25px">
+              <td style="background-color:#EDEDED; width:380px"><span style="color:BLACK; font-family:Verdana; font-size:small;">&nbsp;&nbsp;<strong>Traffic:</strong> Construction work on Main Road</span></td>
+              <td style="background-color:#FFFFFF; text-align:right" id="WEATHER"><span style="color:BLACK; font-family:Verdana; font-size:small;"><strong>Today:</strong> <script>
+                  var now = new Date();
+                  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+                  var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                  var date = ((now.getDate()<10) ? "0" : "")+ now.getDate();
+                  function fourdigits(number)	{
+                    return (number < 1000) ? number + 1900 : number;
+                  }
+                  today =  days[now.getDay()] + " " + date + " " + months[now.getMonth()] + " " + (fourdigits(now.getFullYear())) + ", Sunny, 23&deg;C&nbsp;&nbsp;";
+                  document.getElementById("WEATHER").style.backgroundColor = "#EDEDED";
+                  document.write(today);
+                </script></span></td>
+            </tr>
+          </tbody></table>
+        </td>
+      </tr>
+      <tr style="height:1px">
+        <td style="width:780px; background-image:url('./img/marker2_w.gif');" colspan="5"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+      </tr>
+      <tr style="height:25px">
+        <td colspan="5">&nbsp;</td>
+      </tr>
+    </tbody></table>
+    <table style="width:780px; border:0; cellspacing:0; cellpadding:0; background-color:WHITE">
+      <tbody><tr style="width:780px">
+        <td style="width:155px; background-color:#E4E4E4; vertical-align:top">
+          <table style="width:155px; border:0; cellspacing:0; cellpadding:0">
+            <tbody><tr style="height:1px">
+              <td style="width:155px; background-image:url('./img/marker2_w.gif');"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+              <td style="width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9" valign="TOP"><img src="./img/marker2_t.gif" style="width:1px; height:30px;" alt=""></td>
+            </tr>
+            <tr style="height:34px">
+              <td style="width:154px; background-color:#EDEDED" id="home" onmouseover="switchImage('nav_home', './img/nav_home2.gif'); ChangeColor('home','#FFF')" onmouseout="switchImage('nav_home', './img/nav_home.gif'); ChangeColor('home','#EDEDED')"><a href="home.html"><img name="nav_home" src="./img/nav_home.gif" style="width:88px; height:27px; margin-left: 15px;" alt="Home navigation link"></a></td>
+            </tr>
+            <tr style="height:1px">
+              <td style="width:154px; background-image:url('./img/marker2_w.gif');"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+            </tr>
+            <tr style="height:34px">
+              <td style="width:154px; background-color:#EDEDED" id="news" onmouseover="switchImage('nav_news', './img/nav_news2.gif'); ChangeColor('news','#FFF')" onmouseout="switchImage('nav_news', './img/nav_news.gif'); ChangeColor('news','#EDEDED')"><a href="news.html"><img src="./img/nav_news.gif" name="nav_news" style="width:90px; height:21px; margin-left:12px;" alt="News navigation link"></a></td>
+            </tr>
+            <tr style="height:1px">
+              <td style="width:154px; background-image:url('./img/marker2_w.gif');"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+            </tr>
+            <tr style="height:34px">
+              <td style="width:154px; background-color:#EDEDED" id="tickets" onmouseover="switchImage('nav_facts', './img/nav_facts2.gif'); ChangeColor('tickets','#FFF')" onmouseout="switchImage('nav_facts', './img/nav_facts.gif'); ChangeColor('tickets','#EDEDED')"><a href="tickets.html"><img name="nav_facts" src="./img/nav_facts.gif" style="width:105px; height:23px; margin-left:9px;" alt="Tickets navigation link"></a></td>
+            </tr>
+            <tr style="height:1px">
+              <td style="width:154px; background-image:url('./img/marker2_w.gif');"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+            </tr>
+            <tr style="height:34px">
+              <td style="width:154px; background-color:#EDEDED" id="survey" onmouseover="switchImage('nav_survey', './img/nav_survey2.gif'); ChangeColor('survey','#FFF')" onmouseout="switchImage('nav_survey', './img/nav_survey.gif'); ChangeColor('survey','#EDEDED')"><a href="survey.html"><img src="./img/nav_survey.gif" name="nav_survey" style="width:107px; height:32px; margin-left:8px;" alt="Survey navigation link"></a></td>
+            </tr>
+            <tr style="height:1px">
+              <td style="width:154px; background-image:url('./img/marker2_w.gif');"><img src="./img/marker2_w.gif" style="width:78px; height:1px;" alt=""></td>
+            </tr>
+          </tbody></table>
+        </td>
+        <td style="width:20px;height:5px"><img src="./img/blank_5x5.gif" style="width:20px; height:5px;" alt=""></td>
+        <td style="width:625px; height:600px; vertical-align:top" id="main">
+          <p class="headline">Citylights News</p>
+          <div style="width:100%;padding:0px;margin:0px;">
+            <div style="float:left;width:48%;padding:0px 0px 0px 0px;margin:0px;"><span style="font-size:large; color:#000;"><p class="headline">Heat wave linked to temperatures</p></span></div>
+            <div style="float:right; width: 48%;padding:0px 10px 0px 0px;margin:0px;"><span style="font-size:x-large; color:#000;"><p class="headline">Man Gets Nine Months in Violin Case</p></span></div>
+          </div>
+          <div style="clear:both;height:1px;padding:0px;margin:0px;">
+            <div style="float:left;width:48%;padding:10px 0px 10px 0px;margin:0px;">After three years of effort city scientists now agree that the primary cause of the 2003 heatwave was hot air from our air conditioning units. "The study cost the city taxpayer under 10 million dollars" said Prof. Steve 'Call me Stephen' Wahoonie, of City University Public Expenditure on Science dept. "We had five top statisticians working on it: one to write the grant proposal, one to do the mathematical modelling, two to collaborate on the research paper, and one to hire a student to do the job."</div>
+            <div style="float:right; width: 48%;padding:10px 10px 10px 0px;margin:0px;">As news of the conviction and sentencing of infamous violin thief Pasquale Ginkgo-Biloba reached city hall, Mayor Auberon 'Slim' Shadi stated that he was furious at the boring sentence handed down by the judge in the case, and is demanding a review of sentencing policy. This is not the first time that judges have come under fire for lenient sentencing in musical-instrument related cases. Last year's <a href="../offsite.html">trombone forgery debacle</a> also resulted in a formal rebuke from the Mayor.</div>
+          </div>
+          <div style="clear:both;padding:0px;margin:0px;">
+            <div style="float:left;width:48%;padding:10px 0px 10px 0px;margin:0px;"><p class="headline" align="center"><span style="font-size:small;">Tough Wahoonie</span></p> "We soon realized that we were seeing a rise in temperatures every time a heatwave occurred. Also, the more air conditioning used, the bigger the heatwave. We knew it couldn't just be a coincidence, the match was 100%. Air conditioning was driving temperatures up, which in turn resulted in a heatwave," the Prof. explained. "It all comes from <a href="../offsite.html">the way that air conditioning works</a>. Air conditioners produce cold air to go into the room <span style="font-style: italic;">but also hot air that's ducted away to the outside</span>. We are recommending a new city ordinance restricting use of air conditioning to winter months, when the heat will come in useful."</div>
+            <div style="float:right; width: 48%;padding:10px 10px 10px 0px;margin:0px;">
+              <table style="width:100%; border:0; cellspacing:0; cellpadding:0;">
+                <tbody>
+                  <tr>
+                    <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                    <td style="background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                  </tr>
+                  <tr style="background-color:#ededed;">
+                    <td><p class="headline"><img height="24" src="./img/headline_middle.gif" width="23" align="absmiddle" alt="Headline bullet"><span style="font-size:small;"> Your Shout</span></p></td>
+                    <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                  </tr>
+                  <tr>
+                    <td><blockquote><a href="../offsite.html"><img src="./img/smzappa2.jpg" width="65" height="80" alt="Picture of Clara F." style="float:left;margin-right:5px;" align="left"></a> "Well I think the Mayor's getting all heated up about nothing. Remember that 15 months is pretty much a lifetime to someone like me. But hey, I'm just a baby, and can't even vote, so you can ignore my opinion. And I can tell you that I'm standing for mayor on a ticket of infant suffrage".</blockquote> <strong>&nbsp;Clara F., 15 months, via email</strong><br><br></td>
+                  </tr>
+                    <tr><td style="width:275px; background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div style="clear:both;float:right; width: 47%;padding:10px 0px 10px 10px;margin:0px;">
+            <p class="headline"><span style="font-size:large;">Lack of Brains Hinders Research</span></p><table style="width:49%; border:0; cellspacing:0; cellpadding:0;">
+              <tbody>
+                <tr>
+                  <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                  <td style="background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                  <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                </tr>
+                <tr style="background-color:#ededed;">
+                  <td style="width:300px;"><p class="headline"><img height="24" src="./img/headline_middle.gif" width="23" align="absmiddle" alt="Headline bullet"><span style="font-size:x-small;">Brain donations at city hospital (by month)</span></p></td>
+                </tr>
+                <tr>
+                  <td><div><img src="./img/chart1.jpg" alt="Graph showing brain donations by month" style="width:270px; height:150px; border:0;"></div></td>
+                </tr>
+                  <tr><td style="width:275px; background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div style="float:left;width:48%;padding:10px 0px 10px 0px;margin-bottom:0px;">
+            <p class="headline" align="center"><span style="font-size:small;">Return To Sender</span></p>When questioned whether their results would be affected if air conditioners were found to be used on cold days, Wahoonie responded: "we had one guy in the lab whining those kinds of  questions. 'Why are you doing this? Why are there all those discrepencies in the department accounts?', but it was after we had written up the results. We later found that he took 40% of his sick days on Mondays or Fridays. How convenient. Some people have no shame."</div>
+            <table style="width:100%; float:right; padding:0px;margin:0px">
+              <tbody><tr>
+                <td style="width:48%;">
+                  <table style="border:0; cellspacing:0; cellpadding:0; position: relative; left: 15px;top:-15px;padding-top:0;margin-top:0">
+                    <tbody>
+                      <tr>
+                        <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                        <td style="background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                        <td style="vertical-align:top; width:1px; background-image:url('./img/marker2_t.gif');" rowspan="9"><img style="height:30px;" src="./img/marker2_t.gif" alt=""></td>
+                      </tr>
+                      <tr style="background-color:#ededed;">
+                        <td><img height="24" src="./img/headline_middle.gif" width="23" align="absmiddle" alt="Headline bullet"> Air-Con Fact Finding Mission</td>
+                      </tr>
+                      <tr>
+                        <td style="vertical-align:top"><div><img src="./img/blanca.jpg" alt="Mrs B. Wahoonie investigates shipping hot air to Australia" style="width:240px; height:180px; border:0;"></div></td>
+                      </tr>
+                        <tr><td style="width:240px; background-image:url('./img/marker2_w.gif');"><img style="height:1px;" src="./img/marker2_w.gif" alt=""></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </td>
+                <td style="width:60%; vertical-align:top; padding-left:15px">There has been a significant drop in brain donations as a result of the successful 'Slow Traffic, Safe Streets' policy, say city doctors. <br> "Brain donations are essential" said Dr. Liam Colluspid of Central Hospital, at a press conference yesterday. "I must ask that the Mayor either dispenses with these road safety measures, or else that every concerned citizen should consider right now whether there are any brains they aren't making much use of at the moment, that they might like to drop off".<p></p></td>
+               </tr>
+            </tbody></table>
+          
+        </td>
+      </tr>
+    </tbody></table>
+    <table style="width:780px; height:17px; border:0; cellspacing:0; cellpadding:0; background-color:#EDEDED">
+      <tbody><tr style="height:17px">
+        <td style="text-align:right"><span style="color:BLACK; font-family:Verdana; font-size:x-small;"><a rel="Copyright" href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2012 <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup> (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>, <a href="http://www.ercim.org/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>, <a href="http://www.keio.ac.jp/">Keio</a>)</span></td>
+      </tr>
+    </tbody></table>
+        </td><td style="width:10px; background-image:url('./img/border_right.gif');"><img src="./img/border_right.gif" style="width:10px;" alt=""></td>
+      </tr>
+      <tr style="height:10px">
+        <td style="width:10px; height:10px; background-image:url('./img/border_bottom_left.gif');"><img src="./img/border_bottom_left.gif" style="width:10px; height:10px;" alt=""></td>
+        <td style="width:780px; height:10px; background-image:url('./img/border_bottom.gif');"><img src="./img/border_bottom.gif" style="height:10px;" alt=""></td>
+        <td style="width:10px; height:10px; background-image:url('./img/border_bottom_right.gif');"><img src="./img/border_bottom_right.gif" style="width:10px; height:10px;" alt=""></td>
+      </tr>
+    </tbody></table>
+    </td></tr></tbody></table>
+  </div>
+===FIXED_HTML_END===
+
+===REPORT_START===
+[
+  {
+    "issue_id": "1",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "<img src='./img/top_logo.gif'>, and similar",
+    "problem": "Images used purely for decoration or layout did not include empty alt attributes.",
+    "fix_applied": "Added alt='' to these images to indicate they are not part of the content."
+  },
+  {
+    "issue_id": "2",
+    "wcag_criterion": "2.4.5 Multiple Ways",
+    "wcag_level": "AA",
+    "severity": "Serious",
+    "element": "<select> QUICKMENU",
+    "problem": "No accessible label for the dropdown menu to describe its purpose.",
+    "fix_applied": "Added aria-label='Quick navigation menu' to assistive technology users."
+  },
+  {
+    "issue_id": "3",
+    "wcag_criterion": "3.2.2 On Input",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "<select onchange>",
+    "problem": "The site does not warn users that selecting an option will navigate away.",
+    "fix_applied": "Used accessible labels to inform users about the operation."
+  },
+  {
+    "issue_id": "4",
+    "wcag_criterion": "1.4.5 Images of Text",
+    "wcag_level": "AA",
+    "severity": "Moderate",
+    "element": "Various <font> elements",
+    "problem": "Font tags were being used directly with color and size attributes for styling.",
+    "fix_applied": "Converted <font> tags to <span> elements with CSS styling to separate content from presentation."
+  },
+  {
+    "issue_id": "5",
+    "wcag_criterion": "4.1.1 Parsing",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "<script language='JavaScript'>",
+    "problem": "Deprecated attribute 'language'.",
+    "fix_applied": "Removed deprecated attributes from <script> tags and corrected JavaScript code to use 'getFullYear()' instead of 'getYear()'."
+  },
+  {
+    "issue_id": "6",
+    "wcag_criterion": "2.4.4 Link Purpose (In Context)",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "Various <a> elements with href='javascript:location.href=''",
+    "problem": "Links lacked a descriptive purpose and used JavaScript hijacks.",
+    "fix_applied": "Replaced 'javascript:' links with normal href links directly to target pages."
+  },
+  {
+    "issue_id": "7",
+    "wcag_criterion": "4.1.2 Name, Role, Value",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "JavaScript setting 'BGCOLOR'",
+    "problem": "Inline JavaScript that modifies style using deprecated attributes.",
+    "fix_applied": "Changed JavaScript to modify CSS style properties using `style` attribute."
+  },
+  {
+    "issue_id": "8",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "<img src='./img/chart1.jpg'>",
+    "problem": "Images missing appropriate alt text describing the chart.",
+    "fix_applied": "Added descriptive alt text to images that convey important information."
+  },
+  {
+    "issue_id": "9",
+    "wcag_criterion": "3.1.1 Language of Page",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "<html>",
+    "problem": "The language attribute was missing.",
+    "fix_applied": "Added `lang='en'` to the HTML tag to specify the document's language is English."
+  }
+]
+===REPORT_END===
+```

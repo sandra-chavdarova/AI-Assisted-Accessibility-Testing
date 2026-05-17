@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Citylights News</title>
+  <style>
+    :root {
+      --page-bg: #d7d7cd;
+      --panel-bg: #ffffff;
+      --muted-bg: #ededed;
+      --nav-bg: #e4e4e4;
+      --text: #111111;
+      --link: #0645ad;
+      --focus: #005fcc;
+      --border: #767676;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: Verdana, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+    }
+
+    a:focus,
+    button:focus,
+    select:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 1000;
+      padding: 0.5rem 0.75rem;
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+    }
+
+    header {
+      background: #ffffff;
+    }
+
+    .brand-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .brand img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .utility {
+      margin-left: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quick-menu label {
+      font-weight: 700;
+    }
+
+    .quick-menu select,
+    .quick-menu button {
+      min-height: 2.5rem;
+      font: inherit;
+    }
+
+    .quick-menu button {
+      cursor: pointer;
+    }
+
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.4rem 1rem;
+      background: var(--muted-bg);
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+      font-size: 0.95rem;
+    }
+
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid #cccccc;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #000000;
+      text-decoration: none;
+      border-right: 1px solid #cccccc;
+    }
+
+    nav a:hover,
+    nav a:focus,
+    nav a[aria-current="page"] {
+      background: #ffffff;
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.45rem;
+      color: #111111;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #111111;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    article,
+    aside,
+    figure {
+      margin: 0;
+    }
+
+    .callout {
+      padding: 1rem;
+      background: var(--muted-bg);
+      border: 1px solid #cccccc;
+    }
+
+    .callout img,
+    figure img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    blockquote {
+      margin: 0;
+    }
+
+    blockquote img {
+      float: left;
+      margin: 0 0.75rem 0.5rem 0;
+    }
+
+    figcaption {
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    footer {
+      padding: 0.5rem 1rem;
+      background: var(--muted-bg);
+      text-align: right;
+      font-size: 0.85rem;
+      border-top: 1px solid #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="page" id="page">
+    <header>
+      <div class="brand-row">
+        <a class="brand" href="home.html" aria-label="Citylights home">
+          <img src="./img/top_logo.gif" width="443" height="86" alt="Citylights: your access to the city">
+        </a>
+
+        <img src="./img/top_weather.gif" width="128" height="86" alt="" aria-hidden="true">
+
+        <form class="quick-menu" action="../offsite.html" method="get">
+          <label for="quickmenu">Quick menu</label>
+          <select id="quickmenu" name="service">
+            <option value="" selected>Choose a city service</option>
+            <option value="broadcasting">Broadcasting</option>
+            <option value="education">Education</option>
+            <option value="electricity">Electricity</option>
+            <option value="fire-service">Fire service</option>
+            <option value="gas-service">Gas service</option>
+            <option value="health-care">Health care</option>
+            <option value="police-service">Police service</option>
+            <option value="public-libraries">Public Libraries</option>
+            <option value="social-services">Social services</option>
+            <option value="social-housing">Social housing</option>
+            <option value="telecommunications">Telecommunications</option>
+            <option value="town-planning">Town planning</option>
+            <option value="transportation">Transportation</option>
+            <option value="waste-management">Waste management</option>
+            <option value="water-services">Water services</option>
+          </select>
+          <button type="submit">Go</button>
+        </form>
+      </div>
+
+      <div class="status-bar" aria-label="City status">
+        <p><strong>Traffic:</strong> Construction work on Main Road</p>
+        <p><strong>Today:</strong> <time id="today-date" datetime="">Sunny, 23°C</time></p>
+      </div>
+
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="news.html" aria-current="page">News</a></li>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="survey.html">Survey</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <h1>Citylights News</h1>
+
+      <div class="news-grid">
+        <article aria-labelledby="heat-wave-heading">
+          <h2 id="heat-wave-heading">Heat wave linked to temperatures</h2>
+          <p>After three years of effort city scientists now agree that the primary cause of the 2003 heatwave was hot air from our air conditioning units. “The study cost the city taxpayer under 10 million dollars” said Prof. Steve ‘Call me Stephen’ Wahoonie, of City University Public Expenditure on Science dept. “We had five top statisticians working on it: one to write the grant proposal, one to do the mathematical modelling, two to collaborate on the research paper, and one to hire a student to do the job.”</p>
+
+          <section aria-labelledby="tough-wahoonie-heading">
+            <h3 id="tough-wahoonie-heading">Tough Wahoonie</h3>
+            <p>“We soon realized that we were seeing a rise in temperatures every time a heatwave occurred. Also, the more air conditioning used, the bigger the heatwave. We knew it couldn't just be a coincidence, the match was 100%. Air conditioning was driving temperatures up, which in turn resulted in a heatwave,” the Prof. explained. “It all comes from <a href="../offsite.html">the way that air conditioning works</a>. Air conditioners produce cold air to go into the room <em>but also hot air that's ducted away to the outside</em>. We are recommending a new city ordinance restricting use of air conditioning to winter months, when the heat will come in useful.”</p>
+          </section>
+
+          <section aria-labelledby="return-to-sender-heading">
+            <h3 id="return-to-sender-heading">Return To Sender</h3>
+            <p>When questioned whether their results would be affected if air conditioners were found to be used on cold days, Wahoonie responded: “we had one guy in the lab whining those kinds of questions. ‘Why are you doing this? Why are there all those discrepencies in the department accounts?’, but it was after we had written up the results. We later found that he took 40% of his sick days on Mondays or Fridays. How convenient. Some people have no shame.”</p>
+          </section>
+        </article>
+
+        <article aria-labelledby="violin-case-heading">
+          <h2 id="violin-case-heading">Man Gets Nine Months in Violin Case</h2>
+          <p>As news of the conviction and sentencing of infamous violin thief Pasquale Ginkgo-Biloba reached city hall, Mayor Auberon ‘Slim’ Shadi stated that he was furious at the boring sentence handed down by the judge in the case, and is demanding a review of sentencing policy. This is not the first time that judges have come under fire for lenient sentencing in musical-instrument related cases. Last year's <a href="../offsite.html">trombone forgery debacle</a> also resulted in a formal rebuke from the Mayor.</p>
+
+          <aside class="callout" aria-labelledby="your-shout-heading">
+            <h3 id="your-shout-heading">Your Shout</h3>
+            <blockquote>
+              <img src="./img/smzappa2.jpg" width="65" height="80" alt="Clara F." loading="lazy">
+              <p>“Well I think the Mayor's getting all heated up about nothing. Remember that 15 months is pretty much a lifetime to someone like me. But hey, I'm just a baby, and can't even vote, so you can ignore my opinion. And I can tell you that I'm standing for mayor on a ticket of infant suffrage.”</p>
+              <footer>Clara F., 15 months, via email</footer>
+            </blockquote>
+          </aside>
+        </article>
+
+        <article aria-labelledby="brains-heading">
+          <h2 id="brains-heading">Lack of Brains Hinders Research</h2>
+
+          <figure class="callout">
+            <figcaption>Brain donations at city hospital by month</figcaption>
+            <img src="./img/chart1.jpg" width="270" height="150" alt="Chart showing monthly brain donations at city hospital. The chart illustrates the trend discussed in the article.">
+          </figure>
+
+          <figure class="callout">
+            <img src="./img/blanca.jpg" width="240" height="180" alt="Mrs B. Wahoonie investigates shipping hot air to Australia">
+            <figcaption>Air-Con Fact Finding Mission</figcaption>
+          </figure>
+
+          <p>There has been a significant drop in brain donations as a result of the successful ‘Slow Traffic, Safe Streets’ policy, say city doctors.</p>
+          <p>“Brain donations are essential” said Dr. Liam Colluspid of Central Hospital, at a press conference yesterday. “I must ask that the Mayor either dispenses with these road safety measures, or else that every concerned citizen should consider right now whether there are any brains they aren't making much use of at the moment, that they might like to drop off.”</p>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <a rel="copyright" href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+      © 2012
+      <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+      (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="http://www.ercim.org/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+      <a href="http://www.keio.ac.jp/">Keio</a>)
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var dateElement = document.getElementById('today-date');
+      if (!dateElement) {
+        return;
+      }
+
+      var now = new Date();
+      var formatted = new Intl.DateTimeFormat('en', {
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      }).format(now);
+
+      dateElement.dateTime = now.toISOString().split('T')[0];
+      dateElement.textContent = formatted + ', Sunny, 23°C';
+    }());
+  </script>
+</body>
+</html>

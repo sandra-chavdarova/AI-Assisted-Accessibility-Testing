@@ -1,0 +1,619 @@
+===FIXED_HTML_START===
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Citylights News</title>
+  <style>
+    :root {
+      --page-bg: #d7d7cd;
+      --panel-bg: #ffffff;
+      --muted-bg: #ededed;
+      --nav-bg: #e4e4e4;
+      --text: #111111;
+      --link: #0645ad;
+      --focus: #005fcc;
+      --border: #767676;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--page-bg);
+      color: var(--text);
+      font-family: Verdana, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: underline;
+    }
+
+    a:focus,
+    button:focus,
+    select:focus {
+      outline: 3px solid var(--focus);
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      z-index: 1000;
+      padding: 0.5rem 0.75rem;
+      background: #ffffff;
+      color: #000000;
+      border: 2px solid #000000;
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .page {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--panel-bg);
+      border: 1px solid var(--border);
+    }
+
+    header {
+      background: #ffffff;
+    }
+
+    .brand-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.75rem 1rem;
+    }
+
+    .brand img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+    }
+
+    .utility {
+      margin-left: auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .quick-menu label {
+      font-weight: 700;
+    }
+
+    .quick-menu select,
+    .quick-menu button {
+      min-height: 2.5rem;
+      font: inherit;
+    }
+
+    .quick-menu button {
+      cursor: pointer;
+    }
+
+    .status-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 0.75rem;
+      padding: 0.4rem 1rem;
+      background: var(--muted-bg);
+      border-top: 1px solid #cccccc;
+      border-bottom: 1px solid #cccccc;
+      font-size: 0.95rem;
+    }
+
+    nav {
+      background: var(--nav-bg);
+      border-bottom: 1px solid #cccccc;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #000000;
+      text-decoration: none;
+      border-right: 1px solid #cccccc;
+    }
+
+    nav a:hover,
+    nav a:focus,
+    nav a[aria-current="page"] {
+      background: #ffffff;
+      text-decoration: underline;
+    }
+
+    main {
+      padding: 1rem;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 2rem;
+    }
+
+    h2 {
+      margin-top: 0;
+      font-size: 1.45rem;
+      color: #111111;
+    }
+
+    h3 {
+      font-size: 1.1rem;
+      color: #111111;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(17rem, 1fr));
+      gap: 1.5rem;
+      align-items: start;
+    }
+
+    article,
+    aside,
+    figure {
+      margin: 0;
+    }
+
+    .callout {
+      padding: 1rem;
+      background: var(--muted-bg);
+      border: 1px solid #cccccc;
+    }
+
+    .callout img,
+    figure img {
+      max-width: 100%;
+      height: auto;
+    }
+
+    blockquote {
+      margin: 0;
+    }
+
+    blockquote img {
+      float: left;
+      margin: 0 0.75rem 0.5rem 0;
+    }
+
+    figcaption {
+      font-weight: 700;
+      margin-top: 0.5rem;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    footer {
+      padding: 0.5rem 1rem;
+      background: var(--muted-bg);
+      text-align: right;
+      font-size: 0.85rem;
+      border-top: 1px solid #cccccc;
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <div class="page" id="page">
+    <header>
+      <div class="brand-row">
+        <a class="brand" href="home.html" aria-label="Citylights home">
+          <img src="./img/top_logo.gif" width="443" height="86" alt="Citylights: your access to the city">
+        </a>
+
+        <img src="./img/top_weather.gif" width="128" height="86" alt="" aria-hidden="true">
+
+        <form class="quick-menu" action="../offsite.html" method="get">
+          <label for="quickmenu">Quick menu</label>
+          <select id="quickmenu" name="service">
+            <option value="" selected>Choose a city service</option>
+            <option value="broadcasting">Broadcasting</option>
+            <option value="education">Education</option>
+            <option value="electricity">Electricity</option>
+            <option value="fire-service">Fire service</option>
+            <option value="gas-service">Gas service</option>
+            <option value="health-care">Health care</option>
+            <option value="police-service">Police service</option>
+            <option value="public-libraries">Public Libraries</option>
+            <option value="social-services">Social services</option>
+            <option value="social-housing">Social housing</option>
+            <option value="telecommunications">Telecommunications</option>
+            <option value="town-planning">Town planning</option>
+            <option value="transportation">Transportation</option>
+            <option value="waste-management">Waste management</option>
+            <option value="water-services">Water services</option>
+          </select>
+          <button type="submit">Go</button>
+        </form>
+      </div>
+
+      <div class="status-bar" aria-label="City status">
+        <p><strong>Traffic:</strong> Construction work on Main Road</p>
+        <p><strong>Today:</strong> <time id="today-date" datetime="">Sunny, 23°C</time></p>
+      </div>
+
+      <nav aria-label="Primary navigation">
+        <ul>
+          <li><a href="home.html">Home</a></li>
+          <li><a href="news.html" aria-current="page">News</a></li>
+          <li><a href="tickets.html">Tickets</a></li>
+          <li><a href="survey.html">Survey</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main id="main" tabindex="-1">
+      <h1>Citylights News</h1>
+
+      <div class="news-grid">
+        <article aria-labelledby="heat-wave-heading">
+          <h2 id="heat-wave-heading">Heat wave linked to temperatures</h2>
+          <p>After three years of effort city scientists now agree that the primary cause of the 2003 heatwave was hot air from our air conditioning units. “The study cost the city taxpayer under 10 million dollars” said Prof. Steve ‘Call me Stephen’ Wahoonie, of City University Public Expenditure on Science dept. “We had five top statisticians working on it: one to write the grant proposal, one to do the mathematical modelling, two to collaborate on the research paper, and one to hire a student to do the job.”</p>
+
+          <section aria-labelledby="tough-wahoonie-heading">
+            <h3 id="tough-wahoonie-heading">Tough Wahoonie</h3>
+            <p>“We soon realized that we were seeing a rise in temperatures every time a heatwave occurred. Also, the more air conditioning used, the bigger the heatwave. We knew it couldn't just be a coincidence, the match was 100%. Air conditioning was driving temperatures up, which in turn resulted in a heatwave,” the Prof. explained. “It all comes from <a href="../offsite.html">the way that air conditioning works</a>. Air conditioners produce cold air to go into the room <em>but also hot air that's ducted away to the outside</em>. We are recommending a new city ordinance restricting use of air conditioning to winter months, when the heat will come in useful.”</p>
+          </section>
+
+          <section aria-labelledby="return-to-sender-heading">
+            <h3 id="return-to-sender-heading">Return To Sender</h3>
+            <p>When questioned whether their results would be affected if air conditioners were found to be used on cold days, Wahoonie responded: “we had one guy in the lab whining those kinds of questions. ‘Why are you doing this? Why are there all those discrepencies in the department accounts?’, but it was after we had written up the results. We later found that he took 40% of his sick days on Mondays or Fridays. How convenient. Some people have no shame.”</p>
+          </section>
+        </article>
+
+        <article aria-labelledby="violin-case-heading">
+          <h2 id="violin-case-heading">Man Gets Nine Months in Violin Case</h2>
+          <p>As news of the conviction and sentencing of infamous violin thief Pasquale Ginkgo-Biloba reached city hall, Mayor Auberon ‘Slim’ Shadi stated that he was furious at the boring sentence handed down by the judge in the case, and is demanding a review of sentencing policy. This is not the first time that judges have come under fire for lenient sentencing in musical-instrument related cases. Last year's <a href="../offsite.html">trombone forgery debacle</a> also resulted in a formal rebuke from the Mayor.</p>
+
+          <aside class="callout" aria-labelledby="your-shout-heading">
+            <h3 id="your-shout-heading">Your Shout</h3>
+            <blockquote>
+              <img src="./img/smzappa2.jpg" width="65" height="80" alt="Clara F." loading="lazy">
+              <p>“Well I think the Mayor's getting all heated up about nothing. Remember that 15 months is pretty much a lifetime to someone like me. But hey, I'm just a baby, and can't even vote, so you can ignore my opinion. And I can tell you that I'm standing for mayor on a ticket of infant suffrage.”</p>
+              <footer>Clara F., 15 months, via email</footer>
+            </blockquote>
+          </aside>
+        </article>
+
+        <article aria-labelledby="brains-heading">
+          <h2 id="brains-heading">Lack of Brains Hinders Research</h2>
+
+          <figure class="callout">
+            <figcaption>Brain donations at city hospital by month</figcaption>
+            <img src="./img/chart1.jpg" width="270" height="150" alt="Chart showing monthly brain donations at city hospital. The chart illustrates the trend discussed in the article.">
+          </figure>
+
+          <figure class="callout">
+            <img src="./img/blanca.jpg" width="240" height="180" alt="Mrs B. Wahoonie investigates shipping hot air to Australia">
+            <figcaption>Air-Con Fact Finding Mission</figcaption>
+          </figure>
+
+          <p>There has been a significant drop in brain donations as a result of the successful ‘Slow Traffic, Safe Streets’ policy, say city doctors.</p>
+          <p>“Brain donations are essential” said Dr. Liam Colluspid of Central Hospital, at a press conference yesterday. “I must ask that the Mayor either dispenses with these road safety measures, or else that every concerned citizen should consider right now whether there are any brains they aren't making much use of at the moment, that they might like to drop off.”</p>
+        </article>
+      </div>
+    </main>
+
+    <footer>
+      <a rel="copyright" href="https://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a>
+      © 2012
+      <a href="https://www.w3.org/"><abbr title="World Wide Web Consortium">W3C</abbr></a><sup>®</sup>
+      (<a href="http://www.csail.mit.edu/"><abbr title="Massachusetts Institute of Technology">MIT</abbr></a>,
+      <a href="http://www.ercim.org/"><abbr title="European Research Consortium for Informatics and Mathematics">ERCIM</abbr></a>,
+      <a href="http://www.keio.ac.jp/">Keio</a>)
+    </footer>
+  </div>
+
+  <script>
+    (function () {
+      var dateElement = document.getElementById('today-date');
+      if (!dateElement) {
+        return;
+      }
+
+      var now = new Date();
+      var formatted = new Intl.DateTimeFormat('en', {
+        weekday: 'long',
+        day: '2-digit',
+        month: 'long',
+        year: 'numeric'
+      }).format(now);
+
+      dateElement.dateTime = now.toISOString().split('T')[0];
+      dateElement.textContent = formatted + ', Sunny, 23°C';
+    }());
+  </script>
+</body>
+</html>
+===FIXED_HTML_END===
+
+===REPORT_START===
+[
+  {
+    "issue_id": "1",
+    "wcag_criterion": "2.4.1 Bypass Blocks",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "p.skip#startcontent",
+    "problem": "The page had a paragraph saying 'Demo starts here' instead of a functional skip link, so keyboard and screen reader users could not bypass repeated header and navigation content.",
+    "fix_applied": "Replaced it with a visible-on-focus skip link pointing to #main and added tabindex='-1' to the main element so the skip target can receive focus."
+  },
+  {
+    "issue_id": "2",
+    "wcag_criterion": "3.1.1 Language of Page",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "html document",
+    "problem": "The provided markup did not define the page language.",
+    "fix_applied": "Added a full document structure with <html lang='en'> so assistive technologies can use the correct pronunciation and language rules."
+  },
+  {
+    "issue_id": "3",
+    "wcag_criterion": "2.4.2 Page Titled",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "head",
+    "problem": "The page had no accessible document title.",
+    "fix_applied": "Added <title>Citylights News</title> to identify the page purpose in browser tabs, bookmarks, and screen reader context."
+  },
+  {
+    "issue_id": "4",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "layout tables throughout page",
+    "problem": "Tables were used for visual layout, causing assistive technologies to announce meaningless table structures and making the reading order harder to understand.",
+    "fix_applied": "Replaced layout tables with semantic structural elements including header, nav, main, article, section, aside, figure, and footer, with CSS used for layout."
+  },
+  {
+    "issue_id": "5",
+    "wcag_criterion": "4.1.1 Parsing",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "invalid and obsolete HTML including font, acronym, align, bgcolor, background, border, hspace, language, malformed image path, and nested paragraphs",
+    "problem": "The markup contained obsolete, presentational, and invalid constructs that can interfere with consistent accessibility tree generation.",
+    "fix_applied": "Rewrote the markup using valid HTML5, CSS for presentation, <abbr> instead of <acronym>, valid image attributes, and valid heading/paragraph structure."
+  },
+  {
+    "issue_id": "6",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "decorative border, spacer, marker, and separator images",
+    "problem": "Many decorative images had missing alt text, which would expose file names or irrelevant image information to screen reader users.",
+    "fix_applied": "Removed unnecessary decorative image markup from the layout and used CSS borders/backgrounds instead."
+  },
+  {
+    "issue_id": "7",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "img.top_logo.gif inside home link",
+    "problem": "The logo alternative text was excessively verbose for an image used as a home link, making navigation inefficient.",
+    "fix_applied": "Changed the linked logo to have concise alt text, 'Citylights: your access to the city', and added aria-label='Citylights home' to the link to clearly describe the link destination."
+  },
+  {
+    "issue_id": "8",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "img.top_weather.gif",
+    "problem": "The weather graphic had no alternative text.",
+    "fix_applied": "Marked the image decorative with alt='' and aria-hidden='true' because the weather information is provided as nearby text."
+  },
+  {
+    "issue_id": "9",
+    "wcag_criterion": "4.1.2 Name, Role, Value",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "navigation image links",
+    "problem": "The navigation links used images without alt text, leaving links without accessible names.",
+    "fix_applied": "Replaced image-based navigation with text links inside a nav landmark and list, giving each link a clear accessible name."
+  },
+  {
+    "issue_id": "10",
+    "wcag_criterion": "2.1.1 Keyboard",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "navigation links with href='javascript:...' and onfocus='blur();'",
+    "problem": "The links removed focus and depended on JavaScript URLs, making keyboard navigation unreliable and hiding the user’s current focus position.",
+    "fix_applied": "Replaced JavaScript links with standard href links and removed focus-blurring behavior."
+  },
+  {
+    "issue_id": "11",
+    "wcag_criterion": "2.4.7 Focus Visible",
+    "wcag_level": "AA",
+    "severity": "Serious",
+    "element": "interactive controls",
+    "problem": "The original code explicitly blurred focused navigation links and did not provide a reliable visible focus indicator.",
+    "fix_applied": "Added CSS focus styles for links, buttons, and select controls using a high-visibility outline."
+  },
+  {
+    "issue_id": "12",
+    "wcag_criterion": "3.2.2 On Input",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "select onchange='location.href = this.value;'",
+    "problem": "Changing the quick menu selection immediately changed location, creating an unexpected context change without user confirmation.",
+    "fix_applied": "Converted the quick menu to a labelled form with a separate Go button so the user controls when navigation/submission happens."
+  },
+  {
+    "issue_id": "13",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "quick menu select",
+    "problem": "The select control had no programmatically associated label.",
+    "fix_applied": "Added <label for='quickmenu'>Quick menu</label> and an id on the select."
+  },
+  {
+    "issue_id": "14",
+    "wcag_criterion": "1.4.3 Contrast (Minimum)",
+    "wcag_level": "AA",
+    "severity": "Serious",
+    "element": "headline text using white font color",
+    "problem": "Several headlines were white text on a white page background, making them unreadable for many users.",
+    "fix_applied": "Removed the white font styling and applied dark text colors with sufficient contrast."
+  },
+  {
+    "issue_id": "15",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "p.class='headline' and font-sized headings",
+    "problem": "Headings were visually styled paragraphs instead of semantic heading elements, so the document outline was not available to assistive technology.",
+    "fix_applied": "Converted the page title to h1, story titles to h2, and subsection/callout titles to h3."
+  },
+  {
+    "issue_id": "16",
+    "wcag_criterion": "2.4.6 Headings and Labels",
+    "wcag_level": "AA",
+    "severity": "Moderate",
+    "element": "article, section, and aside regions",
+    "problem": "Content sections and callouts were not programmatically labelled.",
+    "fix_applied": "Added aria-labelledby relationships from articles, sections, and aside content to their visible headings."
+  },
+  {
+    "issue_id": "17",
+    "wcag_criterion": "1.3.2 Meaningful Sequence",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "floated multi-column article layout",
+    "problem": "The original floated layout and cleared containers could create a confusing reading order compared with the visual order.",
+    "fix_applied": "Rebuilt the news content as semantic articles in a CSS grid so source order and reading order remain logical."
+  },
+  {
+    "issue_id": "18",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "img.chart1.jpg",
+    "problem": "The chart image had an empty alt attribute even though it conveyed information about brain donations.",
+    "fix_applied": "Added descriptive alternative text and a visible figure caption identifying the chart and its relationship to the article."
+  },
+  {
+    "issue_id": "19",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "chart and photo callout tables",
+    "problem": "Callouts were implemented as layout tables, which obscured their role as figures and related captions.",
+    "fix_applied": "Replaced the callout tables with semantic <figure> and <figcaption> elements."
+  },
+  {
+    "issue_id": "20",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "headline_middle.gif decorative icons",
+    "problem": "Decorative headline icons had missing alternative text.",
+    "fix_applied": "Removed the decorative icons from the content and represented headings with text."
+  },
+  {
+    "issue_id": "21",
+    "wcag_criterion": "2.4.4 Link Purpose (In Context)",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "linked image of Clara F.",
+    "problem": "The portrait was wrapped in a link without clear link purpose beyond the image alternative text.",
+    "fix_applied": "Removed the unnecessary link wrapper and kept the image as part of the quoted content with concise alt text."
+  },
+  {
+    "issue_id": "22",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "blockquote attribution",
+    "problem": "The attribution for the quotation was plain bold text outside a semantic relationship.",
+    "fix_applied": "Placed the attribution inside the blockquote footer so it is programmatically associated with the quote."
+  },
+  {
+    "issue_id": "23",
+    "wcag_criterion": "4.1.2 Name, Role, Value",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "script-generated weather/date content",
+    "problem": "The original script used document.write and document.all, producing fragile content and invalid markup.",
+    "fix_applied": "Replaced it with progressive JavaScript that updates a valid <time> element while preserving fallback text."
+  },
+  {
+    "issue_id": "24",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "status information",
+    "problem": "Traffic and weather information were embedded in layout table cells without a meaningful region or structure.",
+    "fix_applied": "Grouped the information in a labelled status bar with clear paragraphs and strong labels."
+  },
+  {
+    "issue_id": "25",
+    "wcag_criterion": "1.4.10 Reflow",
+    "wcag_level": "AA",
+    "severity": "Moderate",
+    "element": "fixed-width tables and pixel-based layout",
+    "problem": "The original page used fixed-width tables that could require horizontal scrolling on small screens or high zoom.",
+    "fix_applied": "Changed the layout to responsive CSS with max-width, flexible wrapping, and grid columns that reflow."
+  },
+  {
+    "issue_id": "26",
+    "wcag_criterion": "1.4.4 Resize Text",
+    "wcag_level": "AA",
+    "severity": "Moderate",
+    "element": "font elements and fixed pixel sizing",
+    "problem": "Deprecated font elements and rigid layout sizing could interfere with readable text resizing.",
+    "fix_applied": "Removed font elements and used scalable CSS font sizing and responsive layout."
+  },
+  {
+    "issue_id": "27",
+    "wcag_criterion": "2.4.8 Location",
+    "wcag_level": "AAA",
+    "severity": "Minor",
+    "element": "current News navigation item",
+    "problem": "The current page was not programmatically identified in the navigation.",
+    "fix_applied": "Added aria-current='page' to the News navigation link."
+  },
+  {
+    "issue_id": "28",
+    "wcag_criterion": "1.3.1 Info and Relationships",
+    "wcag_level": "A",
+    "severity": "Minor",
+    "element": "line breaks and empty paragraphs used for spacing",
+    "problem": "Empty paragraphs and repeated <br> elements were used for visual spacing rather than structure.",
+    "fix_applied": "Removed spacing-only markup and used CSS margins and layout spacing."
+  }
+]
+===REPORT_END===

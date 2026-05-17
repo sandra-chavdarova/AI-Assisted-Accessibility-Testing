@@ -1,0 +1,83 @@
+[
+  {
+    "issue_id": "1",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "<img src='./img/top_logo.gif'>, and similar",
+    "problem": "Images used purely for decoration or layout did not include empty alt attributes.",
+    "fix_applied": "Added alt='' to these images to indicate they are not part of the content."
+  },
+  {
+    "issue_id": "2",
+    "wcag_criterion": "2.4.5 Multiple Ways",
+    "wcag_level": "AA",
+    "severity": "Serious",
+    "element": "<select> QUICKMENU",
+    "problem": "No accessible label for the dropdown menu to describe its purpose.",
+    "fix_applied": "Added aria-label='Quick navigation menu' to assistive technology users."
+  },
+  {
+    "issue_id": "3",
+    "wcag_criterion": "3.2.2 On Input",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "<select onchange>",
+    "problem": "The site does not warn users that selecting an option will navigate away.",
+    "fix_applied": "Used accessible labels to inform users about the operation."
+  },
+  {
+    "issue_id": "4",
+    "wcag_criterion": "1.4.5 Images of Text",
+    "wcag_level": "AA",
+    "severity": "Moderate",
+    "element": "Various <font> elements",
+    "problem": "Font tags were being used directly with color and size attributes for styling.",
+    "fix_applied": "Converted <font> tags to <span> elements with CSS styling to separate content from presentation."
+  },
+  {
+    "issue_id": "5",
+    "wcag_criterion": "4.1.1 Parsing",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "<script language='JavaScript'>",
+    "problem": "Deprecated attribute 'language'.",
+    "fix_applied": "Removed deprecated attributes from <script> tags and corrected JavaScript code to use 'getFullYear()' instead of 'getYear()'."
+  },
+  {
+    "issue_id": "6",
+    "wcag_criterion": "2.4.4 Link Purpose (In Context)",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "Various <a> elements with href='javascript:location.href=''",
+    "problem": "Links lacked a descriptive purpose and used JavaScript hijacks.",
+    "fix_applied": "Replaced 'javascript:' links with normal href links directly to target pages."
+  },
+  {
+    "issue_id": "7",
+    "wcag_criterion": "4.1.2 Name, Role, Value",
+    "wcag_level": "A",
+    "severity": "Moderate",
+    "element": "JavaScript setting 'BGCOLOR'",
+    "problem": "Inline JavaScript that modifies style using deprecated attributes.",
+    "fix_applied": "Changed JavaScript to modify CSS style properties using `style` attribute."
+  },
+  {
+    "issue_id": "8",
+    "wcag_criterion": "1.1.1 Non-text Content",
+    "wcag_level": "A",
+    "severity": "Serious",
+    "element": "<img src='./img/chart1.jpg'>",
+    "problem": "Images missing appropriate alt text describing the chart.",
+    "fix_applied": "Added descriptive alt text to images that convey important information."
+  },
+  {
+    "issue_id": "9",
+    "wcag_criterion": "3.1.1 Language of Page",
+    "wcag_level": "A",
+    "severity": "Critical",
+    "element": "<html>",
+    "problem": "The language attribute was missing.",
+    "fix_applied": "Added `lang='en'` to the HTML tag to specify the document's language is English."
+  }
+]
